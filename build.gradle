@@ -42,5 +42,5 @@ ext{
     roomVersion = '1.1.1'
     fitChartVersion = '1.0'
     navigationDrawerVersion = '6.0.9@aar'
-
+    loggerLibraryVersion = '2.2.0'
 }

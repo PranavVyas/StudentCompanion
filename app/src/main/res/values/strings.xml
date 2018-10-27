@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Student Companion</string>
+    <string name="action_dashboard_navigation">Dashboard</string>
+    <string name="action_preference_navigation">Settings</string>
+    <string name="action_about_app_navigation">About This App</string>
+    <string name="action_time_table_navigation">Time Table</string>
+    <string name="action_my_book_shelf_navigation">My Book Shelf</string>
+    <string name="action_citylife_navigation">City Life</string>
+    <string name="action_share_app_navigation">Share This App</string>
+
 </resources>

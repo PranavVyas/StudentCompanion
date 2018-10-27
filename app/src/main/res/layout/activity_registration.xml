@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.RegistrationActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_registration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/tv_registration_no_of_subjects"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="No Of Subjects :"-->
+        <!--android:textSize="18sp"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/toolbar" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/et_registration_no_of_subjects"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:nextFocusDown="@id/et_registration_no_of_lactures"-->
+        <!--android:ems="10"-->
+        <!--android:inputType="number"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/tv_registration_no_of_subjects"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/tv_registration_no_of_subjects"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/tv_registration_no_of_subjects" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/tv_registration_no_of_lactures"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="Lactures :"-->
+        <!--android:textSize="18sp"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/et_registration_no_of_subjects"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/toolbar" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/et_registration_no_of_lactures"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:ems="10"-->
+        <!--android:inputType="number"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/tv_registration_no_of_lactures"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/tv_registration_no_of_lactures"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/tv_registration_no_of_lactures" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/btn_registration_next"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:text="Next"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/tv_registration_no_of_subjects" />-->
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/frame_registration_fragment_container"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/btn_registration_next">-->
+
+    <!--</FrameLayout>-->
+</android.support.constraint.ConstraintLayout>

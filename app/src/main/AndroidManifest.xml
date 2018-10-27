@@ -9,13 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.RegistrationActivity" />
+        <activity android:name=".dashboard.DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".overallAttandance.OverallAttendanceActivity" />
+        <activity android:name=".prefences.SettingsActivity" />
+        <activity android:name=".aboutapp.AboutAppActivity" />
+        <activity android:name=".timetable.TimeTableActivity"></activity>
     </application>
 
 </manifest>
