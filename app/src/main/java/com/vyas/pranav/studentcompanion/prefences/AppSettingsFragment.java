@@ -1,9 +1,10 @@
 package com.vyas.pranav.studentcompanion.prefences;
 
 import android.os.Bundle;
-import android.support.v7.preference.PreferenceFragmentCompat;
 
 import com.vyas.pranav.studentcompanion.R;
+
+import androidx.preference.PreferenceFragmentCompat;
 
 public class AppSettingsFragment extends PreferenceFragmentCompat {
     @Override

@@ -1,12 +1,12 @@
 package com.vyas.pranav.studentcompanion.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 
 public class RegistrationActivity extends AppCompatActivity{

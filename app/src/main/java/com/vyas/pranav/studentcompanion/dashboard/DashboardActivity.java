@@ -1,13 +1,13 @@
 package com.vyas.pranav.studentcompanion.dashboard;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.extraUtils.viewsUtils;
 import com.vyas.pranav.studentcompanion.individualAttandance.IndividualAttendanceFragment;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
