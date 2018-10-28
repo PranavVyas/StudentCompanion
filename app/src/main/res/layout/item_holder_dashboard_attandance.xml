@@ -19,11 +19,13 @@
 
     <TextView
         android:id="@+id/tv_dashboard_recycler_subname"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:text="TextView"
         android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/switch_dashboard_recycler_present"
         app:layout_constraintStart_toEndOf="@+id/tv_dashboard_recycler_no"
         app:layout_constraintTop_toTopOf="@+id/tv_dashboard_recycler_no" />
 
@@ -37,11 +39,11 @@
         app:layout_constraintStart_toStartOf="@+id/tv_dashboard_recycler_subname"
         app:layout_constraintTop_toBottomOf="@+id/tv_dashboard_recycler_subname" />
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch_dashboard_recycler_present"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@+id/tv_dashboard_recycler_subname"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_dashboard_recycler_subname" />
 </androidx.constraintlayout.widget.ConstraintLayout>

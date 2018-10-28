@@ -1,36 +1,63 @@
 package com.vyas.pranav.studentcompanion.dashboard;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.extraUtils.viewsUtils;
-import com.vyas.pranav.studentcompanion.individualAttandance.IndividualAttendanceFragment;
+import com.vyas.pranav.studentcompanion.overallAttandance.OverallAttendanceFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DashboardActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_dashboard)
     Toolbar mToolbar;
+    @BindView(R.id.bottom_navigation_dashboard)
+    BottomNavigationView mBottomNavigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
-        showIndividualAttendance();
         setSupportActionBar(mToolbar);
+        showAttendanceFragment();
         viewsUtils.buildNavigationDrawer(this,mToolbar);
     }
 
-    private void showIndividualAttendance(){
-        IndividualAttendanceFragment todayAttandanceFrag = new IndividualAttendanceFragment();
-        Bundle data = new Bundle();
-        //TODO Send data to Fragment Like Date...
+
+
+    public void showAttendanceFragment(){
+        DashboardFragment dashboardFragment = new DashboardFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_dashboard_today_attendance,todayAttandanceFrag)
+                .replace(R.id.frame_dashboard_today_attendance,dashboardFragment)
                 .commit();
+    }
+
+    public void showOverallAttendenceFragment(){
+        OverallAttendanceFragment overallAttendanceFragment = new OverallAttendanceFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_dashboard_today_attendance,overallAttendanceFragment)
+                .commit();
+    }
+
+    @OnClick(R.id.dashboard_bottomnav_today)
+    public void clickedDashboardItem(){
+        Toast.makeText(this, "Clicked Today", Toast.LENGTH_SHORT).show();
+        mBottomNavigation.setSelectedItemId(R.id.dashboard_bottomnav_today);
+        showAttendanceFragment();
+    }
+
+    @OnClick(R.id.dashboard_bottomnav_overall)
+    public void clickedsas(){
+        Toast.makeText(this, "Clicked Overall", Toast.LENGTH_SHORT).show();
+        mBottomNavigation.setSelectedItemId(R.id.dashboard_bottomnav_overall);
+        showOverallAttendenceFragment();
     }
 }

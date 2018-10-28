@@ -115,9 +115,12 @@ public class viewsUtils {
 
         AccountHeader navigationHeader = new AccountHeaderBuilder()
                 .withActivity((Activity) context)
-                .withHeaderBackground(R.drawable.ic_launcher_background)
+                .withHeaderBackground(R.drawable.navigation_header_bkg_new)
                 .addProfiles(
-                        new ProfileDrawerItem().withName("Pranav Vyas").withEmail("u16ch073@ched.svnit.ac.in").withIcon(R.drawable.ic_navigation_account)
+                        new ProfileDrawerItem().withName("Pranav Vyas")
+                                .withEmail("u16ch073@ched.svnit.ac.in")
+                                //TODO Change background or text color to white
+                                .withIcon(context.getResources().getDrawable(R.drawable.ic_navigation_account))
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override

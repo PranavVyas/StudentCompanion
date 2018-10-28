@@ -1,0 +1,44 @@
+package com.vyas.pranav.studentcompanion.individualAttandance;
+
+import android.os.Bundle;
+
+import com.vyas.pranav.studentcompanion.R;
+import com.vyas.pranav.studentcompanion.extraUtils.Constances;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class IndividualAttendanceActivity extends AppCompatActivity {
+
+    @BindView(R.id.toolbar_individual_attendence_activity)
+    Toolbar toolbar;
+
+    String dateString;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_individual_attendance);
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getIntent() != null){
+            if(getIntent().getStringExtra(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_ACTIVITY) != null){
+                dateString = getIntent().getStringExtra(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_ACTIVITY);
+            }
+        }
+        setSupportActionBar(toolbar);
+        showAttendance(dateString);
+    }
+
+    public void showAttendance(String dateString){
+        IndividualAttendanceFragment individualAttendanceFragment = new IndividualAttendanceFragment();
+        Bundle dataToSend = new Bundle();
+        dataToSend.putString(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_FRAG,dateString);
+        individualAttendanceFragment.setArguments(dataToSend);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_individual_activity_container,individualAttendanceFragment)
+                .commit();
+    }
+}

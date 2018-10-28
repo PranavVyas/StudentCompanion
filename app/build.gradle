@@ -47,19 +47,21 @@ dependencies {
     //Room Library
     implementation 'androidx.room:room-runtime:2.1.0-alpha01'
     annotationProcessor 'androidx.room:room-compiler:2.1.0-alpha01'
-     //ViewModel and LiveData
+    //ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     //FitChart Library for Showing graphs
     implementation "com.txusballesteros:FitChart:$fitChartVersion"
     //NavigationDrawer Library
-//    implementation("com.mikepenz:materialdrawer:$navigationDrawerVersion") {
-//        transitive = true
-//    }
     implementation "com.mikepenz:materialdrawer:6.1.1"
     implementation "androidx.annotation:annotation:1.0.0"
     //Library for Easy Logging
     implementation "com.orhanobut:logger:$loggerLibraryVersion"
     //Support Library for Preferences
     implementation 'androidx.preference:preference:1.0.0'
+    //Gson For Serialization and Deserialization
+    implementation 'com.google.code.gson:gson:2.8.5'
+    //Library for CalenderView
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
+
 }

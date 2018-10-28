@@ -11,17 +11,19 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.RegistrationActivity" />
-        <activity android:name=".dashboard.DashboardActivity">
+        <activity android:name=".dashboard.DashboardActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".overallAttandance.OverallAttendanceActivity" />
         <activity android:name=".prefences.SettingsActivity" />
         <activity android:name=".aboutapp.AboutAppActivity" />
-        <activity android:name=".timetable.TimeTableActivity"></activity>
+        <activity android:name=".timetable.TimeTableActivity" />
+        <activity android:name=".individualAttandance.IndividualAttendanceActivity"
+            android:parentActivityName=".dashboard.DashboardActivity"></activity>
     </application>
 
 </manifest>
