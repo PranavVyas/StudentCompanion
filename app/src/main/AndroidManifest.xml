@@ -3,6 +3,7 @@
     package="com.vyas.pranav.studentcompanion">
 
     <application
+        android:name=".extraUtils.MainApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +12,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.RegistrationActivity" />
-        <activity android:name=".dashboard.DashboardActivity"
+        <activity
+            android:name=".dashboard.DashboardActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,8 +24,13 @@
         <activity android:name=".prefences.SettingsActivity" />
         <activity android:name=".aboutapp.AboutAppActivity" />
         <activity android:name=".timetable.TimeTableActivity" />
-        <activity android:name=".individualAttandance.IndividualAttendanceActivity"
-            android:parentActivityName=".dashboard.DashboardActivity"></activity>
+        <activity
+            android:name=".individualAttandance.IndividualAttendanceActivity"
+            android:parentActivityName=".dashboard.DashboardActivity" />
+        <activity android:name=".extraUtils.DeveloperActivity"></activity>
+
+        <service android:name=".services.AddEmptyAttendanceIntentService"
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -63,5 +63,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     //Library for CalenderView
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
-
+    implementation 'com.evernote:android-job:1.2.6'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation "com.google.firebase:firebase-database:16.0.1"
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -16,9 +16,6 @@ import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceEn
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import com.vyas.pranav.studentcompanion.individualAttandance.IndividualAttendanceActivity;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -28,8 +25,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.vyas.pranav.studentcompanion.extraUtils.Converters.convertStringToDate;
 import static com.vyas.pranav.studentcompanion.extraUtils.Converters.formatDateStringfromCalender;
+import static com.vyas.pranav.studentcompanion.extraUtils.Converters.getDayOfWeek;
 
 public class OverallAttendanceFragment extends Fragment {
 
@@ -102,11 +99,5 @@ public class OverallAttendanceFragment extends Fragment {
         test2.setTotalDays(100);
         mDb.overallAttandanceDao().insertSubjectOverallAttedance(test1);
         mDb.overallAttandanceDao().insertSubjectOverallAttedance(test2);
-    }
-
-    public String getDayOfWeek(String dateString) {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-        Date d = convertStringToDate(dateString);
-        return sdf.format(d);
     }
 }

@@ -36,4 +36,10 @@ public class Converters {
         }
         return dateS + "/" +monthS+ "/" +year;
     }
+
+    public static String getDayOfWeek(String dateString) {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        Date d = convertStringToDate(dateString);
+        return sdf.format(d);
+    }
 }

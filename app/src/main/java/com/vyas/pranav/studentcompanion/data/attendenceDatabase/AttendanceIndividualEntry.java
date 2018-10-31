@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.data.database;
+package com.vyas.pranav.studentcompanion.data.attendenceDatabase;
 
 import java.util.Date;
 

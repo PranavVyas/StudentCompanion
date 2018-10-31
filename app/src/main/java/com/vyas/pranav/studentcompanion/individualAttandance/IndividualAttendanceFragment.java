@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vyas.pranav.studentcompanion.R;
-import com.vyas.pranav.studentcompanion.data.database.AttendanceIndividualDatabase;
-import com.vyas.pranav.studentcompanion.data.database.AttendanceIndividualEntry;
+import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
+import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualEntry;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 
 import java.util.List;

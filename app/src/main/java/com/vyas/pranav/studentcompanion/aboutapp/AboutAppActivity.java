@@ -3,7 +3,7 @@ package com.vyas.pranav.studentcompanion.aboutapp;
 import android.os.Bundle;
 
 import com.vyas.pranav.studentcompanion.R;
-import com.vyas.pranav.studentcompanion.extraUtils.viewsUtils;
+import com.vyas.pranav.studentcompanion.extraUtils.ViewsUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,6 +20,6 @@ public class AboutAppActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about_app);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        viewsUtils.buildNavigationDrawer(this,mToolbar);
+        ViewsUtils.buildNavigationDrawer(this,mToolbar);
     }
 }

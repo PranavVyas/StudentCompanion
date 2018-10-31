@@ -22,7 +22,7 @@ import com.vyas.pranav.studentcompanion.timetable.TimeTableActivity;
 
 import androidx.appcompat.widget.Toolbar;
 
-public class viewsUtils {
+public class ViewsUtils {
 
     private static final long ID_DASHBOARD_NAVIGATION = 1;
     private static final long ID_MY_BOOK_SHELF_NAVIGATION = 2;
@@ -113,6 +113,20 @@ public class viewsUtils {
                     }
                 });
 
+        PrimaryDrawerItem testApp = new PrimaryDrawerItem()
+                .withIdentifier(100)
+                .withIcon(R.drawable.ic_navigation_share)
+                .withName("Developer Mode")
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Toast.makeText(context, "Developer Mode Enabled", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context,DeveloperActivity.class);
+                        context.startActivity(intent);
+                        return false;
+                    }
+                });
+
         AccountHeader navigationHeader = new AccountHeaderBuilder()
                 .withActivity((Activity) context)
                 .withHeaderBackground(R.drawable.navigation_header_bkg_new)
@@ -148,7 +162,8 @@ public class viewsUtils {
                         timetable,
                         shareApp,
                         prefences,
-                        aboutApp
+                        aboutApp,
+                        testApp
                 )
                 .build();
         return drawer;

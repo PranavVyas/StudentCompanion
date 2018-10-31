@@ -5,7 +5,8 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vyas.pranav.studentcompanion.R;
-import com.vyas.pranav.studentcompanion.extraUtils.viewsUtils;
+import com.vyas.pranav.studentcompanion.extraUtils.ViewsUtils;
+import com.vyas.pranav.studentcompanion.jobs.DailyAttendanceCreater;
 import com.vyas.pranav.studentcompanion.overallAttandance.OverallAttendanceFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,10 +29,13 @@ public class DashboardActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         showAttendanceFragment();
-        viewsUtils.buildNavigationDrawer(this,mToolbar);
+        ViewsUtils.buildNavigationDrawer(this,mToolbar);
+        startJob();
     }
 
-
+    public void startJob(){
+        DailyAttendanceCreater.schedule();
+    }
 
     public void showAttendanceFragment(){
         DashboardFragment dashboardFragment = new DashboardFragment();
@@ -48,14 +52,14 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.dashboard_bottomnav_today)
-    public void clickedDashboardItem(){
+    public void clickedToday(){
         Toast.makeText(this, "Clicked Today", Toast.LENGTH_SHORT).show();
         mBottomNavigation.setSelectedItemId(R.id.dashboard_bottomnav_today);
         showAttendanceFragment();
     }
 
     @OnClick(R.id.dashboard_bottomnav_overall)
-    public void clickedsas(){
+    public void clickedOverall(){
         Toast.makeText(this, "Clicked Overall", Toast.LENGTH_SHORT).show();
         mBottomNavigation.setSelectedItemId(R.id.dashboard_bottomnav_overall);
         showOverallAttendenceFragment();

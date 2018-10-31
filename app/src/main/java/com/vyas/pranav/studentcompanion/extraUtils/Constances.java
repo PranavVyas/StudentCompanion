@@ -14,4 +14,5 @@ public class Constances {
     public static final String VALUE_PRESENT = "PRESENT";
     public static final String VALUE_ABSENT = "ABSENT";
     public static final String VALUE_HOLIDAY = "HOLIDAY";
+    public static final String KEY_SEND_DATE_TO_SERVICE = "Sending Data From Activity to Empty Attendance Services";
 }

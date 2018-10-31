@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
-import com.vyas.pranav.studentcompanion.data.database.AttendanceIndividualEntry;
+import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualEntry;
 
 import java.util.List;
 
