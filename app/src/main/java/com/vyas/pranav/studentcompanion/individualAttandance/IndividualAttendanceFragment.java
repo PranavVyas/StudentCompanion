@@ -36,10 +36,10 @@ public class IndividualAttendanceFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle receiveddata = getArguments();
-        if(receiveddata != null){
-            if(receiveddata.getString(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_FRAG) != null){
-                dateString = receiveddata.getString(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_FRAG);
+        Bundle receivedData = getArguments();
+        if (receivedData != null) {
+            if (receivedData.getString(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_FRAG) != null) {
+                dateString = receivedData.getString(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_FRAG);
             }
         }
     }
@@ -64,7 +64,7 @@ public class IndividualAttendanceFragment extends Fragment {
     }
 
     private void loadDateAttendance(){
-        List<AttendanceIndividualEntry> attendences = mDb.attendanceIndividualDao().getAttendanceForDate(convertStringToDate(dateString));
-        mAdapter.setAttendanceForDate(attendences);
+        List<AttendanceIndividualEntry> attendances = mDb.attendanceIndividualDao().getAttendanceForDate(convertStringToDate(dateString));
+        mAdapter.setAttendanceForDate(attendances);
     }
 }

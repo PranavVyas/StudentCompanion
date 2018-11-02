@@ -7,6 +7,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableDatabase;
@@ -32,6 +33,7 @@ public class TimetableDataFetcher {
                 //TODO Improvise
                 for(DataSnapshot daysSnapshot : dataSnapshot.getChildren()){
                     DayModel currDay = daysSnapshot.getValue(DayModel.class);
+                    Logger.json(new Gson().toJson(currDay));
                     TimetableEntry tempDay = new TimetableEntry();
                     tempDay.setDay(daysSnapshot.getKey());
                     tempDay.setLacture1Name(currDay.getLecture1());

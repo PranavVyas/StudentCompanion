@@ -10,8 +10,9 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "IndividualAttandance")
 public class AttendanceIndividualEntry {
 
-    @PrimaryKey(autoGenerate = true)
-    private long _ID;
+    @PrimaryKey
+    @NonNull
+    private String _ID;
     @NonNull
     private Date date;
     private int lactureNo;
@@ -25,7 +26,7 @@ public class AttendanceIndividualEntry {
     public AttendanceIndividualEntry() {
     }
 
-    public AttendanceIndividualEntry(long _ID, Date date, int lactureNo, String subName, String facultyName, String attended, String lactureType, long durationInMillis) {
+    public AttendanceIndividualEntry(String _ID, Date date, int lactureNo, String subName, String facultyName, String attended, String lactureType, long durationInMillis) {
         this._ID = _ID;
         this.date = date;
         this.lactureNo = lactureNo;
@@ -47,11 +48,11 @@ public class AttendanceIndividualEntry {
         this.durationInMillis = durationInMillis;
     }
 
-    public long get_ID() {
+    public String get_ID() {
         return _ID;
     }
 
-    public void set_ID(long _ID) {
+    public void set_ID(String _ID) {
         this._ID = _ID;
     }
 

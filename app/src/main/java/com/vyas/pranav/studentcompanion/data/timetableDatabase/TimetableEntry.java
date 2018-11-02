@@ -1,13 +1,14 @@
 package com.vyas.pranav.studentcompanion.data.timetableDatabase;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "TimeTable")
 public class TimetableEntry {
-    @PrimaryKey(autoGenerate = true)
-    int _ID;
+    @PrimaryKey
+    @NonNull
     String day;
     String lacture1Name;
     String lacture1Faculty;
@@ -21,7 +22,7 @@ public class TimetableEntry {
     @Ignore
     public TimetableEntry() {
     }
-    @Ignore
+
     public TimetableEntry(String day, String lacture1Name, String lacture1Faculty, String lacture2Name, String lacture2Faculty, String lacture3Name, String lacture3Faculty, String lacture4Name, String lacture4Faculty) {
         this.day = day;
         this.lacture1Name = lacture1Name;
@@ -32,27 +33,6 @@ public class TimetableEntry {
         this.lacture3Faculty = lacture3Faculty;
         this.lacture4Name = lacture4Name;
         this.lacture4Faculty = lacture4Faculty;
-    }
-
-    public TimetableEntry(int _ID, String day, String lacture1Name, String lacture1Faculty, String lacture2Name, String lacture2Faculty, String lacture3Name, String lacture3Faculty, String lacture4Name, String lacture4Faculty) {
-        this._ID = _ID;
-        this.day = day;
-        this.lacture1Name = lacture1Name;
-        this.lacture1Faculty = lacture1Faculty;
-        this.lacture2Name = lacture2Name;
-        this.lacture2Faculty = lacture2Faculty;
-        this.lacture3Name = lacture3Name;
-        this.lacture3Faculty = lacture3Faculty;
-        this.lacture4Name = lacture4Name;
-        this.lacture4Faculty = lacture4Faculty;
-    }
-
-    public int get_ID() {
-        return _ID;
-    }
-
-    public void set_ID(int _ID) {
-        this._ID = _ID;
     }
 
     public String getDay() {

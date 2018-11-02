@@ -25,7 +25,7 @@ public interface HolidayDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateHoliday(HolidayEntry newHoliday);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertHoliday(HolidayEntry newHoliday);
 
     @Delete
@@ -33,4 +33,7 @@ public interface HolidayDao {
 
     @Query("DELETE FROM Holidays")
     void deleteAllHolidays();
+
+    @Query("SELECT holidayDate FROM holidays")
+    List<Date> getAllDates();
 }

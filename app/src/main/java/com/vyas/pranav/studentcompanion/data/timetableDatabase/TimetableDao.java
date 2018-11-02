@@ -23,7 +23,7 @@ public interface TimetableDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateTimetableEntry(TimetableEntry newTimetableEntry);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTimeTableEntry(TimetableEntry newTimetableEntry);
 
     @Delete

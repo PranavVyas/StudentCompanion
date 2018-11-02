@@ -19,16 +19,27 @@ public interface AttendanceIndividualDao {
     @Query("SELECT * FROM IndividualAttandance WHERE date = :date")
     List<AttendanceIndividualEntry> getAttendanceForDate(Date date);
 
+    @Query("SELECT * FROM IndividualAttandance WHERE subName = :subName")
+    List<AttendanceIndividualEntry> getAttendanceForSubject(String subName);
+
+    @Query("SELECT * FROM IndividualAttandance WHERE subName = :subName AND attended = :attended")
+    List<AttendanceIndividualEntry> getAttendanceForSubject(String subName, String attended);
+
+    @Query("SELECT * FROM IndividualAttandance WHERE subName = :subName AND date <= :date")
+    List<AttendanceIndividualEntry> getAttendanceForSubjectBeforeDate(String subName, Date date);
+
+    @Query("SELECT * FROM IndividualAttandance WHERE subName = :subName AND date <= :endDate AND date >=  :startDate")
+    List<AttendanceIndividualEntry> getAttendanceForSubjectForTimePeriod(String subName, Date startDate, Date endDate);
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateAttendance(AttendanceIndividualEntry newAttendanceEntry);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAttendance(AttendanceIndividualEntry newAttendanceEntry);
 
     @Delete
     void deleteAttendance(AttendanceIndividualEntry attendanceEntry);
 
-    //TODO CHeck here
     @Query("DELETE FROM IndividualAttandance")
     void deleteAllAttendance();
 }

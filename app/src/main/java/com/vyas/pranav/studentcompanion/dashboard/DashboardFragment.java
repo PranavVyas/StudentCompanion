@@ -5,16 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
+import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 import com.vyas.pranav.studentcompanion.individualAttandance.IndividualAttendanceFragment;
+
+import java.util.Date;
 
 import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
 
 public class DashboardFragment extends Fragment {
-    AttendanceIndividualDatabase mDb;
+    private AttendanceIndividualDatabase mDb;
 
     public DashboardFragment() {
     }
@@ -30,12 +34,14 @@ public class DashboardFragment extends Fragment {
     }
 
     private void showIndividualAttendance(){
-        IndividualAttendanceFragment todayAttandanceFrag = new IndividualAttendanceFragment();
+        IndividualAttendanceFragment todayAttendanceFrag = new IndividualAttendanceFragment();
         Bundle dataToSend = new Bundle();
-        dataToSend.putString(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_FRAG,"01/01/2018");
-        todayAttandanceFrag.setArguments(dataToSend);
+        Date date = new Date();
+        Logger.d("Date String is : " + Converters.convertDateToString(date));
+        dataToSend.putString(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_FRAG, Converters.convertDateToString(date));
+        todayAttendanceFrag.setArguments(dataToSend);
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_dashboard_frag,todayAttandanceFrag)
+                .replace(R.id.frame_dashboard_frag, todayAttendanceFrag)
                 .commit();
     }
 

@@ -1,9 +1,10 @@
 package com.vyas.pranav.studentcompanion.dashboard;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
+import com.evernote.android.job.JobManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.extraUtils.ViewsUtils;
 import com.vyas.pranav.studentcompanion.jobs.DailyAttendanceCreater;
@@ -30,11 +31,15 @@ public class DashboardActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         showAttendanceFragment();
         ViewsUtils.buildNavigationDrawer(this,mToolbar);
-        startJob();
+        startJobIfNotStarted();
     }
 
-    public void startJob(){
-        DailyAttendanceCreater.schedule();
+    public void startJobIfNotStarted() {
+        if (!JobManager.instance().getAllJobRequestsForTag(DailyAttendanceCreater.TAG).isEmpty()) {
+            Logger.d("Job is running already...Skipping Setting...");
+            return;
+        }
+        DailyAttendanceCreater.schedule(0, 10, 0, 11);
     }
 
     public void showAttendanceFragment(){
@@ -44,7 +49,7 @@ public class DashboardActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void showOverallAttendenceFragment(){
+    public void showOverallAttendanceFragment() {
         OverallAttendanceFragment overallAttendanceFragment = new OverallAttendanceFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_dashboard_today_attendance,overallAttendanceFragment)
@@ -53,15 +58,15 @@ public class DashboardActivity extends AppCompatActivity {
 
     @OnClick(R.id.dashboard_bottomnav_today)
     public void clickedToday(){
-        Toast.makeText(this, "Clicked Today", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Clicked Today", Toast.LENGTH_SHORT).show();
         mBottomNavigation.setSelectedItemId(R.id.dashboard_bottomnav_today);
         showAttendanceFragment();
     }
 
     @OnClick(R.id.dashboard_bottomnav_overall)
     public void clickedOverall(){
-        Toast.makeText(this, "Clicked Overall", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Clicked Overall", Toast.LENGTH_SHORT).show();
         mBottomNavigation.setSelectedItemId(R.id.dashboard_bottomnav_overall);
-        showOverallAttendenceFragment();
+        showOverallAttendanceFragment();
     }
 }

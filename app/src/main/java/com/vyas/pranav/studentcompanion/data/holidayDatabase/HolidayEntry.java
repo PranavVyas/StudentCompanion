@@ -9,45 +9,20 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Holidays")
 public class HolidayEntry {
-    @PrimaryKey(autoGenerate = true)
-    int _ID;
+    @PrimaryKey
     @NonNull
     Date holidayDate;
     String holidayName;
     String holidayDay;
 
-    public HolidayEntry(int _ID, Date holidayDate, String holidayName, String holidayDay) {
-        this._ID = _ID;
-        this.holidayDate = holidayDate;
-        this.holidayName = holidayName;
-        this.holidayDay = holidayDay;
-    }
-
-    @Ignore
-    public HolidayEntry(Date holidayDate, String holidayName, String holidayDay) {
-        this.holidayDate = holidayDate;
-        this.holidayName = holidayName;
-        this.holidayDay = holidayDay;
-    }
-
     @Ignore
     public HolidayEntry() {
     }
 
-    public String getHolidayDay() {
-        return holidayDay;
-    }
-
-    public void setHolidayDay(String holidayDay) {
+    public HolidayEntry(Date holidayDate, String holidayName, String holidayDay) {
+        this.holidayDate = holidayDate;
+        this.holidayName = holidayName;
         this.holidayDay = holidayDay;
-    }
-
-    public int get_ID() {
-        return _ID;
-    }
-
-    public void set_ID(int _ID) {
-        this._ID = _ID;
     }
 
     public Date getHolidayDate() {
@@ -64,5 +39,13 @@ public class HolidayEntry {
 
     public void setHolidayName(String holidayName) {
         this.holidayName = holidayName;
+    }
+
+    public String getHolidayDay() {
+        return holidayDay;
+    }
+
+    public void setHolidayDay(String holidayDay) {
+        this.holidayDay = holidayDay;
     }
 }

@@ -12,7 +12,6 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceDatabase;
-import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceEntry;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import com.vyas.pranav.studentcompanion.individualAttandance.IndividualAttendanceActivity;
 
@@ -23,7 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static com.vyas.pranav.studentcompanion.extraUtils.Converters.formatDateStringfromCalender;
 import static com.vyas.pranav.studentcompanion.extraUtils.Converters.getDayOfWeek;
@@ -81,23 +79,5 @@ public class OverallAttendanceFragment extends Fragment {
 
     private void loadDataInRecyclerView() {
         mAdapter.setAttendanceData(mDb.overallAttandanceDao().getAllOverallAttedance());
-    }
-
-    @OnClick(R.id.buttonTest3)
-    public void TestInit() {
-        OverallAttendanceEntry test1 = new OverallAttendanceEntry();
-        test1.setDaysAvailableToBunk(10);
-        test1.setDaysBunked(15);
-        test1.setPercentPresent(50.0);
-        test1.setSubjectName("Maths");
-        test1.setTotalDays(100);
-        OverallAttendanceEntry test2 = new OverallAttendanceEntry();
-        test2.setDaysAvailableToBunk(14);
-        test2.setDaysBunked(0);
-        test2.setPercentPresent(76.4);
-        test2.setSubjectName("Chemistry");
-        test2.setTotalDays(100);
-        mDb.overallAttandanceDao().insertSubjectOverallAttedance(test1);
-        mDb.overallAttandanceDao().insertSubjectOverallAttedance(test2);
     }
 }

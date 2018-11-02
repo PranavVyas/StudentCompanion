@@ -7,8 +7,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "OverallAttendance")
 public class OverallAttendanceEntry {
-    @PrimaryKey(autoGenerate = true)
-    private long _ID;
+    @PrimaryKey
     @NonNull
     private String subjectName;
     private double percentPresent;
@@ -20,30 +19,12 @@ public class OverallAttendanceEntry {
     public OverallAttendanceEntry() {
     }
 
-    @Ignore
     public OverallAttendanceEntry(String subjectName, double percentPresent, int totalDays, int daysAvailableToBunk, int daysBunked) {
         this.subjectName = subjectName;
         this.percentPresent = percentPresent;
         this.totalDays = totalDays;
         this.daysAvailableToBunk = daysAvailableToBunk;
         this.daysBunked = daysBunked;
-    }
-
-    public OverallAttendanceEntry(long _ID, String subjectName, double percentPresent, int totalDays, int daysAvailableToBunk, int daysBunked) {
-        this._ID = _ID;
-        this.subjectName = subjectName;
-        this.percentPresent = percentPresent;
-        this.totalDays = totalDays;
-        this.daysAvailableToBunk = daysAvailableToBunk;
-        this.daysBunked = daysBunked;
-    }
-
-    public long get_ID() {
-        return _ID;
-    }
-
-    public void set_ID(long _ID) {
-        this._ID = _ID;
     }
 
     public String getSubjectName() {
