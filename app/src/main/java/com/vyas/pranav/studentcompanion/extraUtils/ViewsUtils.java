@@ -3,9 +3,12 @@ package com.vyas.pranav.studentcompanion.extraUtils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -30,8 +33,12 @@ public class ViewsUtils {
     private static final long ID_SHARE_APP_NAVIGATION = 4;
     private static final long ID_PREFERENCE_NAVIGATION = 5;
     private static final long ID_ABOUT_THIS_APP_NAVIGATION = 6;
+    private static final long ID_LOG_OUT_APP_NAVIGATION = 7;
+
 
     public static Drawer buildNavigationDrawer(final Context context, Toolbar toolbar) {
+        final FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
         PrimaryDrawerItem dashboard = new PrimaryDrawerItem()
                 .withIdentifier(ID_DASHBOARD_NAVIGATION)
                 .withIcon(R.drawable.ic_navigation_dashboard)
@@ -113,6 +120,18 @@ public class ViewsUtils {
                     }
                 });
 
+        PrimaryDrawerItem logOut = new PrimaryDrawerItem()
+                .withIdentifier(ID_LOG_OUT_APP_NAVIGATION)
+                .withIcon(R.drawable.ic_navigation_share)
+                .withName(R.string.action_log_out_navigation)
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        mAuth.signOut();
+                        return false;
+                    }
+                });
+
         PrimaryDrawerItem testApp = new PrimaryDrawerItem()
                 .withIdentifier(100)
                 .withIcon(R.drawable.ic_navigation_share)
@@ -126,15 +145,18 @@ public class ViewsUtils {
                         return false;
                     }
                 });
-
+        FirebaseUser currUser = mAuth.getCurrentUser();
+        String userName = currUser != null ? mAuth.getCurrentUser().getDisplayName() : "ANYNOMOUS";
+        String email = currUser != null ? mAuth.getCurrentUser().getEmail() : "PLEASE REGISTER";
+        Uri photoUri = currUser != null ? mAuth.getCurrentUser().getPhotoUrl() : null;
         AccountHeader navigationHeader = new AccountHeaderBuilder()
                 .withActivity((Activity) context)
                 .withHeaderBackground(R.drawable.navigation_header_bkg_new)
                 .addProfiles(
-                        new ProfileDrawerItem().withName("Pranav Vyas")
-                                .withEmail("u16ch073@ched.svnit.ac.in")
+                        new ProfileDrawerItem().withName(userName)
+                                .withEmail(email)
                                 //TODO Change background or text color to white
-                                .withIcon(context.getResources().getDrawable(R.drawable.ic_navigation_account))
+                        //.withIcon(context.getResources().getDrawable(R.drawable.ic_navigation_account))
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
@@ -163,7 +185,8 @@ public class ViewsUtils {
                         shareApp,
                         prefences,
                         aboutApp,
-                        testApp
+                        testApp,
+                        logOut
                 )
                 .build();
         return drawer;

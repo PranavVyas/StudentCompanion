@@ -27,10 +27,13 @@
         <activity
             android:name=".individualAttandance.IndividualAttendanceActivity"
             android:parentActivityName=".dashboard.DashboardActivity" />
-        <activity android:name=".extraUtils.DeveloperActivity"></activity>
+        <activity android:name=".extraUtils.DeveloperActivity" />
 
-        <service android:name=".services.AddEmptyAttendanceIntentService"
-            android:exported="false"/>
+        <service
+            android:name=".services.AddEmptyAttendanceIntentService"
+            android:exported="false" />
+
+        <activity android:name=".ui.FirstRunActivity"></activity>
     </application>
 
 </manifest>

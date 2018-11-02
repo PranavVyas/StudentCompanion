@@ -48,6 +48,11 @@ public class Converters {
         return sdf.format(d);
     }
 
+    public static String getDayOfWeek(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        return sdf.format(date);
+    }
+
     public static String generateIdForIndividualAttendance(Date date, int lectureNo) {
         return convertDateToString(date) + lectureNo;
     }

@@ -57,94 +57,6 @@ public class OverallAttendanceHelper {
         return result;
     }
 
-    public static List<String> testMethod1(Date startDate, Date endDate) {
-        Converters.CustomDate startCustomDate = Converters.extractElementsFromDate(startDate);
-        Converters.CustomDate endCusomDate = Converters.extractElementsFromDate(endDate);
-        Logger.addLogAdapter(new AndroidLogAdapter());
-        int startYear = startCustomDate.getYear();
-        int endYear = endCusomDate.getYear();
-        int startDay = startCustomDate.getDayOfYear();
-        int endDay = endCusomDate.getDayOfYear();
-        int currYear = startYear;
-        int dayOfYear = startDay;
-        int JAN = 31;
-        int FEB = (currYear % 4 == 0) ? 29 : 28;
-        int MAR = 31;
-        int APR = 30;
-        int MAY = 31;
-        int JUN = 30;
-        int JUL = 31;
-        int AUG = 31;
-        int SEP = 30;
-        int OCT = 31;
-        int NOV = 30;
-        int DEC = 31;
-        int DAYS_TILL_FEB = JAN + FEB;
-        int DAYS_TILL_MAR = DAYS_TILL_FEB + MAR;
-        int DAYS_TILL_APR = DAYS_TILL_MAR + APR;
-        int DAYS_TILL_MAY = DAYS_TILL_APR + MAY;
-        int DAYS_TILL_JUN = DAYS_TILL_MAY + JUN;
-        int DAYS_TILL_JUL = DAYS_TILL_JUN + JUL;
-        int DAYS_TILL_AUG = DAYS_TILL_JUL + AUG;
-        int DAYS_TILL_SEP = DAYS_TILL_AUG + SEP;
-        int DAYS_TILL_OCT = DAYS_TILL_SEP + OCT;
-        int DAYS_TILL_NOV = DAYS_TILL_OCT + NOV;
-        int DAYS_TILL_DEC = DAYS_TILL_NOV + DEC;
-        List<String> dateStrs = new ArrayList<>();
-        if (startYear != endYear) {
-            endDay = DAYS_TILL_DEC + endDay;
-            Logger.d("Total No of Days are : " + endDay);
-        }
-        Logger.d("Data : \nstartYear : " + startYear +
-                "\tend Year : " + endYear + "\nStartDate : " + startDate + "\tEndDate : " + endDate
-                + "\nStartDay : " + startDay + "\tEndDay : " + endDay);
-        while (currYear <= endYear) {
-            for (; dayOfYear <= JAN && dayOfYear <= endDay; dayOfYear++) {
-                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear, 1, currYear));
-            }
-            for (; dayOfYear <= DAYS_TILL_FEB && dayOfYear <= endDay; dayOfYear++) {
-                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - JAN, 2, currYear));
-            }
-            for (; dayOfYear <= DAYS_TILL_MAR && dayOfYear <= endDay; dayOfYear++) {
-                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_FEB, 3, currYear));
-            }
-            for (; dayOfYear <= DAYS_TILL_APR && dayOfYear <= endDay; dayOfYear++) {
-                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_MAR, 4, currYear));
-            }
-            for (; dayOfYear <= DAYS_TILL_MAY && dayOfYear <= endDay; dayOfYear++) {
-                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_APR, 5, currYear));
-            }
-            for (; dayOfYear <= DAYS_TILL_JUN && dayOfYear <= endDay; dayOfYear++) {
-                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_MAY, 6, currYear));
-            }
-            for (; dayOfYear <= DAYS_TILL_JUL && dayOfYear <= endDay; dayOfYear++) {
-                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_JUN, 7, currYear));
-            }
-            for (; dayOfYear <= DAYS_TILL_AUG && dayOfYear <= endDay; dayOfYear++) {
-                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_JUL, 8, currYear));
-            }
-            for (; dayOfYear <= DAYS_TILL_SEP && dayOfYear <= endDay; dayOfYear++) {
-                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_AUG, 9, currYear));
-            }
-            for (; dayOfYear <= DAYS_TILL_OCT && dayOfYear <= endDay; dayOfYear++) {
-                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_SEP, 10, currYear));
-            }
-            for (; dayOfYear <= DAYS_TILL_NOV && dayOfYear <= endDay; dayOfYear++) {
-                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_OCT, 11, currYear));
-            }
-            for (; dayOfYear <= DAYS_TILL_DEC && dayOfYear <= endDay; dayOfYear++) {
-                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_NOV, 12, currYear));
-            }
-            if (startDay != endYear) {
-                dayOfYear = 1;
-                endDay = endDay - DAYS_TILL_DEC;
-                currYear++;
-            }
-        }
-        Logger.d(dateStrs);
-        return dateStrs;
-    }
-
     public static void initDatabaseFirsTime(Context context, Date startDate, Date endDate) {
         AttendanceIndividualDatabase mIndividualDb = AttendanceIndividualDatabase.getInstance(context);
         HolidayDatabase mHolidayDb = HolidayDatabase.getsInstance(context);
@@ -174,22 +86,21 @@ public class OverallAttendanceHelper {
     }
 
     public static List<Date> getEligibleDatesbetweenDates(Date startDate, Date endDate, HolidayDatabase mHolidayDb) {
-        List<String> tempDates = testMethod1(startDate, endDate);
+        List<Date> tempDates = testMethod2(startDate, endDate);
         List<Date> holidays = mHolidayDb.holidayDao().getAllDates();
         List<Date> finalDates = new ArrayList<>();
-        for (String x :
+        for (Date x :
                 tempDates) {
-            Date tempDate = Converters.convertStringToDate(x);
-            if ((holidays.contains(tempDate))
+            if ((holidays.contains(x))
                     || (Converters.getDayOfWeek(x).equals("Saturday"))
                     || (Converters.getDayOfWeek(x).equals("Sunday"))) {
                 //Logger.d("The Date " + x + " is in Holidays bro!!!");
             } else {
-                Date tempDatefinal = Converters.convertStringToDate(x);
-                finalDates.add(tempDatefinal);
+                finalDates.add(x);
                 //Logger.d("Added to the Final List now...");
             }
         }
+        Logger.d("Test Log");
         return finalDates;
     }
 
@@ -358,6 +269,94 @@ public class OverallAttendanceHelper {
             }
         }
         return finalDates;
+    }
+
+    public static List<String> testMethod1(Date startDate, Date endDate) {
+        Converters.CustomDate startCustomDate = Converters.extractElementsFromDate(startDate);
+        Converters.CustomDate endCusomDate = Converters.extractElementsFromDate(endDate);
+        Logger.addLogAdapter(new AndroidLogAdapter());
+        int startYear = startCustomDate.getYear();
+        int endYear = endCusomDate.getYear();
+        int startDay = startCustomDate.getDayOfYear();
+        int endDay = endCusomDate.getDayOfYear();
+        int currYear = startYear;
+        int dayOfYear = startDay;
+        int JAN = 31;
+        int FEB = (currYear % 4 == 0) ? 29 : 28;
+        int MAR = 31;
+        int APR = 30;
+        int MAY = 31;
+        int JUN = 30;
+        int JUL = 31;
+        int AUG = 31;
+        int SEP = 30;
+        int OCT = 31;
+        int NOV = 30;
+        int DEC = 31;
+        int DAYS_TILL_FEB = JAN + FEB;
+        int DAYS_TILL_MAR = DAYS_TILL_FEB + MAR;
+        int DAYS_TILL_APR = DAYS_TILL_MAR + APR;
+        int DAYS_TILL_MAY = DAYS_TILL_APR + MAY;
+        int DAYS_TILL_JUN = DAYS_TILL_MAY + JUN;
+        int DAYS_TILL_JUL = DAYS_TILL_JUN + JUL;
+        int DAYS_TILL_AUG = DAYS_TILL_JUL + AUG;
+        int DAYS_TILL_SEP = DAYS_TILL_AUG + SEP;
+        int DAYS_TILL_OCT = DAYS_TILL_SEP + OCT;
+        int DAYS_TILL_NOV = DAYS_TILL_OCT + NOV;
+        int DAYS_TILL_DEC = DAYS_TILL_NOV + DEC;
+        List<String> dateStrs = new ArrayList<>();
+        if (startYear != endYear) {
+            endDay = DAYS_TILL_DEC + endDay;
+            Logger.d("Total No of Days are : " + endDay);
+        }
+        Logger.d("Data : \nstartYear : " + startYear +
+                "\tend Year : " + endYear + "\nStartDate : " + startDate + "\tEndDate : " + endDate
+                + "\nStartDay : " + startDay + "\tEndDay : " + endDay);
+        while (currYear <= endYear) {
+            for (; dayOfYear <= JAN && dayOfYear <= endDay; dayOfYear++) {
+                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear, 1, currYear));
+            }
+            for (; dayOfYear <= DAYS_TILL_FEB && dayOfYear <= endDay; dayOfYear++) {
+                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - JAN, 2, currYear));
+            }
+            for (; dayOfYear <= DAYS_TILL_MAR && dayOfYear <= endDay; dayOfYear++) {
+                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_FEB, 3, currYear));
+            }
+            for (; dayOfYear <= DAYS_TILL_APR && dayOfYear <= endDay; dayOfYear++) {
+                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_MAR, 4, currYear));
+            }
+            for (; dayOfYear <= DAYS_TILL_MAY && dayOfYear <= endDay; dayOfYear++) {
+                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_APR, 5, currYear));
+            }
+            for (; dayOfYear <= DAYS_TILL_JUN && dayOfYear <= endDay; dayOfYear++) {
+                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_MAY, 6, currYear));
+            }
+            for (; dayOfYear <= DAYS_TILL_JUL && dayOfYear <= endDay; dayOfYear++) {
+                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_JUN, 7, currYear));
+            }
+            for (; dayOfYear <= DAYS_TILL_AUG && dayOfYear <= endDay; dayOfYear++) {
+                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_JUL, 8, currYear));
+            }
+            for (; dayOfYear <= DAYS_TILL_SEP && dayOfYear <= endDay; dayOfYear++) {
+                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_AUG, 9, currYear));
+            }
+            for (; dayOfYear <= DAYS_TILL_OCT && dayOfYear <= endDay; dayOfYear++) {
+                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_SEP, 10, currYear));
+            }
+            for (; dayOfYear <= DAYS_TILL_NOV && dayOfYear <= endDay; dayOfYear++) {
+                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_OCT, 11, currYear));
+            }
+            for (; dayOfYear <= DAYS_TILL_DEC && dayOfYear <= endDay; dayOfYear++) {
+                dateStrs.add(Converters.formatDateStringfromCalender(dayOfYear - DAYS_TILL_NOV, 12, currYear));
+            }
+            if (startDay != endYear) {
+                dayOfYear = 1;
+                endDay = endDay - DAYS_TILL_DEC;
+                currYear++;
+            }
+        }
+        Logger.d(dateStrs);
+        return dateStrs;
     }
 
 }
