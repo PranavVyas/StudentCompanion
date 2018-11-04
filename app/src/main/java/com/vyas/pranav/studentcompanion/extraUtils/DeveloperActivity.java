@@ -9,10 +9,9 @@ import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualEntry;
 import com.vyas.pranav.studentcompanion.data.firebase.HolidayDataFetcher;
-import com.vyas.pranav.studentcompanion.data.firebase.TimetableDataFetcher;
-import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceHelper;
 import com.vyas.pranav.studentcompanion.jobs.DailyAttendanceCreater;
 import com.vyas.pranav.studentcompanion.services.AddEmptyAttendanceIntentService;
+import com.vyas.pranav.studentcompanion.services.AddOverallAttendanceForDayIntentService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceHelper.initAttendanceDatabaseFirstTime;
 import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_ABSENT;
 import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_PRESENT;
 import static com.vyas.pranav.studentcompanion.extraUtils.Converters.convertStringToDate;
@@ -74,16 +74,14 @@ public class DeveloperActivity extends AppCompatActivity {
 
     @OnClick(R.id.developer_get_timetable)
     public void getTimetable(){
-        TimetableDataFetcher.getTimetableFromFirebase(this);
+        //TimetableDataFetcher.getTimetableFromFirebase(this);
     }
 
     @OnClick(R.id.developer_start_services)
     public void markAttendance() {
         Intent markAttendance = new Intent(this, AddEmptyAttendanceIntentService.class);
-        Bundle sendData = new Bundle();
         Date date = new Date();
-        sendData.putString(Constances.KEY_SEND_DATE_TO_SERVICE, Converters.convertDateToString(date));
-        markAttendance.putExtras(sendData);
+        markAttendance.putExtra(Constances.KEY_SEND_DATE_TO_SERVICE, Converters.convertDateToString(date));
         startService(markAttendance);
     }
 
@@ -101,13 +99,17 @@ public class DeveloperActivity extends AppCompatActivity {
 
     @OnClick(R.id.developer_confogure_init_database)
     public void configureInitDatabase() {
-        OverallAttendanceHelper.initDatabaseFirsTime(this, Converters.convertStringToDate(Constances.startOfSem), Converters.convertStringToDate(Constances.endOfSem));
+        initAttendanceDatabaseFirstTime(this, Converters.convertStringToDate(Constances.startOfSem), Converters.convertStringToDate(Constances.endOfSem));
         //helper.initDatabaseFirsTime(360,365,2018,2018);
     }
 
     @OnClick(R.id.developer_insert_overall)
     public void TestInit() {
-        OverallAttendanceHelper.addDataInOverallAttendance(this, new Date());
+        //TODO CHanege end sem to finale todays dates
+        Intent intent = new Intent(this, AddOverallAttendanceForDayIntentService.class);
+        intent.putExtra(Constances.KEY_SEND_END_DATE_TO_SERVICE_OVERALL, Constances.endOfSem);
+        startService(intent);
+        //OverallAttendanceHelper.addDataInOverallAttendance(this, Converters.convertStringToDate(Constances.endOfSem));
     }
 
     @OnClick(R.id.developer_test_anything)

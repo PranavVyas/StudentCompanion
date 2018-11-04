@@ -15,15 +15,7 @@
         <activity
             android:name=".dashboard.DashboardActivity"
             android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".prefences.SettingsActivity" />
-        <activity android:name=".aboutapp.AboutAppActivity" />
-        <activity android:name=".timetable.TimeTableActivity" />
         <activity
             android:name=".individualAttandance.IndividualAttendanceActivity"
             android:parentActivityName=".dashboard.DashboardActivity" />
@@ -32,8 +24,33 @@
         <service
             android:name=".services.AddEmptyAttendanceIntentService"
             android:exported="false" />
+        <service android:name=".services.AddOverallAttendanceForDayIntentService" />
+        <service
+            android:name=".widget.WidgetUpdateService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <activity android:name=".ui.FirstRunActivity"></activity>
+        <activity android:name=".ui.FirstRunActivity" />
+        <activity
+            android:name=".subjectOverallDetail.SubjectOverallDetailActivity"
+            android:parentActivityName=".dashboard.DashboardActivity" />
+
+        <receiver android:name=".widget.ShowSubjectAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/show_subject_app_widget_info" />
+        </receiver>
+
+        <activity android:name=".ui.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

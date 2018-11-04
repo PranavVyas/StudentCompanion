@@ -12,12 +12,17 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceDatabase;
+import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceEntry;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import com.vyas.pranav.studentcompanion.individualAttandance.IndividualAttendanceActivity;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -34,6 +39,7 @@ public class OverallAttendanceFragment extends Fragment {
     RecyclerView rvSubAttendance;
     OverallAttendanceAdapter mAdapter;
     OverallAttendanceDatabase mDb;
+    LiveData<List<OverallAttendanceEntry>> overallAttednanceList;
 
     public OverallAttendanceFragment() {
     }
@@ -66,7 +72,20 @@ public class OverallAttendanceFragment extends Fragment {
         Logger.addLogAdapter(new AndroidLogAdapter());
         mDb = OverallAttendanceDatabase.getInstance(getContext());
         loadDataInRecyclerView();
+        overallAttednanceList = mDb.overallAttandanceDao().getAllOverallAttedance();
+        overallAttednanceList.observe(this, new Observer<List<OverallAttendanceEntry>>() {
+            @Override
+            public void onChanged(List<OverallAttendanceEntry> overallAttendanceEntries) {
+                mAdapter.setAttendanceData(overallAttendanceEntries);
+            }
+        });
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        overallAttednanceList.removeObservers(this);
+        super.onDestroyView();
     }
 
     private void setUpRecyclerView() {
@@ -78,6 +97,6 @@ public class OverallAttendanceFragment extends Fragment {
     }
 
     private void loadDataInRecyclerView() {
-        mAdapter.setAttendanceData(mDb.overallAttandanceDao().getAllOverallAttedance());
+//        mAdapter.setAttendanceData(mDb.overallAttandanceDao().getAllOverallAttedance());
     }
 }

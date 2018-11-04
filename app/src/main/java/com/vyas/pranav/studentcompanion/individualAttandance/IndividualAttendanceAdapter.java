@@ -1,6 +1,7 @@
 package com.vyas.pranav.studentcompanion.individualAttandance;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualEntry;
+import com.vyas.pranav.studentcompanion.extraUtils.Converters;
+import com.vyas.pranav.studentcompanion.services.AddOverallAttendanceForDayIntentService;
 
 import java.util.List;
 
@@ -18,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.vyas.pranav.studentcompanion.extraUtils.Constances.KEY_SEND_END_DATE_TO_SERVICE_OVERALL;
+import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_ABSENT;
 import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_PRESENT;
 
 public class IndividualAttendanceAdapter extends RecyclerView.Adapter<IndividualAttendanceAdapter.AttendanceHolder> {
@@ -38,7 +43,7 @@ public class IndividualAttendanceAdapter extends RecyclerView.Adapter<Individual
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AttendanceHolder attandanceHolder, final int i) {
+    public void onBindViewHolder(@NonNull final AttendanceHolder attandanceHolder, final int i) {
         attandanceHolder.tvNo.setText((i+1) + ".");
         attandanceHolder.tvSubName.setText(mAtttendances.get(i).getSubName());
         attandanceHolder.tvFacultyName.setText(mAtttendances.get(i).getFacultyName());
@@ -56,12 +61,15 @@ public class IndividualAttendanceAdapter extends RecyclerView.Adapter<Individual
         attandanceHolder.swithPresent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (((SwitchCompat) view).isChecked()) {
+                if (attandanceHolder.swithPresent.isChecked()) {
                     mAtttendances.get(i).setAttended(VALUE_PRESENT);
                 } else {
-                    mAtttendances.get(i).setAttended(VALUE_PRESENT);
+                    mAtttendances.get(i).setAttended(VALUE_ABSENT);
                 }
                 mAttendanceDb.attendanceIndividualDao().insertAttendance(mAtttendances.get(i));
+                Intent updateDataInOverallDatabase = new Intent(mContext, AddOverallAttendanceForDayIntentService.class);
+                updateDataInOverallDatabase.putExtra(KEY_SEND_END_DATE_TO_SERVICE_OVERALL, Converters.convertDateToString(mAtttendances.get(i).getDate()));
+                mContext.startService(updateDataInOverallDatabase);
             }
         });
     }

@@ -5,7 +5,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
@@ -21,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import static com.vyas.pranav.studentcompanion.extraUtils.Constances.KEY_SEND_DATE_TO_SERVICE;
 import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_ABSENT;
 
 public class AddEmptyAttendanceIntentService extends IntentService {
@@ -37,9 +37,8 @@ public class AddEmptyAttendanceIntentService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         mDb = TimetableDatabase.getInstance(getApplicationContext());
         mAttendanceDb = AttendanceIndividualDatabase.getInstance(getApplicationContext());
-        Bundle receivedData = intent.getExtras();
-        if (receivedData != null) {
-            String dateStr = receivedData.getString(Constances.KEY_SEND_DATE_TO_SERVICE);
+        if (intent.hasExtra(KEY_SEND_DATE_TO_SERVICE)) {
+            String dateStr = intent.getStringExtra(Constances.KEY_SEND_DATE_TO_SERVICE);
             Date date = Converters.convertStringToDate(dateStr);
             String dayOfWeek = Converters.getDayOfWeek(dateStr);
             //Toast.makeText(this, "Days is "+dayOfWeek, Toast.LENGTH_SHORT).show();
@@ -80,8 +79,7 @@ public class AddEmptyAttendanceIntentService extends IntentService {
                 newEntry.setLactureType("L");
                 mAttendanceDb.attendanceIndividualDao().insertAttendance(newEntry);
             }
-            //showNotification("Added");
-            //TODO Stop service but how?
+            showNotification("Added");
         } else {
             showNotification("Null");
         }

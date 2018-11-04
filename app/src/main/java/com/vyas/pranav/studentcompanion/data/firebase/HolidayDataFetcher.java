@@ -23,6 +23,7 @@ public class HolidayDataFetcher{
     static ValueEventListener mListener;
 
     public static void fetchHolidays(final Context context){
+        final OnHolidaysFetcherListener mCallback = (OnHolidaysFetcherListener) context;
         Logger.addLogAdapter(new AndroidLogAdapter());
 
         mDb = FirebaseDatabase.getInstance();
@@ -43,6 +44,7 @@ public class HolidayDataFetcher{
                     mHolidayDb.holidayDao().insertHoliday(tempHoliday);
                     //TODO BUG Solve problem of loading multiple times
                 }
+                mCallback.OnHolidayFetched();
             }
 
             @Override
@@ -52,5 +54,9 @@ public class HolidayDataFetcher{
         };
         mRef.child("Holidays").addListenerForSingleValueEvent(mListener);
         mRef.child("Holidays").removeEventListener(mListener);
+    }
+
+    public interface OnHolidaysFetcherListener {
+        void OnHolidayFetched();
     }
 }

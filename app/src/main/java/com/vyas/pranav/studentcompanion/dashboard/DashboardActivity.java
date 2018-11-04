@@ -1,119 +1,140 @@
 package com.vyas.pranav.studentcompanion.dashboard;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.evernote.android.job.JobManager;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.mikepenz.materialdrawer.Drawer;
 import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
+import com.vyas.pranav.studentcompanion.aboutapp.AboutAppFragment;
 import com.vyas.pranav.studentcompanion.extraUtils.ViewsUtils;
-import com.vyas.pranav.studentcompanion.jobs.DailyAttendanceCreater;
-import com.vyas.pranav.studentcompanion.overallAttandance.OverallAttendanceFragment;
+import com.vyas.pranav.studentcompanion.prefences.AppSettingsFragment;
+import com.vyas.pranav.studentcompanion.ui.AttendanceMainFragment;
+import com.vyas.pranav.studentcompanion.ui.LoginActivity;
+import com.vyas.pranav.studentcompanion.ui.TimetableMainFragment;
 
-import java.util.Arrays;
-import java.util.List;
-
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.preference.PreferenceManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class DashboardActivity extends AppCompatActivity {
+import static com.vyas.pranav.studentcompanion.widget.SubjectListAdapterWidget.KEY_L_1;
+import static com.vyas.pranav.studentcompanion.widget.SubjectListAdapterWidget.KEY_L_2;
+import static com.vyas.pranav.studentcompanion.widget.SubjectListAdapterWidget.KEY_L_3;
+import static com.vyas.pranav.studentcompanion.widget.SubjectListAdapterWidget.KEY_L_4;
 
-    public static final int REQUEST_SIGN_IN_KEY = 1023;
-    @BindView(R.id.toolbar_dashboard)
+public class DashboardActivity extends AppCompatActivity implements ViewsUtils.OnCustomDrawerItemClickListener {
+
+    @BindView(R.id.toolbar_main)
     Toolbar mToolbar;
-    @BindView(R.id.bottom_navigation_dashboard)
-    BottomNavigationView mBottomNavigation;
-    FirebaseAuth mAuth;
+    Drawer drawer;
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
-        mAuth = FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser() == null) {
-            List<AuthUI.IdpConfig> providers = Arrays.asList(
-                    new AuthUI.IdpConfig.EmailBuilder().build(),
-                    new AuthUI.IdpConfig.GoogleBuilder().build()
-            );
-            startActivityForResult(AuthUI.getInstance()
-                            .createSignInIntentBuilder()
-                            .setAvailableProviders(providers)
-                            .setIsSmartLockEnabled(false)
-                            .setLogo(R.drawable.ic_launcher_foreground)
-                            .build()
-                    , REQUEST_SIGN_IN_KEY);
-        } else {
-            setSupportActionBar(mToolbar);
-            showAttendanceFragment();
-            startJobIfNotStarted();
-            ViewsUtils.buildNavigationDrawer(DashboardActivity.this, mToolbar);
-        }
+        setSupportActionBar(mToolbar);
+        fragmentManager = getSupportFragmentManager();
+        showMainAttendanceFragment();
+        drawer = ViewsUtils.buildNavigationDrawer(DashboardActivity.this, mToolbar);
 
+    }
+
+    public void showMainAttendanceFragment() {
+        AttendanceMainFragment attendanceMainFragment = new AttendanceMainFragment();
+        Logger.d("Adding Main Fragment to Root");
+        fragmentManager.beginTransaction()
+                .replace(R.id.frame_dashboard_container, attendanceMainFragment)
+                .commit();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onClickedDrawerItem(String name, int identifier) {
+        switch (identifier) {
+            case ViewsUtils.ID_DASHBOARD_NAVIGATION:
+                showMainAttendanceFragment();
+                break;
 
-        if (requestCode == REQUEST_SIGN_IN_KEY) {
-            if (resultCode == RESULT_OK) {
-                FirebaseUser user = mAuth.getCurrentUser();
-                ViewsUtils.buildNavigationDrawer(DashboardActivity.this, mToolbar);
-                Toast.makeText(this, "Sucessfully Signed in as " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
-            } else if (resultCode == RESULT_CANCELED) {
-                this.finish();
+            case ViewsUtils.ID_TIME_TABLE_NAVIGATION:
+                TimetableMainFragment timetableFrag = new TimetableMainFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_dashboard_container, timetableFrag)
+                        .commit();
+                break;
+
+            case ViewsUtils.ID_SHARE_APP_NAVIGATION:
+                Toast.makeText(this, "Share Clicked", Toast.LENGTH_SHORT).show();
+                break;
+
+            //TODO Implement Share feature here
+            case ViewsUtils.ID_PREFERENCE_NAVIGATION:
+                AppSettingsFragment settingsFrag = new AppSettingsFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_dashboard_container, settingsFrag)
+                        .commit();
+                break;
+
+            case ViewsUtils.ID_ABOUT_THIS_APP_NAVIGATION:
+                AboutAppFragment aboutAppFrag = new AboutAppFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_dashboard_container, aboutAppFrag)
+                        .commit();
+                break;
+
+            case ViewsUtils.ID_LOG_OUT_APP_NAVIGATION:
+                AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(DashboardActivity.this, "Sucessfully Signed Out", Toast.LENGTH_SHORT).show();
+                        Intent startAppAgain = new Intent(DashboardActivity.this, LoginActivity.class);
+                        startActivity(startAppAgain);
+                        DashboardActivity.this.finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(DashboardActivity.this, "Error Occured while Signing Out Try Again", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer != null) {
+            if (FirebaseAuth.getInstance()
+                    .getCurrentUser() != null && drawer.isDrawerOpen()) {
+                drawer.closeDrawer();
+            } else if (drawer.getCurrentSelectedPosition() == 1) {
+                super.onBackPressed();
             } else {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user == null) {
-                    Toast.makeText(this, "Result is null", Toast.LENGTH_SHORT).show();
-                }
+                drawer.setSelection(ViewsUtils.ID_DASHBOARD_NAVIGATION);
             }
+        } else {
+            super.onBackPressed();
         }
     }
 
-    public void startJobIfNotStarted() {
-        if (!JobManager.instance().getAllJobRequestsForTag(DailyAttendanceCreater.TAG).isEmpty()) {
-            Logger.d("Job is running already...Skipping Setting...");
-            return;
-        }
-        DailyAttendanceCreater.schedule(0, 10, 0, 11);
-    }
-
-    public void showAttendanceFragment() {
-        DashboardFragment dashboardFragment = new DashboardFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_dashboard_today_attendance, dashboardFragment)
-                .commit();
-    }
-
-    public void showOverallAttendanceFragment() {
-        OverallAttendanceFragment overallAttendanceFragment = new OverallAttendanceFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_dashboard_today_attendance, overallAttendanceFragment)
-                .commit();
-    }
-
-    @OnClick(R.id.dashboard_bottomnav_today)
-    public void clickedToday() {
-        //Toast.makeText(this, "Clicked Today", Toast.LENGTH_SHORT).show();
-        mBottomNavigation.setSelectedItemId(R.id.dashboard_bottomnav_today);
-        showAttendanceFragment();
-    }
-
-    @OnClick(R.id.dashboard_bottomnav_overall)
-    public void clickedOverall() {
-        //Toast.makeText(this, "Clicked Overall", Toast.LENGTH_SHORT).show();
-        mBottomNavigation.setSelectedItemId(R.id.dashboard_bottomnav_overall);
-        showOverallAttendanceFragment();
+    public void setTodaysLacturesInSharedPrefs() {
+        SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        mEditor.putString(KEY_L_1, "L1");
+        mEditor.putString(KEY_L_2, "L2");
+        mEditor.putString(KEY_L_3, "L3");
+        mEditor.putString(KEY_L_4, "L4");
+        mEditor.apply();
     }
 }

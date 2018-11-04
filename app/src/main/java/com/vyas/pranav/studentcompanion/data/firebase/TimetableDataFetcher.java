@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 public class TimetableDataFetcher {
 
     public static void getTimetableFromFirebase(Context context){
-
+        final OnTimeTableReceived mCallback = (OnTimeTableReceived) context;
         final FirebaseDatabase mDb;
         final TimetableDatabase mTDB = TimetableDatabase.getInstance(context);
         DatabaseReference mRef;
@@ -46,13 +46,18 @@ public class TimetableDataFetcher {
                     tempDay.setLacture4Faculty(currDay.getFaculty4());
                     mTDB.timetableDao().insertTimeTableEntry(tempDay);
                 }
+                mCallback.OnTimetableReceived();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Logger.d("Error Occureed : " + databaseError.getMessage());
             }
         };
         mRef.child("TimeTable").addListenerForSingleValueEvent(mListener);
+    }
+
+    public interface OnTimeTableReceived {
+        void OnTimetableReceived();
     }
 }

@@ -18,26 +18,26 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.vyas.pranav.studentcompanion.R;
-import com.vyas.pranav.studentcompanion.aboutapp.AboutAppActivity;
-import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
-import com.vyas.pranav.studentcompanion.prefences.SettingsActivity;
-import com.vyas.pranav.studentcompanion.timetable.TimeTableActivity;
 
 import androidx.appcompat.widget.Toolbar;
 
 public class ViewsUtils {
 
-    private static final long ID_DASHBOARD_NAVIGATION = 1;
-    private static final long ID_MY_BOOK_SHELF_NAVIGATION = 2;
-    private static final long ID_TIME_TABLE_NAVIGATION = 3;
-    private static final long ID_SHARE_APP_NAVIGATION = 4;
-    private static final long ID_PREFERENCE_NAVIGATION = 5;
-    private static final long ID_ABOUT_THIS_APP_NAVIGATION = 6;
-    private static final long ID_LOG_OUT_APP_NAVIGATION = 7;
+    public static final int ID_DASHBOARD_NAVIGATION = 1;
+    public static final int ID_MY_BOOK_SHELF_NAVIGATION = 2;
+    public static final int ID_TIME_TABLE_NAVIGATION = 3;
+    public static final int ID_SHARE_APP_NAVIGATION = 4;
+    public static final int ID_PREFERENCE_NAVIGATION = 5;
+    public static final int ID_ABOUT_THIS_APP_NAVIGATION = 6;
+    public static final int ID_LOG_OUT_APP_NAVIGATION = 7;
 
 
     public static Drawer buildNavigationDrawer(final Context context, Toolbar toolbar) {
         final FirebaseAuth mAuth;
+        final OnCustomDrawerItemClickListener mCallback;
+
+        mCallback = (OnCustomDrawerItemClickListener) context;
+
         mAuth = FirebaseAuth.getInstance();
         PrimaryDrawerItem dashboard = new PrimaryDrawerItem()
                 .withIdentifier(ID_DASHBOARD_NAVIGATION)
@@ -46,9 +46,8 @@ public class ViewsUtils {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        mCallback.onClickedDrawerItem(context.getString(R.string.action_dashboard_navigation), ID_DASHBOARD_NAVIGATION);
                         Toast.makeText(context, "DashBoard Clicked", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(context, DashboardActivity.class);
-                        context.startActivity(intent);
                         return false;
                     }
                 });
@@ -60,9 +59,8 @@ public class ViewsUtils {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        mCallback.onClickedDrawerItem(context.getString(R.string.action_preference_navigation), ID_PREFERENCE_NAVIGATION);
                         Toast.makeText(context, "Preference Clicked", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(context, SettingsActivity.class);
-                        context.startActivity(intent);
                         return false;
                     }
                 });
@@ -75,8 +73,7 @@ public class ViewsUtils {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         Toast.makeText(context, "aboutApp Clicked", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(context, AboutAppActivity.class);
-                        context.startActivity(intent);
+                        mCallback.onClickedDrawerItem(context.getString(R.string.action_about_app_navigation), ID_ABOUT_THIS_APP_NAVIGATION);
                         return false;
                     }
                 });
@@ -89,8 +86,7 @@ public class ViewsUtils {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         Toast.makeText(context, "Time Table Clicked", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(context, TimeTableActivity.class);
-                        context.startActivity(intent);
+                        mCallback.onClickedDrawerItem(context.getString(R.string.action_time_table_navigation), ID_TIME_TABLE_NAVIGATION);
                         return false;
                     }
                 });
@@ -111,11 +107,12 @@ public class ViewsUtils {
         PrimaryDrawerItem shareApp = new PrimaryDrawerItem()
                 .withIdentifier(ID_SHARE_APP_NAVIGATION)
                 .withIcon(R.drawable.ic_navigation_share)
+                .withSelectable(false)
                 .withName(R.string.action_share_app_navigation)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        Toast.makeText(context, "Share App Clicked", Toast.LENGTH_SHORT).show();
+                        mCallback.onClickedDrawerItem(context.getString(R.string.action_share_app_navigation), ID_SHARE_APP_NAVIGATION);
                         return false;
                     }
                 });
@@ -123,11 +120,12 @@ public class ViewsUtils {
         PrimaryDrawerItem logOut = new PrimaryDrawerItem()
                 .withIdentifier(ID_LOG_OUT_APP_NAVIGATION)
                 .withIcon(R.drawable.ic_navigation_share)
+                .withSelectable(false)
                 .withName(R.string.action_log_out_navigation)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        mAuth.signOut();
+                        mCallback.onClickedDrawerItem(context.getString(R.string.action_log_out_navigation), ID_LOG_OUT_APP_NAVIGATION);
                         return false;
                     }
                 });
@@ -136,6 +134,7 @@ public class ViewsUtils {
                 .withIdentifier(100)
                 .withIcon(R.drawable.ic_navigation_share)
                 .withName("Developer Mode")
+                .withSelectable(false)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -154,9 +153,10 @@ public class ViewsUtils {
                 .withHeaderBackground(R.drawable.navigation_header_bkg_new)
                 .addProfiles(
                         new ProfileDrawerItem().withName(userName)
+                                .withTextColor(context.getResources().getColor(R.color.colorWhite))
                                 .withEmail(email)
+                                .withIcon(photoUri)
                                 //TODO Change background or text color to white
-                        //.withIcon(context.getResources().getDrawable(R.drawable.ic_navigation_account))
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
@@ -190,5 +190,9 @@ public class ViewsUtils {
                 )
                 .build();
         return drawer;
+    }
+
+    public interface OnCustomDrawerItemClickListener {
+        void onClickedDrawerItem(String name, int identifier);
     }
 }

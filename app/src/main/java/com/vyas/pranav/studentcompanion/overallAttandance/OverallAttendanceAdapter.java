@@ -1,14 +1,18 @@
 package com.vyas.pranav.studentcompanion.overallAttandance;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.txusballesteros.widgets.FitChart;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceEntry;
+import com.vyas.pranav.studentcompanion.extraUtils.Constances;
+import com.vyas.pranav.studentcompanion.subjectOverallDetail.SubjectOverallDetailActivity;
 
 import java.util.List;
 
@@ -34,10 +38,20 @@ public class OverallAttendanceAdapter extends RecyclerView.Adapter<OverallAttend
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OverallAttendanceHolder overallAttendanceHolder, int i) {
+    public void onBindViewHolder(@NonNull OverallAttendanceHolder overallAttendanceHolder, final int i) {
         overallAttendanceHolder.chartSub.setValue((float) attendanceData.get(i).getPercentPresent());
         overallAttendanceHolder.tvPercent.setText((int) attendanceData.get(i).getPercentPresent()+" %");
         overallAttendanceHolder.tvSubName.setText(attendanceData.get(i).getSubjectName());
+//        overallAttendanceHolder.chartSub.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Gson gson = new Gson();
+//                String subDataJsongson = gson.toJson(attendanceData.get(i));
+//                Intent intent = new Intent(mContext,SubjectOverallDetailActivity.class);
+//                intent.putExtra(Constances.KEY_SEND_DATA_TO_OVERALL_DETAIL,subDataJsongson);
+//                mContext.startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -50,7 +64,7 @@ public class OverallAttendanceAdapter extends RecyclerView.Adapter<OverallAttend
         notifyDataSetChanged();
     }
 
-    class OverallAttendanceHolder extends RecyclerView.ViewHolder {
+    class OverallAttendanceHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.chart_recycler_overall_subject)
         FitChart chartSub;
@@ -62,6 +76,16 @@ public class OverallAttendanceAdapter extends RecyclerView.Adapter<OverallAttend
         public OverallAttendanceHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Gson gson = new Gson();
+            String subDataJsongson = gson.toJson(attendanceData.get(getAdapterPosition()));
+            Intent intent = new Intent(mContext, SubjectOverallDetailActivity.class);
+            intent.putExtra(Constances.KEY_SEND_DATA_TO_OVERALL_DETAIL, subDataJsongson);
+            mContext.startActivity(intent);
         }
     }
 }

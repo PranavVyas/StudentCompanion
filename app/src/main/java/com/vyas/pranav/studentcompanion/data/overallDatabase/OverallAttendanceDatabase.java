@@ -17,7 +17,7 @@ public abstract class OverallAttendanceDatabase extends RoomDatabase {
         if(sInstance == null){
             synchronized (LOCK){
                 sInstance = Room.databaseBuilder(context.getApplicationContext()
-                        ,OverallAttendanceDatabase.class,DB_NAME).allowMainThreadQueries().build();
+                        , OverallAttendanceDatabase.class, DB_NAME).build();
                 //TODO Move this to background
             }
             return sInstance;
