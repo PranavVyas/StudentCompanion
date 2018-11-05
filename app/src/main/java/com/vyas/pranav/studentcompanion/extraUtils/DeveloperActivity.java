@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.evernote.android.job.JobManager;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualEntry;
 import com.vyas.pranav.studentcompanion.data.firebase.HolidayDataFetcher;
 import com.vyas.pranav.studentcompanion.jobs.DailyAttendanceCreater;
 import com.vyas.pranav.studentcompanion.services.AddEmptyAttendanceIntentService;
-import com.vyas.pranav.studentcompanion.services.AddOverallAttendanceForDayIntentService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,8 +56,8 @@ public class DeveloperActivity extends AppCompatActivity {
         test2.setLactureType("Lacture");
         test2.setSubName("SCIENCE");
         test2.set_ID(Converters.generateIdForIndividualAttendance(convertStringToDate("01/01/2018"), 2));
-        mDb.attendanceIndividualDao().insertAttendance(test1);
-        mDb.attendanceIndividualDao().insertAttendance(test2);
+        //mDb.attendanceIndividualDao().insertAttendance(test1);
+        //mDb.attendanceIndividualDao().insertAttendance(test2);
     }
 
     @OnClick(R.id.developer_delete_all_attendance)
@@ -87,9 +85,9 @@ public class DeveloperActivity extends AppCompatActivity {
 
     @OnClick(R.id.developer_start_sheduling)
     public void startService() {
-        if (!JobManager.instance().getAllJobRequestsForTag(DailyAttendanceCreater.TAG).isEmpty()) {
-            DailyAttendanceCreater.schedule(0, 10, 0, 12);
-        }
+        //if (!JobManager.instance().getAllJobRequestsForTag(DailyAttendanceCreater.TAG).isEmpty()) {
+        //DailyAttendanceCreater.schedule(0, 10, 0, 12);
+        //}
     }
 
     @OnClick(R.id.developer_stop_shedule)
@@ -106,9 +104,9 @@ public class DeveloperActivity extends AppCompatActivity {
     @OnClick(R.id.developer_insert_overall)
     public void TestInit() {
         //TODO CHanege end sem to finale todays dates
-        Intent intent = new Intent(this, AddOverallAttendanceForDayIntentService.class);
-        intent.putExtra(Constances.KEY_SEND_END_DATE_TO_SERVICE_OVERALL, Constances.endOfSem);
-        startService(intent);
+        //Intent intent = new Intent(this, AddOverallAttendanceForDayIntentService.class);
+        //intent.putExtra(Constances.KEY_SEND_END_DATE_TO_SERVICE_OVERALL, Constances.endOfSem);
+        //startService(intent);
         //OverallAttendanceHelper.addDataInOverallAttendance(this, Converters.convertStringToDate(Constances.endOfSem));
     }
 

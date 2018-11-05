@@ -116,4 +116,55 @@ public class Converters {
         }
     }
 
+    public static int convertTimeInInt(String timeStr) {
+        String[] newStr = timeStr.split(":");
+        int min = Integer.valueOf(newStr[1]);
+        int hour = Integer.valueOf(newStr[0]);
+        return ((hour * 60) + min);
+    }
+
+    public static String convertTimeIntInString(int time) {
+        CustomTime customTime = extractHourandMinFromTime(time);
+        return customTime.getHour() + ":" + customTime.getMin();
+    }
+
+    public static CustomTime extractHourandMinFromTime(int time) {
+        int hour = time / 60;
+        int min = time % 60;
+        return new CustomTime(min, hour);
+    }
+
+    public static CustomTime extractHourandMinFromTime(String timeStr) {
+        int time = convertTimeInInt(timeStr);
+        int hour = time / 60;
+        int min = time % 60;
+        return new CustomTime(min, hour);
+    }
+
+    public static class CustomTime {
+        private int min;
+        private int hour;
+
+        public CustomTime(int min, int hour) {
+            this.min = min;
+            this.hour = hour;
+        }
+
+        public int getMin() {
+            return min;
+        }
+
+        public void setMin(int min) {
+            this.min = min;
+        }
+
+        public int getHour() {
+            return hour;
+        }
+
+        public void setHour(int hour) {
+            this.hour = hour;
+        }
+    }
+
 }

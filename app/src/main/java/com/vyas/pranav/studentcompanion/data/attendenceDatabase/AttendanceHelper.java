@@ -54,7 +54,7 @@ public class AttendanceHelper {
         AttendanceIndividualDatabase mAttendanceDb = AttendanceIndividualDatabase.getInstance(context);
         TimetableEntry mTimetable = timetableDb.timetableDao().getTimetableForDay(dayOfWeek);
         //Logger.d(mTimetable.getLacture1Name());
-
+        List<AttendanceIndividualEntry> mEntries = new ArrayList<>();
         for (int i = 0; i < NO_OF_LACTURES; i++) {
             AttendanceIndividualEntry newEntry = new AttendanceIndividualEntry();
             newEntry.setDate(date);
@@ -87,9 +87,10 @@ public class AttendanceHelper {
             newEntry.setLactureNo(i + 1);
             newEntry.setDurationInMillis(3600);
             newEntry.setLactureType("L");
-            mAttendanceDb.attendanceIndividualDao().insertAttendance(newEntry);
+            mEntries.add(newEntry);
+            //mAttendanceDb.attendanceIndividualDao().insertAttendance(newEntry);
         }
-
+        mAttendanceDb.attendanceIndividualDao().insertAttendances(mEntries);
     }
 
 

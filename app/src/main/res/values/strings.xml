@@ -14,8 +14,27 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
 
+    <string name="pref_time_key_set_reminder">setReminder</string>
+    <string name="pref_switch_key_reminder">isReminderEnabled</string>
+
+
     <string-array name="term_array">
         <item>PLease Select</item>
         <item>Jan 2019 - May 2019</item>
     </string-array>
+
+    <string-array name="pref_lilst_time_labels">
+        <item>Afternoon - 3:00 PM</item>
+        <item>Evening - 6:00 PM</item>
+        <item>Night - 9:00 PM</item>
+    </string-array>
+
+
+    <string-array name="pref_lilst_time_values">
+        <item>value_afternoon</item>
+        <item>value_evening</item>
+        <item>value_night</item>
+    </string-array>
+
+
 </resources>

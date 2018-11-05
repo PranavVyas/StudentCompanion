@@ -11,7 +11,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mikepenz.materialdrawer.Drawer;
-import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.aboutapp.AboutAppFragment;
 import com.vyas.pranav.studentcompanion.extraUtils.ViewsUtils;
@@ -54,7 +53,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
 
     public void showMainAttendanceFragment() {
         AttendanceMainFragment attendanceMainFragment = new AttendanceMainFragment();
-        Logger.d("Adding Main Fragment to Root");
+        //Logger.d("Adding Main Fragment to Root");
         fragmentManager.beginTransaction()
                 .replace(R.id.frame_dashboard_container, attendanceMainFragment)
                 .commit();

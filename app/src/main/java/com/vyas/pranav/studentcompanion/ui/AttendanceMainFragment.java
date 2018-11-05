@@ -6,12 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.evernote.android.job.JobManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardFragment;
-import com.vyas.pranav.studentcompanion.jobs.DailyAttendanceCreater;
 import com.vyas.pranav.studentcompanion.overallAttandance.OverallAttendanceFragment;
 
 import androidx.fragment.app.Fragment;
@@ -36,17 +33,17 @@ public class AttendanceMainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_attendance_main, container, false);
         ButterKnife.bind(this, view);
         showAttendanceFragment();
-        startJobIfNotStarted();
+        //startJobIfNotStarted();
         return view;
     }
 
-    public void startJobIfNotStarted() {
-        if (!JobManager.instance().getAllJobRequestsForTag(DailyAttendanceCreater.TAG).isEmpty()) {
-            Logger.d("Job is running already...Skipping Setting...");
-            return;
-        }
-        DailyAttendanceCreater.schedule(0, 10, 0, 11);
-    }
+    //public void startJobIfNotStarted() {
+    //if (!JobManager.instance().getAllJobRequestsForTag(DailyAttendanceCreater.TAG).isEmpty()) {
+    //    Logger.d("Job is running already...Skipping Setting...");
+    //    return;
+    //}
+    //DailyAttendanceCreater.schedule(0, 10, 0, 11);
+    //}
 
     public void showAttendanceFragment() {
         DashboardFragment dashboardFragment = new DashboardFragment();

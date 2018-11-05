@@ -6,7 +6,7 @@ import com.evernote.android.job.JobCreator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class DemoJobCreator implements JobCreator {
+public class JobsCreator implements JobCreator {
     @Nullable
     @Override
     public Job create(@NonNull String tag) {
@@ -14,6 +14,8 @@ public class DemoJobCreator implements JobCreator {
             case DailyAttendanceCreater.TAG:
                 return new DailyAttendanceCreater();
 
+            case DailyReminderCreator.TAG:
+                return new DailyReminderCreator();
             default:
                 return null;
         }

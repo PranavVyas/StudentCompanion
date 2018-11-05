@@ -14,7 +14,9 @@ import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableEntry;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -45,6 +47,7 @@ public class AddEmptyAttendanceIntentService extends IntentService {
             TimetableEntry mTimetable = mDb.timetableDao().getTimetableForDay(dayOfWeek);
             //Logger.d(mTimetable.getLacture1Name());
 
+            List<AttendanceIndividualEntry> mEntries = new ArrayList<>();
             for (int i = 0; i < NO_OF_LACTURES; i++) {
                 AttendanceIndividualEntry newEntry = new AttendanceIndividualEntry();
                 newEntry.setDate(date);
@@ -77,8 +80,10 @@ public class AddEmptyAttendanceIntentService extends IntentService {
                 newEntry.setLactureNo(i + 1);
                 newEntry.setDurationInMillis(3600);
                 newEntry.setLactureType("L");
-                mAttendanceDb.attendanceIndividualDao().insertAttendance(newEntry);
+                mEntries.add(newEntry);
+                //mAttendanceDb.attendanceIndividualDao().insertAttendance(newEntry);
             }
+            mAttendanceDb.attendanceIndividualDao().insertAttendances(mEntries);
             showNotification("Added");
         } else {
             showNotification("Null");

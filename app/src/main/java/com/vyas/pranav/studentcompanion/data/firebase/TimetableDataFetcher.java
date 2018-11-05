@@ -13,6 +13,9 @@ import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableDatabase;
 import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableEntry;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 
 public class TimetableDataFetcher {
@@ -31,6 +34,7 @@ public class TimetableDataFetcher {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //TODO Improvise
+                List<TimetableEntry> timeTableEntries = new ArrayList<>();
                 for(DataSnapshot daysSnapshot : dataSnapshot.getChildren()){
                     DayModel currDay = daysSnapshot.getValue(DayModel.class);
                     Logger.json(new Gson().toJson(currDay));
@@ -44,8 +48,9 @@ public class TimetableDataFetcher {
                     tempDay.setLacture2Faculty(currDay.getFaculty2());
                     tempDay.setLacture3Faculty(currDay.getFaculty3());
                     tempDay.setLacture4Faculty(currDay.getFaculty4());
-                    mTDB.timetableDao().insertTimeTableEntry(tempDay);
+                    timeTableEntries.add(tempDay);
                 }
+                mTDB.timetableDao().insertAllTimeTableEntry(timeTableEntries);
                 mCallback.OnTimetableReceived();
             }
 

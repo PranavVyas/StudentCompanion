@@ -26,6 +26,9 @@ public interface TimetableDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTimeTableEntry(TimetableEntry newTimetableEntry);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAllTimeTableEntry(List<TimetableEntry> newTimetableEntries);
+
     @Delete
     void deleteTimetableEntry(TimetableEntry timetableEntry);
 }

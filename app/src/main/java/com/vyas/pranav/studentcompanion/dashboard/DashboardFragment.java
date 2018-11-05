@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
@@ -37,7 +36,7 @@ public class DashboardFragment extends Fragment {
         IndividualAttendanceFragment todayAttendanceFrag = new IndividualAttendanceFragment();
         Bundle dataToSend = new Bundle();
         Date date = new Date();
-        Logger.d("Date String is : " + Converters.convertDateToString(date));
+        //Logger.d("Date String is : " + Converters.convertDateToString(date));
         dataToSend.putString(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_FRAG, Converters.convertDateToString(date));
         todayAttendanceFrag.setArguments(dataToSend);
         getActivity().getSupportFragmentManager().beginTransaction()

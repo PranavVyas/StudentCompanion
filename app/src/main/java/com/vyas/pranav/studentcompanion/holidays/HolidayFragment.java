@@ -7,8 +7,13 @@ import android.view.ViewGroup;
 
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.holidayDatabase.HolidayDatabase;
+import com.vyas.pranav.studentcompanion.data.holidayDatabase.HolidayEntry;
+
+import java.util.List;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -44,7 +49,14 @@ public class HolidayFragment extends Fragment {
     }
 
     public void loadDataInRecyclerView(){
-        mAdapter.setmHolidays(mDb.holidayDao().getAllHolidays());
+        final LiveData<List<HolidayEntry>> holidayLive = mDb.holidayDao().getAllHolidays();
+        holidayLive.observe(this, new Observer<List<HolidayEntry>>() {
+            @Override
+            public void onChanged(List<HolidayEntry> holidayEntries) {
+                holidayLive.removeObservers(HolidayFragment.this);
+                mAdapter.setmHolidays(holidayEntries);
+            }
+        });
     }
 
 

@@ -14,14 +14,15 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.vyas.pranav.studentcompanion.R;
-import com.vyas.pranav.studentcompanion.jobs.DemoJobCreator;
+import com.vyas.pranav.studentcompanion.jobs.JobsCreator;
 
 public class MainApp extends Application {
 
     @Override
     public void onCreate() {
         super.onCreate();
-        JobManager.create(this).addJobCreator(new DemoJobCreator());
+        JobManager.create(this).addJobCreator(new JobsCreator());
+        //JobManager.create(this);
         //TODO Add JobCreator
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override

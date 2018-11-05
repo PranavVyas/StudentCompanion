@@ -13,6 +13,9 @@ import com.vyas.pranav.studentcompanion.data.holidayDatabase.HolidayDatabase;
 import com.vyas.pranav.studentcompanion.data.holidayDatabase.HolidayEntry;
 import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 
 public class HolidayDataFetcher{
@@ -35,15 +38,17 @@ public class HolidayDataFetcher{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> iterable = dataSnapshot.getChildren();
                 //HolidayHelper helper = new HolidayHelper(context);
+                List<HolidayEntry> holidays = new ArrayList<>();
                 while(iterable.iterator().hasNext()){
                     HolidayModel currHoliday = iterable.iterator().next().getValue(HolidayModel.class);
                     HolidayEntry tempHoliday = new HolidayEntry();
                     tempHoliday.setHolidayDate(Converters.convertStringToDate(currHoliday.getDate()));
                     tempHoliday.setHolidayName(currHoliday.getName());
                     tempHoliday.setHolidayDay(Converters.getDayOfWeek(currHoliday.getDate()));
-                    mHolidayDb.holidayDao().insertHoliday(tempHoliday);
+                    holidays.add(tempHoliday);
                     //TODO BUG Solve problem of loading multiple times
                 }
+                mHolidayDb.holidayDao().insertAllHolidays(holidays);
                 mCallback.OnHolidayFetched();
             }
 

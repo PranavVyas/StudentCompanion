@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vyas.pranav.studentcompanion.R;
+import com.vyas.pranav.studentcompanion.asynTasks.OverallAttendanceAsyncTask;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
 import com.vyas.pranav.studentcompanion.data.SharedPrefsUtils;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceHelper;
@@ -26,7 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FirstRunActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimetableDataFetcher.OnTimeTableReceived, HolidayDataFetcher.OnHolidaysFetcherListener, AttendanceHelper.OnAttendanceDatabaseInitializedListener, OverallAttendanceHelper.OnOverallDatabaseInitializedListener {
+public class FirstRunActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimetableDataFetcher.OnTimeTableReceived, HolidayDataFetcher.OnHolidaysFetcherListener, AttendanceHelper.OnAttendanceDatabaseInitializedListener, OverallAttendanceHelper.OnOverallDatabaseInitializedListener, OverallAttendanceAsyncTask.OnOverallAttendanceAddedListener {
     public static final String TAG = "FirstRunActivity";
 
     @BindView(R.id.spinner_first_run_term)
@@ -117,9 +118,12 @@ public class FirstRunActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void OnAttendanceDatabaseInitialized() {
         Toast.makeText(this, "Attendance Initialized", Toast.LENGTH_SHORT).show();
-        Date currDate = Converters.convertStringToDate("15/02/2019");
+        Date currDate = Converters.convertStringToDate("22/02/2019");
         //TODO Date currDate = new Date();
-        OverallAttendanceHelper.addDataInOverallAttendance(this, currDate);
+        OverallAttendanceAsyncTask overallAttendanceAsyncTask = new OverallAttendanceAsyncTask(this);
+        overallAttendanceAsyncTask.setCurrDate(currDate);
+        overallAttendanceAsyncTask.execute();
+        //OverallAttendanceHelper.addDataInOverallAttendance(this, currDate);
     }
 
     /*
@@ -127,8 +131,13 @@ public class FirstRunActivity extends AppCompatActivity implements AdapterView.O
      */
     @Override
     public void onOverallDatabaseinitilazed() {
-        Toast.makeText(this, "Thanks for Waiting... \nDatabse is ready to use now...", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "Overall Inintialized", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Thanks for Waiting... \nDatabse is ready to use now...", Toast.LENGTH_SHORT).show();
+//TODO        Toast.makeText(this, "Overall Inintialized", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void OnOverallAttendanceAdded() {
         Intent startDashboard = new Intent(this, DashboardActivity.class);
         startActivity(startDashboard);
         SharedPrefsUtils.setFirstTimeRunActivity(this, TAG, true);

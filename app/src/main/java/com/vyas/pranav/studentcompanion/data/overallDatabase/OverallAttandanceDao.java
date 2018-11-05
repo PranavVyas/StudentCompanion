@@ -25,6 +25,9 @@ public interface OverallAttandanceDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertSubjectOverallAttedance(OverallAttendanceEntry newOverallAttedance);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAllSubjectOverallAttedance(List<OverallAttendanceEntry> newOverallAttedances);
+
     @Delete
     void deleteSubjectOverallAttedance(OverallAttendanceEntry subjectOverallAttedance);
 
