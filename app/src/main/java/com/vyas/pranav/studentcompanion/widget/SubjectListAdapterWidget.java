@@ -1,71 +1,39 @@
 package com.vyas.pranav.studentcompanion.widget;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-import android.widget.Toast;
 
-import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
+import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableDatabase;
+import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableEntry;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
+import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 
-import java.util.List;
-
-import androidx.preference.PreferenceManager;
+import java.util.Date;
 
 public class SubjectListAdapterWidget implements RemoteViewsService.RemoteViewsFactory {
 
-    public static final String KEY_L_1 = "L1";
-    public static final String KEY_L_2 = "L2";
-    public static final String KEY_L_3 = "L3";
-    public static final String KEY_L_4 = "L4";
-    SharedPreferences mPrefs;
-    List<String> lactures;
-    private Context mContext;
-    //String str;
-    //private Intent mIntent;
-    //private TimetableDatabase mDb;
-    //private TimetableEntry mEntry;
-    //private  String currDay;
+    Context mContext;
+    TimetableEntry mTimeTableDay;
+    String mDay;
+    TimetableDatabase mDb;
 
-    public SubjectListAdapterWidget(Context mContext, Intent callingIntent) {
+    public SubjectListAdapterWidget(Context mContext) {
         this.mContext = mContext;
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        // str = "Old";
-        // this.mIntent = callingIntent;
-
-//        if (mIntent.hasExtra(Constances.KEY_SEND_DATA_TO_WIDGET_SERVICE)) {
-//         //   String currDate = mIntent.getStringExtra(Constances.KEY_SEND_DATA_TO_WIDGET_SERVICE);
-//         //   this.currDay = Converters.getDayOfWeek(currDate);
-//        }
+        mDb = TimetableDatabase.getInstance(mContext);
     }
 
     @Override
     public void onCreate() {
-        lactures.add(mPrefs.getString(KEY_L_1, "Errorr"));
-        lactures.add(mPrefs.getString(KEY_L_2, "Errorr"));
-        lactures.add(mPrefs.getString(KEY_L_3, "Errorr"));
-        lactures.add(mPrefs.getString(KEY_L_4, "Errorr"));
-        //Handling init of Timetable Database Now
-        //mDb = TimetableDatabase.getInstance(mContext);
-        //this.mEntry = mDb.timetableDao().getTimetableForDay(currDay);
-//        Logger.d("Sucessfully Initlized Database From WidgetAdapter");
+        String day = Converters.getDayOfWeek(new Date());
+        mTimeTableDay = mDb.timetableDao().getTimetableForDay(day);
     }
 
     @Override
     public void onDataSetChanged() {
-        //Toast.makeText(mContext, "Dataset Changed", Toast.LENGTH_LONG).show();
-        //loadUpdatedEntry();
-    }
 
-    public void loadUpdatedEntry() {
-        //str = "New";
-        //this.mEntry = mDb.timetableDao().getTimetableForDay(currDay);
-//        //this.onDataSetChanged();
     }
-
 
     @Override
     public void onDestroy() {
@@ -74,55 +42,42 @@ public class SubjectListAdapterWidget implements RemoteViewsService.RemoteViewsF
 
     @Override
     public int getCount() {
-        //if (mEntry == null) {
-        //    Toast.makeText(mContext, "Entry is Empty", Toast.LENGTH_SHORT).show();
-        //    return 1;
-        //} else {
-        //    Toast.makeText(mContext, "Entry is initlized Sucessfully", Toast.LENGTH_SHORT).show();
         return Constances.NO_OF_LECTURES_PER_DAY;
-        //}
-        //return 1;
     }
 
     @Override
     public RemoteViews getViewAt(int i) {
-        Toast.makeText(mContext, "Setting Up Widget With Data", Toast.LENGTH_LONG).show();
-        Logger.d("Setting Up Widget With Data");
-        RemoteViews remoteView = new RemoteViews(mContext.getPackageName(), R.layout.item_holder_listitem_widget);
-//        if(mEntry != null) {
-//            switch (i) {
-//                case 0:
-//                    remoteView.setTextViewText(R.id.tv_list_widget_main, mEntry.getLacture1Name());
-//                    break;
-//
-//                case 1:
-//                    remoteView.setTextViewText(R.id.tv_list_widget_main, mEntry.getLacture2Name());
-//                    break;
-//
-//                case 2:
-//                    remoteView.setTextViewText(R.id.tv_list_widget_main, mEntry.getLacture3Name());
-//                    break;
-//
-//                case 3:
-//                    remoteView.setTextViewText(R.id.tv_list_widget_main, mEntry.getLacture4Name());
-//                    break;
-//
-//                default:
-//                    remoteView.setTextViewText(R.id.tv_list_widget_main, "Error Occured");
-//                    break;
-//            }
-//        }
-        return remoteView;
-//        RemoteViews rv = new RemoteViews(mContext.getPackageName(),R.layout.item_holder_listitem_widget);
-//        rv.setTextViewText(R.id.tv_list_widget_main,str);
-//        return rv;
+        RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.item_holder_listitem_widget);
+        if (mTimeTableDay == null) {
+            rv.setTextViewText(R.id.tv_list_widget_main, "Error Occured");
+        } else {
+            switch (i) {
+                case 0:
+                    rv.setTextViewText(R.id.tv_list_widget_main, mTimeTableDay.getLacture1Name());
+                    break;
+
+                case 1:
+                    rv.setTextViewText(R.id.tv_list_widget_main, mTimeTableDay.getLacture2Name());
+                    break;
+
+                case 2:
+                    rv.setTextViewText(R.id.tv_list_widget_main, mTimeTableDay.getLacture3Name());
+                    break;
+
+                case 3:
+                    rv.setTextViewText(R.id.tv_list_widget_main, mTimeTableDay.getLacture4Name());
+                    break;
+
+                default:
+                    rv.setTextViewText(R.id.tv_list_widget_main, "Error Occured");
+                    break;
+            }
+        }
+        return rv;
     }
 
     @Override
     public RemoteViews getLoadingView() {
-//        RemoteViews rv = new RemoteViews(mContext.getPackageName(),R.layout.item_holder_listitem_widget);
-//        rv.setTextViewText(R.id.tv_list_widget_main,"Please wait...");
-//        return rv;
         return null;
     }
 
@@ -132,8 +87,8 @@ public class SubjectListAdapterWidget implements RemoteViewsService.RemoteViewsF
     }
 
     @Override
-    public long getItemId(int i) {
-        return i;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override

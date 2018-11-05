@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
-import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 
 public class ShowSubjectAppWidget extends AppWidgetProvider {
 
@@ -25,7 +24,6 @@ public class ShowSubjectAppWidget extends AppWidgetProvider {
 
         //Create Intent to send to RemoteAdapter
         Intent updateWidgetIntent = new Intent(context, WidgetUpdateService.class);
-        updateWidgetIntent.putExtra(Constances.KEY_SEND_DATA_TO_WIDGET_SERVICE, "06/02/2019");
 
         //Set Remote adapter with intent
         views.setRemoteAdapter(R.id.list_widget_main, updateWidgetIntent);
@@ -38,14 +36,6 @@ public class ShowSubjectAppWidget extends AppWidgetProvider {
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
-    }
-
-    //Method to force update by sending broadcast to update widget now
-    public static void UpdateWidgetNow(Context context) {
-        Logger.d("UpdateWidget: Update Broadcast Sending");
-        Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        intent.setComponent(new ComponentName(context, ShowSubjectAppWidget.class));
-        context.sendBroadcast(intent);
     }
 
     @Override
@@ -81,6 +71,14 @@ public class ShowSubjectAppWidget extends AppWidgetProvider {
             mgr.notifyAppWidgetViewDataChanged(mgr.getAppWidgetIds(cn), R.id.list_widget_main);
         }
         super.onReceive(context, intent);
+    }
+
+    //Method to force update by sending broadcast to update widget now
+    public static void UpdateWidgetNow(Context context) {
+        Logger.d("UpdateWidget: Update Broadcast Sending");
+        Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        intent.setComponent(new ComponentName(context, ShowSubjectAppWidget.class));
+        context.sendBroadcast(intent);
     }
 }
 

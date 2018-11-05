@@ -47,14 +47,14 @@ public class AttendanceMainFragment extends Fragment {
 
     public void showAttendanceFragment() {
         DashboardFragment dashboardFragment = new DashboardFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
+        getChildFragmentManager().beginTransaction()
                 .replace(R.id.frame_dashboard_today_attendance, dashboardFragment)
                 .commit();
     }
 
     public void showOverallAttendanceFragment() {
         OverallAttendanceFragment overallAttendanceFragment = new OverallAttendanceFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
+        getChildFragmentManager().beginTransaction()
                 .replace(R.id.frame_dashboard_today_attendance, overallAttendanceFragment)
                 .commit();
     }

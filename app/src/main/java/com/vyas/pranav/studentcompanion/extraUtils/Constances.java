@@ -42,4 +42,6 @@ public class Constances {
     public static final String KEY_SEND_END_DATE_TO_SERVICE_OVERALL = "SendingDataToUpdateOverallAttendanceDatabase";
     public static final String KEY_SEND_DATA_TO_WIDGET_SERVICE = "SendingDataFromWidgetTOWidgetServiceToUpdateWidget";
     public static final int NO_OF_LECTURES_PER_DAY = 4;
+    public static final String KEY_SMART_CARD_NEEDED_OR_NOT = "KeyForPrefenceIfSmartCardNeeded";
+    public static final boolean VALUE_SMART_CARD_DEFAULT = false;
 }

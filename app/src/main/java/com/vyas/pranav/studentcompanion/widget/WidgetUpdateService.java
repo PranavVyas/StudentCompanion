@@ -12,6 +12,6 @@ public class WidgetUpdateService extends RemoteViewsService {
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         Logger.d("Widget Update Service Running");
         Toast.makeText(this, "Upadting from factory", Toast.LENGTH_SHORT).show();
-        return (new SubjectListAdapterWidget(this.getApplicationContext(), intent));
+        return (new SubjectListAdapterWidget(this.getApplicationContext()));
     }
 }

@@ -13,11 +13,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.mikepenz.materialdrawer.Drawer;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.aboutapp.AboutAppFragment;
+import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import com.vyas.pranav.studentcompanion.extraUtils.ViewsUtils;
 import com.vyas.pranav.studentcompanion.prefences.AppSettingsFragment;
 import com.vyas.pranav.studentcompanion.ui.AttendanceMainFragment;
 import com.vyas.pranav.studentcompanion.ui.LoginActivity;
 import com.vyas.pranav.studentcompanion.ui.TimetableMainFragment;
+import com.vyas.pranav.studentcompanion.widget.ShowSubjectAppWidget;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,11 +28,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.vyas.pranav.studentcompanion.widget.SubjectListAdapterWidget.KEY_L_1;
-import static com.vyas.pranav.studentcompanion.widget.SubjectListAdapterWidget.KEY_L_2;
-import static com.vyas.pranav.studentcompanion.widget.SubjectListAdapterWidget.KEY_L_3;
-import static com.vyas.pranav.studentcompanion.widget.SubjectListAdapterWidget.KEY_L_4;
 
 public class DashboardActivity extends AppCompatActivity implements ViewsUtils.OnCustomDrawerItemClickListener {
 
@@ -47,8 +44,14 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         setSupportActionBar(mToolbar);
         fragmentManager = getSupportFragmentManager();
         showMainAttendanceFragment();
+        ShowSubjectAppWidget.UpdateWidgetNow(this);
         drawer = ViewsUtils.buildNavigationDrawer(DashboardActivity.this, mToolbar);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showSmartCardIfNeeded();
     }
 
     public void showMainAttendanceFragment() {
@@ -127,13 +130,13 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         }
     }
 
-    public void setTodaysLacturesInSharedPrefs() {
+    public void showSmartCardIfNeeded() {
         SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor mEditor = mPrefs.edit();
-        mEditor.putString(KEY_L_1, "L1");
-        mEditor.putString(KEY_L_2, "L2");
-        mEditor.putString(KEY_L_3, "L3");
-        mEditor.putString(KEY_L_4, "L4");
-        mEditor.apply();
+        boolean isSMartCardEnabled = mPrefs.getBoolean(Constances.KEY_SMART_CARD_NEEDED_OR_NOT, Constances.VALUE_SMART_CARD_DEFAULT);
+        if (isSMartCardEnabled) {
+
+        } else {
+
+        }
     }
 }

@@ -32,7 +32,7 @@ public class TimetableMainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_timetable_main, container, false);
         ButterKnife.bind(this, view);
         TimeTableFragment timeTableFragment = new TimeTableFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
+        getChildFragmentManager().beginTransaction()
                 .replace(R.id.frame_timetable_frag_container, timeTableFragment)
                 .commit();
         return view;
@@ -41,7 +41,7 @@ public class TimetableMainFragment extends Fragment {
     @OnClick(R.id.timetable_bottomnav_holidays)
     public void holidayClicked() {
         HolidayFragment holidayFragment = new HolidayFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
+        getChildFragmentManager().beginTransaction()
                 .replace(R.id.frame_timetable_frag_container, holidayFragment)
                 .commit();
         bottomNav.setSelectedItemId(R.id.timetable_bottomnav_holidays);
@@ -50,7 +50,7 @@ public class TimetableMainFragment extends Fragment {
     @OnClick(R.id.timetable_bottomnav_timetable)
     public void timetableClicked() {
         TimeTableFragment timeTableFragment = new TimeTableFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
+        getChildFragmentManager().beginTransaction()
                 .replace(R.id.frame_timetable_frag_container, timeTableFragment)
                 .commit();
         bottomNav.setSelectedItemId(R.id.timetable_bottomnav_timetable);
