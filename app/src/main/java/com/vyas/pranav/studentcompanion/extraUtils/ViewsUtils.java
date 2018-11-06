@@ -46,7 +46,7 @@ public class ViewsUtils {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        mCallback.onClickedDrawerItem(context.getString(R.string.action_dashboard_navigation), ID_DASHBOARD_NAVIGATION);
+                        mCallback.onClickedDrawerItem(ID_DASHBOARD_NAVIGATION);
                         Toast.makeText(context, "DashBoard Clicked", Toast.LENGTH_SHORT).show();
                         return false;
                     }
@@ -59,7 +59,7 @@ public class ViewsUtils {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        mCallback.onClickedDrawerItem(context.getString(R.string.action_preference_navigation), ID_PREFERENCE_NAVIGATION);
+                        mCallback.onClickedDrawerItem(ID_PREFERENCE_NAVIGATION);
                         Toast.makeText(context, "Preference Clicked", Toast.LENGTH_SHORT).show();
                         return false;
                     }
@@ -73,7 +73,7 @@ public class ViewsUtils {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         Toast.makeText(context, "aboutApp Clicked", Toast.LENGTH_SHORT).show();
-                        mCallback.onClickedDrawerItem(context.getString(R.string.action_about_app_navigation), ID_ABOUT_THIS_APP_NAVIGATION);
+                        mCallback.onClickedDrawerItem(ID_ABOUT_THIS_APP_NAVIGATION);
                         return false;
                     }
                 });
@@ -86,7 +86,7 @@ public class ViewsUtils {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         Toast.makeText(context, "Time Table Clicked", Toast.LENGTH_SHORT).show();
-                        mCallback.onClickedDrawerItem(context.getString(R.string.action_time_table_navigation), ID_TIME_TABLE_NAVIGATION);
+                        mCallback.onClickedDrawerItem(ID_TIME_TABLE_NAVIGATION);
                         return false;
                     }
                 });
@@ -112,20 +112,20 @@ public class ViewsUtils {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        mCallback.onClickedDrawerItem(context.getString(R.string.action_share_app_navigation), ID_SHARE_APP_NAVIGATION);
+                        mCallback.onClickedDrawerItem(ID_SHARE_APP_NAVIGATION);
                         return false;
                     }
                 });
 
         PrimaryDrawerItem logOut = new PrimaryDrawerItem()
                 .withIdentifier(ID_LOG_OUT_APP_NAVIGATION)
-                .withIcon(R.drawable.ic_navigation_share)
+                .withIcon(R.drawable.ic_navigation_log_out)
                 .withSelectable(false)
                 .withName(R.string.action_log_out_navigation)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        mCallback.onClickedDrawerItem(context.getString(R.string.action_log_out_navigation), ID_LOG_OUT_APP_NAVIGATION);
+                        mCallback.onClickedDrawerItem(ID_LOG_OUT_APP_NAVIGATION);
                         return false;
                     }
                 });
@@ -150,7 +150,7 @@ public class ViewsUtils {
         Uri photoUri = currUser != null ? mAuth.getCurrentUser().getPhotoUrl() : null;
         AccountHeader navigationHeader = new AccountHeaderBuilder()
                 .withActivity((Activity) context)
-                .withHeaderBackground(R.drawable.navigation_header_bkg_new)
+                .withHeaderBackground(R.drawable.navigation_header_bkg)
                 .addProfiles(
                         new ProfileDrawerItem().withName(userName)
                                 .withTextColor(context.getResources().getColor(R.color.colorWhite))
@@ -193,6 +193,6 @@ public class ViewsUtils {
     }
 
     public interface OnCustomDrawerItemClickListener {
-        void onClickedDrawerItem(String name, int identifier);
+        void onClickedDrawerItem(int identifier);
     }
 }

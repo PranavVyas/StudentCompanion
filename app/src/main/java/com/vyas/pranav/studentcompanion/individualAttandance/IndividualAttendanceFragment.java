@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualEntry;
+import com.vyas.pranav.studentcompanion.extraUtils.AppExecutors;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class IndividualAttendanceFragment extends Fragment {
     IndividualAttendanceAdapter mAdapter;
     AttendanceIndividualDatabase mDb;
     private String dateString;
+    AppExecutors mExecutors;
 
     public IndividualAttendanceFragment() {
         // Required empty public constructor
@@ -42,6 +44,7 @@ public class IndividualAttendanceFragment extends Fragment {
                 dateString = receivedData.getString(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_FRAG);
             }
         }
+        mExecutors = AppExecutors.getInstance();
     }
 
     @Override
@@ -64,7 +67,12 @@ public class IndividualAttendanceFragment extends Fragment {
     }
 
     private void loadDateAttendance(){
-        List<AttendanceIndividualEntry> attendances = mDb.attendanceIndividualDao().getAttendanceForDate(convertStringToDate(dateString));
-        mAdapter.setAttendanceForDate(attendances);
+        mExecutors.diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                List<AttendanceIndividualEntry> attendances = mDb.attendanceIndividualDao().getAttendanceForDate(convertStringToDate(dateString));
+                mAdapter.setAttendanceForDate(attendances);
+            }
+        });
     }
 }

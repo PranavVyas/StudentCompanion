@@ -11,13 +11,12 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.vyas.pranav.studentcompanion.R;
+import com.vyas.pranav.studentcompanion.asynTasks.AddAllAttendanceAsyncTask;
 import com.vyas.pranav.studentcompanion.asynTasks.OverallAttendanceAsyncTask;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
 import com.vyas.pranav.studentcompanion.data.SharedPrefsUtils;
-import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceHelper;
 import com.vyas.pranav.studentcompanion.data.firebase.HolidayDataFetcher;
 import com.vyas.pranav.studentcompanion.data.firebase.TimetableDataFetcher;
-import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceHelper;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 import com.vyas.pranav.studentcompanion.jobs.DailyExecutingJobs;
@@ -29,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FirstRunActivity extends AppCompatActivity implements TimetableDataFetcher.OnTimeTableReceived, HolidayDataFetcher.OnHolidaysFetcherListener, AttendanceHelper.OnAttendanceDatabaseInitializedListener, OverallAttendanceHelper.OnOverallDatabaseInitializedListener, OverallAttendanceAsyncTask.OnOverallAttendanceAddedListener {
+public class FirstRunActivity extends AppCompatActivity implements TimetableDataFetcher.OnTimeTableReceived, HolidayDataFetcher.OnHolidaysFetcherListener, OverallAttendanceAsyncTask.OnOverallAttendanceAddedListener, AddAllAttendanceAsyncTask.OnAllAttendanceInitializedListener {
     public static final String TAG = "FirstRunActivity";
 
     @BindView(R.id.tv_first_run_greeting)
@@ -102,33 +101,28 @@ public class FirstRunActivity extends AppCompatActivity implements TimetableData
         Toast.makeText(this, "Holiday Received", Toast.LENGTH_SHORT).show();
         Date startDate = Converters.convertStringToDate(Constances.startOfSem);
         Date endDate = Converters.convertStringToDate(Constances.endOfSem);
-        AttendanceHelper.initAttendanceDatabaseFirstTime(this, startDate, endDate);
+        AddAllAttendanceAsyncTask addAllAttendanceAsyncTask = new AddAllAttendanceAsyncTask(this, this);
+        addAllAttendanceAsyncTask.setDates(startDate, endDate);
+        addAllAttendanceAsyncTask.execute();
+        //attendanceHelper.initAttendanceDatabaseFirstTime(startDate, endDate);
     }
 
     /*
      * Method to initlize the overall database for the first time
      */
     @Override
-    public void OnAttendanceDatabaseInitialized() {
+    public void OnAllAttendanceInitialized() {
         Toast.makeText(this, "Attendance Initialized", Toast.LENGTH_SHORT).show();
         //Date currDate = Converters.convertStringToDate("22/02/2019");
         Date currDate = new Date();
         OverallAttendanceAsyncTask overallAttendanceAsyncTask = new OverallAttendanceAsyncTask(this, this);
         overallAttendanceAsyncTask.setCurrDate(currDate);
         overallAttendanceAsyncTask.execute();
-        //OverallAttendanceHelper.addDataInOverallAttendance(this, currDate);
     }
 
     /*
      * After the overall database is initlized the Dashboard Activity should be started
      */
-    @Override
-    public void onOverallDatabaseinitilazed() {
-        Toast.makeText(this, "Thanks for Waiting... \nDatabse is ready to use now...", Toast.LENGTH_SHORT).show();
-        //Toast.makeText(this, "Overall Inintialized", Toast.LENGTH_SHORT).show();
-
-    }
-
     @Override
     public void OnOverallAttendanceAdded() {
         DailyExecutingJobs.sheduleDailyJob();
@@ -137,4 +131,6 @@ public class FirstRunActivity extends AppCompatActivity implements TimetableData
         SharedPrefsUtils.setFirstTimeRunActivity(this, TAG, true);
         finish();
     }
+
+
 }

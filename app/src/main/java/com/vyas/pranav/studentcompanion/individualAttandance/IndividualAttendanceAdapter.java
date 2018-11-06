@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualEntry;
+import com.vyas.pranav.studentcompanion.extraUtils.AppExecutors;
 import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 import com.vyas.pranav.studentcompanion.services.AddOverallAttendanceForDayIntentService;
 
@@ -31,9 +32,11 @@ public class IndividualAttendanceAdapter extends RecyclerView.Adapter<Individual
     Context mContext;
     List<AttendanceIndividualEntry> mAtttendances;
     AttendanceIndividualDatabase mAttendanceDb;
+    AppExecutors mExecutors;
     public IndividualAttendanceAdapter(Context context) {
         this.mContext = context;
         mAttendanceDb = AttendanceIndividualDatabase.getInstance(mContext);
+        mExecutors = AppExecutors.getInstance();
     }
 
     @NonNull
@@ -67,11 +70,16 @@ public class IndividualAttendanceAdapter extends RecyclerView.Adapter<Individual
                 } else {
                     mAtttendances.get(i).setAttended(VALUE_ABSENT);
                 }
-                mAttendanceDb.attendanceIndividualDao().insertAttendance(mAtttendances.get(i));
-                Intent updateDataInOverallDatabase = new Intent(mContext, AddOverallAttendanceForDayIntentService.class);
-                //TODO Replace the date with today's Date Now
-                updateDataInOverallDatabase.putExtra(KEY_SEND_END_DATE_TO_SERVICE_OVERALL, Converters.convertDateToString(new Date()));
-                mContext.startService(updateDataInOverallDatabase);
+                mExecutors.diskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAttendanceDb.attendanceIndividualDao().insertAttendance(mAtttendances.get(i));
+                        Intent updateDataInOverallDatabase = new Intent(mContext, AddOverallAttendanceForDayIntentService.class);
+                        //TODO Replace the date with today's Date Now
+                        updateDataInOverallDatabase.putExtra(KEY_SEND_END_DATE_TO_SERVICE_OVERALL, Converters.convertDateToString(new Date()));
+                        mContext.startService(updateDataInOverallDatabase);
+                    }
+                });
             }
         });
     }

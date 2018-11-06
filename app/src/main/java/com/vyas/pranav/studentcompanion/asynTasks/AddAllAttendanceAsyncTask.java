@@ -1,12 +1,14 @@
-package com.vyas.pranav.studentcompanion.data.attendenceDatabase;
+package com.vyas.pranav.studentcompanion.asynTasks;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import com.orhanobut.logger.Logger;
+import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
+import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualEntry;
 import com.vyas.pranav.studentcompanion.data.holidayDatabase.HolidayDatabase;
 import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableDatabase;
 import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableEntry;
-import com.vyas.pranav.studentcompanion.extraUtils.AppExecutors;
 import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 
 import java.text.ParseException;
@@ -18,38 +20,46 @@ import java.util.List;
 import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_ABSENT;
 import static com.vyas.pranav.studentcompanion.services.AddEmptyAttendanceIntentService.NO_OF_LACTURES;
 
-public class AttendanceHelper {
+public class AddAllAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
 
-    //TODO Not needed any more remove after testing new update
-    Context mContext;
-    List<AttendanceIndividualEntry> mEntries = new ArrayList<>();
-    OnAttendanceDatabaseInitializedListener mCallback;
+    Context context;
+    Date startDate, endDate;
+    HolidayDatabase mHolidayDb;
+    TimetableDatabase mTimetableDb;
+    AttendanceIndividualDatabase mAttendanceDb;
+    OnAllAttendanceInitializedListener mCallback;
 
-    public AttendanceHelper(Context mContext) {
-        this.mContext = mContext;
-        this.mCallback = (OnAttendanceDatabaseInitializedListener) mContext;
-
+    public AddAllAttendanceAsyncTask(Context context, OnAllAttendanceInitializedListener mCallback) {
+        this.context = context;
+        mHolidayDb = HolidayDatabase.getsInstance(context);
+        mTimetableDb = TimetableDatabase.getInstance(context);
+        mAttendanceDb = AttendanceIndividualDatabase.getInstance(context);
+        this.mCallback = mCallback;
     }
 
-    public void initAttendanceDatabaseFirstTime(Date startDate, Date endDate) {
-        HolidayDatabase mHolidayDb = HolidayDatabase.getsInstance(mContext);
+    public void setDates(Date startDate, Date endDate) {
+        this.endDate = endDate;
+        this.startDate = startDate;
+    }
+
+    @Override
+    protected Void doInBackground(Void... voids) {
         List<Date> holidays = mHolidayDb.holidayDao().getAllDates();
-        Logger.d(holidays + ",");
-        Logger.d("Sending start date : " + startDate + "\nEnd DAte : " + endDate + " To getEligibleDatesBetween");
-        List<Date> finalDates = getEligibleDatesbetweenDates(startDate, endDate, mHolidayDb);
+        //Logger.d(holidays + ",");
+        //Logger.d("Sending start date : " + startDate + "\nEnd DAte : " + endDate + " To getEligibleDatesBetween");
+        List<Date> finalDates = getEligibleDatesbetweenDates();
         Logger.d(finalDates);
         for (Date tempDate :
                 finalDates) {
             addDataInIndividualDatabase(tempDate);
         }
+        return null;
     }
 
     public void addDataInIndividualDatabase(Date date) {
-        AppExecutors mExecutors = AppExecutors.getInstance();
         String dayOfWeek = Converters.getDayOfWeek(date);
-        TimetableDatabase timetableDb = TimetableDatabase.getInstance(mContext);
-        final AttendanceIndividualDatabase mAttendanceDb = AttendanceIndividualDatabase.getInstance(mContext);
-        TimetableEntry mTimetable = timetableDb.timetableDao().getTimetableForDay(dayOfWeek);
+        TimetableEntry mTimetable = mTimetableDb.timetableDao().getTimetableForDay(dayOfWeek);
+        List<AttendanceIndividualEntry> mEntries = new ArrayList<>();
         for (int i = 0; i < NO_OF_LACTURES; i++) {
             AttendanceIndividualEntry newEntry = new AttendanceIndividualEntry();
             newEntry.setDate(date);
@@ -85,19 +95,12 @@ public class AttendanceHelper {
             mEntries.add(newEntry);
             //mAttendanceDb.attendanceIndividualDao().insertAttendance(newEntry);
         }
-        mExecutors.diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                mAttendanceDb.attendanceIndividualDao().insertAttendances(mEntries);
-                mCallback.OnAttendanceDatabaseInitialized();
-            }
-        });
+        mAttendanceDb.attendanceIndividualDao().insertAttendances(mEntries);
     }
 
-
     /*Helper Method for Initalization of attendance database*/
-    public List<Date> getEligibleDatesbetweenDates(Date startDate, Date endDate, HolidayDatabase mHolidayDb) {
-        List<Date> tempDates = getDatesListBetweenDates(startDate, endDate);
+    public List<Date> getEligibleDatesbetweenDates() {
+        List<Date> tempDates = getDatesListBetweenDates();
         List<Date> holidays = mHolidayDb.holidayDao().getAllDates();
         List<Date> finalDates = new ArrayList<>();
         for (Date x :
@@ -115,7 +118,7 @@ public class AttendanceHelper {
     }
 
     /*Helper Method for Initalization of attendance database*/
-    public List<Date> getDatesListBetweenDates(Date startDate, Date endDate) {
+    public List<Date> getDatesListBetweenDates() {
         Converters.CustomDate startCustomDate = Converters.extractElementsFromDate(startDate);
         Converters.CustomDate endCusomDate = Converters.extractElementsFromDate(endDate);
         int startYear = startCustomDate.getYear();
@@ -150,8 +153,13 @@ public class AttendanceHelper {
         return result;
     }
 
-    public interface OnAttendanceDatabaseInitializedListener {
-        void OnAttendanceDatabaseInitialized();
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        mCallback.OnAllAttendanceInitialized();
     }
 
+    public interface OnAllAttendanceInitializedListener {
+        void OnAllAttendanceInitialized();
+    }
 }

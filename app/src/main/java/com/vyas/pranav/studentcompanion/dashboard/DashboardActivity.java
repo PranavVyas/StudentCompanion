@@ -1,7 +1,6 @@
 package com.vyas.pranav.studentcompanion.dashboard;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -11,6 +10,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mikepenz.materialdrawer.Drawer;
+import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.aboutapp.AboutAppFragment;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
@@ -24,7 +24,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
-import androidx.preference.PreferenceManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -42,16 +41,21 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         fragmentManager = getSupportFragmentManager();
-        showMainAttendanceFragment();
-        //TODO Create an service daily at midnight to update widget
         // and set things in overall database ShowSubjectAppWidget.UpdateWidgetNow(this);
         drawer = ViewsUtils.buildNavigationDrawer(DashboardActivity.this, mToolbar);
+        if (savedInstanceState != null) {
+            Logger.d("Activity State Changed");
+            Toast.makeText(this, "sdkfhajksdfsjkdfajdfkjasdfkajsdkfjslkdjflksjdfklsjadkfjalskjflkejakjflkadjlkasjdijaoe,aovoe io ei fwe iefiwief iefi we fwei fwef", Toast.LENGTH_LONG).show();
+            onClickedDrawerItem((int) savedInstanceState.getLong(Constances.SAVE_STATE_DASHBOARD_ACTVITY_DRAWER_ITEM));
+            drawer.setSelection(savedInstanceState.getLong(Constances.SAVE_STATE_DASHBOARD_ACTVITY_DRAWER_ITEM));
+        } else {
+            showMainAttendanceFragment();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        showSmartCardIfNeeded();
     }
 
     public void showMainAttendanceFragment() {
@@ -63,7 +67,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
     }
 
     @Override
-    public void onClickedDrawerItem(String name, int identifier) {
+    public void onClickedDrawerItem(int identifier) {
         switch (identifier) {
             case ViewsUtils.ID_DASHBOARD_NAVIGATION:
                 showMainAttendanceFragment();
@@ -130,13 +134,9 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         }
     }
 
-    public void showSmartCardIfNeeded() {
-        SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean isSMartCardEnabled = mPrefs.getBoolean(Constances.KEY_SMART_CARD_NEEDED_OR_NOT, Constances.VALUE_SMART_CARD_DEFAULT);
-        if (isSMartCardEnabled) {
-
-        } else {
-
-        }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(Constances.SAVE_STATE_DASHBOARD_ACTVITY_DRAWER_ITEM, drawer.getCurrentSelection());
     }
 }

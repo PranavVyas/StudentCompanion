@@ -45,4 +45,5 @@ public class Constances {
     public static final String KEY_SMART_CARD_NEEDED_OR_NOT = "KeyForPrefenceIfSmartCardNeeded";
     public static final boolean VALUE_SMART_CARD_DEFAULT = false;
     public static final String KEY_SMART_CARD_DETAILS = "DetailsForSmartCards";
+    public static final String SAVE_STATE_DASHBOARD_ACTVITY_DRAWER_ITEM = "ExitStateOfActivity";
 }

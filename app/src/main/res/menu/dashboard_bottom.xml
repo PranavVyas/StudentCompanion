@@ -3,8 +3,10 @@
 
     <item
         android:id="@+id/dashboard_bottomnav_today"
+        android:icon="@drawable/ic_bottom_navigation_today"
         android:title="Today" />
     <item
         android:id="@+id/dashboard_bottomnav_overall"
+        android:icon="@drawable/ic_bottom_navigation_overall"
         android:title="Overall" />
 </menu>

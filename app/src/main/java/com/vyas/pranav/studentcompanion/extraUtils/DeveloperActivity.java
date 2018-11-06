@@ -61,7 +61,7 @@ public class DeveloperActivity extends AppCompatActivity {
 
     @OnClick(R.id.developer_delete_all_attendance)
     public void deleteAtten(){
-        mDb.attendanceIndividualDao().deleteAllAttendance();
+        ///mDb.attendanceIndividualDao().deleteAllAttendance();
     }
 
     @OnClick(R.id.developer_get_holidays)

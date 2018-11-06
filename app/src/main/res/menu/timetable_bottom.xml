@@ -3,8 +3,10 @@
 
     <item
         android:id="@+id/timetable_bottomnav_timetable"
+        android:icon="@drawable/ic_navigation_timetable"
         android:title="Timetable" />
     <item
         android:id="@+id/timetable_bottomnav_holidays"
+        android:icon="@drawable/ic_bottom_navigation_holiday"
         android:title="Holidays" />
 </menu>
