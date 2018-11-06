@@ -67,7 +67,7 @@ public class AddSubjetcsFragment extends Fragment {
     private void addSubjectsToView(){
         for(int i = 0; i < noOfLectures; i++){
             EditText text = new EditText(getContext());
-            text.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+            text.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             text.setTag("SUBJECT"+i);
             container.addView(text);
         }

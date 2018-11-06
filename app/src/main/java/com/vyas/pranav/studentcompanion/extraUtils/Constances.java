@@ -44,4 +44,5 @@ public class Constances {
     public static final int NO_OF_LECTURES_PER_DAY = 4;
     public static final String KEY_SMART_CARD_NEEDED_OR_NOT = "KeyForPrefenceIfSmartCardNeeded";
     public static final boolean VALUE_SMART_CARD_DEFAULT = false;
+    public static final String KEY_SMART_CARD_DETAILS = "DetailsForSmartCards";
 }

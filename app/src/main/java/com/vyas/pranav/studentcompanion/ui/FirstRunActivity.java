@@ -3,13 +3,13 @@ package com.vyas.pranav.studentcompanion.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.asynTasks.OverallAttendanceAsyncTask;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
@@ -27,10 +27,13 @@ import java.util.Date;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class FirstRunActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimetableDataFetcher.OnTimeTableReceived, HolidayDataFetcher.OnHolidaysFetcherListener, AttendanceHelper.OnAttendanceDatabaseInitializedListener, OverallAttendanceHelper.OnOverallDatabaseInitializedListener, OverallAttendanceAsyncTask.OnOverallAttendanceAddedListener {
+public class FirstRunActivity extends AppCompatActivity implements TimetableDataFetcher.OnTimeTableReceived, HolidayDataFetcher.OnHolidaysFetcherListener, AttendanceHelper.OnAttendanceDatabaseInitializedListener, OverallAttendanceHelper.OnOverallDatabaseInitializedListener, OverallAttendanceAsyncTask.OnOverallAttendanceAddedListener {
     public static final String TAG = "FirstRunActivity";
 
+    @BindView(R.id.tv_first_run_greeting)
+    TextView tvGreetings;
     @BindView(R.id.spinner_first_run_term)
     Spinner mSpinner;
     @BindView(R.id.progress_first_run_term)
@@ -43,9 +46,9 @@ public class FirstRunActivity extends AppCompatActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_run);
         ButterKnife.bind(this);
-        //Check if user has completed registration or not
         mProgress.setVisibility(View.GONE);
         tvProgressTag.setVisibility(View.GONE);
+        //Check if user has completed registration or not
         if (SharedPrefsUtils.isFirstTimeRunActivity(this, TAG)) {
             //User has not registered
             showDetails();
@@ -58,36 +61,25 @@ public class FirstRunActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void showDetails() {
-        // Create an ArrayAdapter using the string array and a default spinner layout
+        tvGreetings.setText("Hello " + FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        // Set Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.term_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
         mSpinner.setAdapter(adapter);
-        //Set listener for Item Selected
-        mSpinner.setOnItemSelectedListener(this);
     }
 
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if (adapterView.getItemAtPosition(i).toString().equals(getResources().getStringArray(R.array.term_array)[1])) {
-            //SharedPrefsUtils.setFirstTimeRunActivity(this,TAG,true);
+    @OnClick(R.id.btn_first_run_login)
+    public void loginBtnClicked() {
+        if (mSpinner.getSelectedItem().toString().equals(getResources().getStringArray(R.array.term_array)[1])) {
+            startFetchingNecessaryData();
             mProgress.setVisibility(View.VISIBLE);
             tvProgressTag.setVisibility(View.VISIBLE);
-            //Start fetching data like Holidays and Timetable from Firebase Database
-            startFetchingNecessaryData();
         }
-        Toast.makeText(this, "Selected : " + adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-        Toast.makeText(this, "Nothing Selected", Toast.LENGTH_SHORT).show();
     }
 
     public void startFetchingNecessaryData() {
+        mSpinner.setEnabled(false);
         //Fetch TimeTable Data
         tvProgressTag.setText("Fetching Timetable from Internet...");
         TimetableDataFetcher.getTimetableFromFirebase(this);
@@ -132,8 +124,8 @@ public class FirstRunActivity extends AppCompatActivity implements AdapterView.O
      */
     @Override
     public void onOverallDatabaseinitilazed() {
-        //Toast.makeText(this, "Thanks for Waiting... \nDatabse is ready to use now...", Toast.LENGTH_SHORT).show();
-//TODO        Toast.makeText(this, "Overall Inintialized", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Thanks for Waiting... \nDatabse is ready to use now...", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Overall Inintialized", Toast.LENGTH_SHORT).show();
 
     }
 

@@ -1,6 +1,7 @@
 package com.vyas.pranav.studentcompanion.asynTasks;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import com.orhanobut.logger.Logger;
@@ -12,7 +13,11 @@ import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import androidx.preference.PreferenceManager;
 
 import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_PRESENT;
 
@@ -58,6 +63,7 @@ public class OverallAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
                     "\nDays Total available to bunk : " + daysTotalAvailableForBunk + "\t\tDays Can Be Bunked : " + daysAvailableForBunkNow;
             Logger.d(log);
         }
+        addDataToSmartCardIfNeeded(overallAttendanceEntries);
         mOverallDb.overallAttandanceDao().insertAllSubjectOverallAttedance(overallAttendanceEntries);
         return null;
     }
@@ -71,4 +77,38 @@ public class OverallAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
     public interface OnOverallAttendanceAddedListener {
         void OnOverallAttendanceAdded();
     }
+
+    public void addDataToSmartCardIfNeeded(List<OverallAttendanceEntry> mEnties) {
+        List<String> warnings = new ArrayList<>();
+        for (OverallAttendanceEntry x :
+                mEnties) {
+            String warning = "";
+            int daysTotal = x.getTotalDays();
+            float percentPresent = (float) x.getPercentPresent();
+            int daysPresent = (int) Math.ceil((percentPresent * daysTotal) / 100);
+            int daysThreshold = (int) Math.ceil(daysTotal * 0.75);
+            int daysAlreadyBunked = x.getDaysBunked();
+            int daysAvailableToBunk = x.getDaysAvailableToBunk();
+            int daysElapsed = daysPresent + daysAlreadyBunked;
+            int daysTillThreshold = daysThreshold - daysPresent;
+            int daysLeft = daysTotal - daysElapsed;
+            if (daysAvailableToBunk <= 5 && daysAvailableToBunk > 0) {
+                warning = "You Only have " + daysAvailableToBunk + " days to bunk in Subject : " + x.getSubjectName() + ", Attend at least " + daysTillThreshold + " days out of " + daysLeft + " days to get Attendance greater than 75 %";
+            } else if (daysAvailableToBunk == 0) {
+                warning = "You Should have All the coming lactures in Subject : " + x.getSubjectName();
+            } else {
+                warning = "You will have XX in Subject " + x.getSubjectName();
+            }
+            warnings.add(warning);
+        }
+        if (warnings.isEmpty()) {
+            warnings.add("Smart Card is Empty!!");
+        }
+        SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        Set<String> warningSet = new HashSet<>(warnings);
+        mEditor.putStringSet(Constances.KEY_SMART_CARD_DETAILS, warningSet);
+        mEditor.apply();
+    }
+
 }
