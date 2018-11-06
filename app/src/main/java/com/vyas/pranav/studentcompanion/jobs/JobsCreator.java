@@ -16,6 +16,10 @@ public class JobsCreator implements JobCreator {
 
             case DailyReminderCreator.TAG:
                 return new DailyReminderCreator();
+
+            case DailyExecutingJobs.TAG:
+                return new DailyExecutingJobs();
+
             default:
                 return null;
         }

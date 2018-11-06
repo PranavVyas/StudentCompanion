@@ -20,6 +20,7 @@ import com.vyas.pranav.studentcompanion.data.firebase.TimetableDataFetcher;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceHelper;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import com.vyas.pranav.studentcompanion.extraUtils.Converters;
+import com.vyas.pranav.studentcompanion.jobs.DailyExecutingJobs;
 
 import java.util.Date;
 
@@ -71,7 +72,7 @@ public class FirstRunActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if (adapterView.getItemAtPosition(i).toString().equals("Jan 2019 - May 2019")) {
+        if (adapterView.getItemAtPosition(i).toString().equals(getResources().getStringArray(R.array.term_array)[1])) {
             //SharedPrefsUtils.setFirstTimeRunActivity(this,TAG,true);
             mProgress.setVisibility(View.VISIBLE);
             tvProgressTag.setVisibility(View.VISIBLE);
@@ -118,9 +119,9 @@ public class FirstRunActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void OnAttendanceDatabaseInitialized() {
         Toast.makeText(this, "Attendance Initialized", Toast.LENGTH_SHORT).show();
-        Date currDate = Converters.convertStringToDate("22/02/2019");
-        //TODO Date currDate = new Date();
-        OverallAttendanceAsyncTask overallAttendanceAsyncTask = new OverallAttendanceAsyncTask(this);
+        //Date currDate = Converters.convertStringToDate("22/02/2019");
+        Date currDate = new Date();
+        OverallAttendanceAsyncTask overallAttendanceAsyncTask = new OverallAttendanceAsyncTask(this, this);
         overallAttendanceAsyncTask.setCurrDate(currDate);
         overallAttendanceAsyncTask.execute();
         //OverallAttendanceHelper.addDataInOverallAttendance(this, currDate);
@@ -138,6 +139,7 @@ public class FirstRunActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void OnOverallAttendanceAdded() {
+        DailyExecutingJobs.sheduleDailyJob();
         Intent startDashboard = new Intent(this, DashboardActivity.class);
         startActivity(startDashboard);
         SharedPrefsUtils.setFirstTimeRunActivity(this, TAG, true);

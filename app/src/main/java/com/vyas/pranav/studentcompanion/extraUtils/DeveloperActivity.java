@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceHelper.initAttendanceDatabaseFirstTime;
 import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_ABSENT;
 import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_PRESENT;
 import static com.vyas.pranav.studentcompanion.extraUtils.Converters.convertStringToDate;
@@ -97,7 +96,7 @@ public class DeveloperActivity extends AppCompatActivity {
 
     @OnClick(R.id.developer_confogure_init_database)
     public void configureInitDatabase() {
-        initAttendanceDatabaseFirstTime(this, Converters.convertStringToDate(Constances.startOfSem), Converters.convertStringToDate(Constances.endOfSem));
+        //initAttendanceDatabaseFirstTime(this, Converters.convertStringToDate(Constances.startOfSem), Converters.convertStringToDate(Constances.endOfSem));
         //helper.initDatabaseFirsTime(360,365,2018,2018);
     }
 

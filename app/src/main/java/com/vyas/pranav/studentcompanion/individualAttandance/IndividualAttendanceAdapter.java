@@ -10,8 +10,10 @@ import android.widget.TextView;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualEntry;
+import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 import com.vyas.pranav.studentcompanion.services.AddOverallAttendanceForDayIntentService;
 
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -68,7 +70,7 @@ public class IndividualAttendanceAdapter extends RecyclerView.Adapter<Individual
                 mAttendanceDb.attendanceIndividualDao().insertAttendance(mAtttendances.get(i));
                 Intent updateDataInOverallDatabase = new Intent(mContext, AddOverallAttendanceForDayIntentService.class);
                 //TODO Replace the date with today's Date Now
-                updateDataInOverallDatabase.putExtra(KEY_SEND_END_DATE_TO_SERVICE_OVERALL, "22/02/2019");
+                updateDataInOverallDatabase.putExtra(KEY_SEND_END_DATE_TO_SERVICE_OVERALL, Converters.convertDateToString(new Date()));
                 mContext.startService(updateDataInOverallDatabase);
             }
         });

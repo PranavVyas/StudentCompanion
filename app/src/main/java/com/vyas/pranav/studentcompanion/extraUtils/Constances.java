@@ -34,8 +34,8 @@ public class Constances {
     public static final String SUB_5 = "ELECTIVE";
     public static final int NO_OF_SUBJECTS = 5;
 
-    public static final String startOfSem = "01/01/2019";
-    public static final String endOfSem = "06/05/2019";
+    public static final String startOfSem = "01/11/2018";
+    public static final String endOfSem = "30/11/2018";
 
 
     public static final String KEY_SEND_DATA_TO_OVERALL_DETAIL = "SendingDataFromOverallToOverallDetailActivity";

@@ -7,6 +7,9 @@ import com.google.gson.Gson;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceEntry;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
+import com.vyas.pranav.studentcompanion.extraUtils.Converters;
+
+import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -29,6 +32,10 @@ public class SubjectOverallDetailActivity extends AppCompatActivity {
     TextView tvTotalDays;
     @BindView(R.id.toolbar_overall_detail)
     Toolbar mToolbar;
+    @BindView(R.id.tv_overall_detail_date)
+    TextView tvDate;
+    @BindView(R.id.tv_overall_detail_elapsed_days)
+    TextView tvElaspsedDays;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +48,23 @@ public class SubjectOverallDetailActivity extends AppCompatActivity {
         }
         if (getIntent().hasExtra(Constances.KEY_SEND_DATA_TO_OVERALL_DETAIL)) {
             Gson gson = new Gson();
+
             OverallAttendanceEntry overallAttendanceEntry = gson.fromJson(getIntent().getStringExtra(Constances.KEY_SEND_DATA_TO_OVERALL_DETAIL), OverallAttendanceEntry.class);
+            int daysTotal = overallAttendanceEntry.getTotalDays();
+            float percentPresent = (float) overallAttendanceEntry.getPercentPresent();
+            int daysPresent = (int) Math.ceil((percentPresent * daysTotal) / 100);
+            int daysAlreadyBunked = overallAttendanceEntry.getDaysBunked();
+            int daysAvailableToBunk = overallAttendanceEntry.getDaysAvailableToBunk();
+            int daysElapsed = daysPresent + daysAlreadyBunked;
+
             tvSubName.setText(overallAttendanceEntry.getSubjectName());
-            tvTotalDays.setText(overallAttendanceEntry.getTotalDays() + "");
-            tvPresentPercent.setText(overallAttendanceEntry.getPercentPresent() + "");
-            tvDaysAlreadyBunked.setText(overallAttendanceEntry.getDaysBunked() + "");
-            tvAvailableToBunk.setText(overallAttendanceEntry.getDaysAvailableToBunk() + "");
-            double daysPresent = Math.ceil((overallAttendanceEntry.getPercentPresent() * overallAttendanceEntry.getTotalDays()) / 100);
+            tvTotalDays.setText(daysTotal + "");
+            tvPresentPercent.setText(percentPresent + "");
+            tvDaysAlreadyBunked.setText(daysAlreadyBunked + "");
+            tvAvailableToBunk.setText(daysAvailableToBunk + "");
             tvPresentDays.setText(daysPresent + "");
+            tvDate.setText(Converters.convertDateToString(new Date()));
+            tvElaspsedDays.setText(daysElapsed + "");
         }
     }
 }

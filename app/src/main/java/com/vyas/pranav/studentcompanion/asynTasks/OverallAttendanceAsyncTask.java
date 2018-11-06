@@ -22,9 +22,9 @@ public class OverallAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
     Date currDate;
     OnOverallAttendanceAddedListener mCallback;
 
-    public OverallAttendanceAsyncTask(Context mContext) {
+    public OverallAttendanceAsyncTask(Context mContext, OnOverallAttendanceAddedListener mCallback) {
         this.mContext = mContext;
-        this.mCallback = (OnOverallAttendanceAddedListener) mContext;
+        this.mCallback = mCallback;
     }
 
     public void setCurrDate(Date currDate) {

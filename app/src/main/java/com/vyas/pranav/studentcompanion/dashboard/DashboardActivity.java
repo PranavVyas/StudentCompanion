@@ -19,7 +19,6 @@ import com.vyas.pranav.studentcompanion.prefences.AppSettingsFragment;
 import com.vyas.pranav.studentcompanion.ui.AttendanceMainFragment;
 import com.vyas.pranav.studentcompanion.ui.LoginActivity;
 import com.vyas.pranav.studentcompanion.ui.TimetableMainFragment;
-import com.vyas.pranav.studentcompanion.widget.ShowSubjectAppWidget;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,7 +43,8 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         setSupportActionBar(mToolbar);
         fragmentManager = getSupportFragmentManager();
         showMainAttendanceFragment();
-        ShowSubjectAppWidget.UpdateWidgetNow(this);
+        //TODO Create an service daily at midnight to update widget
+        // and set things in overall database ShowSubjectAppWidget.UpdateWidgetNow(this);
         drawer = ViewsUtils.buildNavigationDrawer(DashboardActivity.this, mToolbar);
     }
 
