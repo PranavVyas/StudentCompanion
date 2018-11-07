@@ -84,7 +84,7 @@ public class TimeTableFragment extends Fragment {
                     mC.add(dayWiseLacture);
                     dayOfWeek++;
                 }
-                for (int i = 0; i < Constances.NO_OF_LECTURES_PER_DAY; i++) {
+                for (int i = 1; i <= Constances.NO_OF_LECTURES_PER_DAY; i++) {
                     String lectureTitle = "Lecture " + i;
                     String facultyTitle = "Faculty Name";
                     mCH.add(lectureTitle);

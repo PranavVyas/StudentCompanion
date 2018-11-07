@@ -27,7 +27,7 @@ public class TimetableMainFragment extends Fragment {
     BottomNavigationView bottomNav;
     public static final int FRAG_HOLIDAYS_FRAG = 0;
     public static final int FRAG_TIMETABLE_FRAG = 1;
-    OnTimeTableMainFragmentChangeListener mCallback;
+    private OnTimeTableMainFragmentChangeListener mCallback;
 
     public TimetableMainFragment() {
     }
@@ -67,7 +67,7 @@ public class TimetableMainFragment extends Fragment {
     }
 
     @OnClick(R.id.timetable_bottomnav_holidays)
-    public void holidayClicked() {
+    void holidayClicked() {
         HolidayFragment holidayFragment = new HolidayFragment();
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.frame_timetable_frag_container, holidayFragment)
@@ -77,7 +77,7 @@ public class TimetableMainFragment extends Fragment {
     }
 
     @OnClick(R.id.timetable_bottomnav_timetable)
-    public void timetableClicked() {
+    void timetableClicked() {
         TimeTableFragment timeTableFragment = new TimeTableFragment();
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.frame_timetable_frag_container, timeTableFragment)

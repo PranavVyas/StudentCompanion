@@ -14,6 +14,7 @@ import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,9 +28,11 @@ public class IndividualAttendanceFragment extends Fragment {
 
     @BindView(R.id.recycler_individual_attendance_frag)
     RecyclerView rvIndividualAttendance;
+    @BindView(R.id.constraint_individual_holiday)
+    ConstraintLayout holidayTemplate;
     IndividualAttendanceAdapter mAdapter;
     AttendanceIndividualDatabase mDb;
-    private String dateString;
+    private String dateString = "";
     AppExecutors mExecutors;
     List<AttendanceIndividualEntry> attendances;
 
@@ -75,12 +78,24 @@ public class IndividualAttendanceFragment extends Fragment {
             @Override
             public void run() {
                 attendances = mDb.attendanceIndividualDao().getAttendanceForDate(convertStringToDate(dateString));
-                mExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAdapter.setAttendanceForDate(attendances);
-                    }
-                });
+                if (!attendances.isEmpty()) {
+                    mExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.setAttendanceForDate(attendances);
+                            holidayTemplate.setVisibility(View.GONE);
+                            rvIndividualAttendance.setVisibility(View.VISIBLE);
+                        }
+                    });
+                } else {
+                    mExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            holidayTemplate.setVisibility(View.VISIBLE);
+                            rvIndividualAttendance.setVisibility(View.GONE);
+                        }
+                    });
+                }
             }
         });
     }

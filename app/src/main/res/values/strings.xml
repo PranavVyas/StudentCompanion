@@ -52,6 +52,10 @@
     <string name="pref_group_reminders">Reminders</string>
     <string name="tv_first_run_select_your_term">Select Your Term</string>
     <string name="tv_splash_grettings">Welcome to \n Student Companion</string>
+    <string name="tv_about_tag_developer">Developer :</string>
+    <string name="developer_name">Pranav Vyas</string>
+    <string name="capstone_notice">A Project made as Capstone Project in Udacity\'s Android Developer Nanodegree powered by Google Reskilling India Scholarship</string>
+    <string name="tv_about_features">Features</string>
 
     <string-array name="term_array">
         <item>PLease Select</item>

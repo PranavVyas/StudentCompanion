@@ -62,7 +62,7 @@ public class IndividualAttendanceAdapter extends RecyclerView.Adapter<Individual
                 attandanceHolder.swithPresent.setChecked(false);
             }
         }
-        attandanceHolder.swithPresent.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (attandanceHolder.swithPresent.isChecked()) {
@@ -75,13 +75,13 @@ public class IndividualAttendanceAdapter extends RecyclerView.Adapter<Individual
                     public void run() {
                         mAttendanceDb.attendanceIndividualDao().insertAttendance(mAtttendances.get(i));
                         Intent updateDataInOverallDatabase = new Intent(mContext, AddOverallAttendanceForDayIntentService.class);
-                        //TODO Replace the date with today's Date Now
                         updateDataInOverallDatabase.putExtra(KEY_SEND_END_DATE_TO_SERVICE_OVERALL, Converters.convertDateToString(new Date()));
                         mContext.startService(updateDataInOverallDatabase);
                     }
                 });
             }
-        });
+        };
+        attandanceHolder.itemView.setOnClickListener(clickListener);
     }
 
     @Override

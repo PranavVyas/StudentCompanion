@@ -31,8 +31,8 @@ public class AttendanceMainFragment extends Fragment {
     BottomNavigationView mBottomNavigation;
     public static final int ATTENDANCE_FRAGMENT = 0;
     public static final int OVERALL_FRAGMENT = 1;
-    int currentFragment = ATTENDANCE_FRAGMENT;
-    OnAttendanceMainFragmentChangeListener mCallback;
+    private int currentFragment = ATTENDANCE_FRAGMENT;
+    private OnAttendanceMainFragmentChangeListener mCallback;
 
     public AttendanceMainFragment() {
         //TODO Handle saving of state of fragment here
@@ -64,7 +64,7 @@ public class AttendanceMainFragment extends Fragment {
         return view;
     }
 
-    public void showAttendanceFragment() {
+    private void showAttendanceFragment() {
         DashboardFragment dashboardFragment = new DashboardFragment();
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.frame_dashboard_today_attendance, dashboardFragment)
@@ -73,7 +73,7 @@ public class AttendanceMainFragment extends Fragment {
         mCallback.OnAttendanceMainFragmentChanged(currentFragment);
     }
 
-    public void showOverallAttendanceFragment() {
+    private void showOverallAttendanceFragment() {
         OverallAttendanceFragment overallAttendanceFragment = new OverallAttendanceFragment();
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.frame_dashboard_today_attendance, overallAttendanceFragment)
@@ -83,14 +83,14 @@ public class AttendanceMainFragment extends Fragment {
     }
 
     @OnClick(R.id.dashboard_bottomnav_today)
-    public void clickedToday() {
+    void clickedToday() {
         Toast.makeText(getContext(), "Clicked Today", Toast.LENGTH_SHORT).show();
         mBottomNavigation.setSelectedItemId(R.id.dashboard_bottomnav_today);
         showAttendanceFragment();
     }
 
     @OnClick(R.id.dashboard_bottomnav_overall)
-    public void clickedOverall() {
+    void clickedOverall() {
         Toast.makeText(getContext(), "Clicked Overall", Toast.LENGTH_SHORT).show();
         mBottomNavigation.setSelectedItemId(R.id.dashboard_bottomnav_overall);
         showOverallAttendanceFragment();
