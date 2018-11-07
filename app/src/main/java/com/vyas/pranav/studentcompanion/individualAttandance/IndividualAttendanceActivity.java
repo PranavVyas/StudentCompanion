@@ -1,6 +1,7 @@
 package com.vyas.pranav.studentcompanion.individualAttandance;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
@@ -22,10 +23,12 @@ public class IndividualAttendanceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_individual_attendance);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        toolbar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if(getIntent() != null){
             if(getIntent().getStringExtra(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_ACTIVITY) != null){
                 dateString = getIntent().getStringExtra(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_ACTIVITY);
+                toolbar.setTitle("Attendance for " + dateString);
             }
         }
         setSupportActionBar(toolbar);

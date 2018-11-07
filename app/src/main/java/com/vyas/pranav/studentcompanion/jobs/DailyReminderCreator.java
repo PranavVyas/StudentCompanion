@@ -13,14 +13,19 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
+import com.vyas.pranav.studentcompanion.data.holidayDatabase.HolidayDatabase;
 import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+/*
+ * Job to execute showing attendance as reminders at given time on workday (Not shown for holidays and Weekends*/
 public class DailyReminderCreator extends DailyJob {
 
     public static final String TAG = "DailyReminderCreator";
@@ -51,11 +56,11 @@ public class DailyReminderCreator extends DailyJob {
     @NonNull
     @Override
     protected DailyJobResult onRunDailyJob(@NonNull Params params) {
-        showNotification();
+        showNotificationIfNotHoliday();
         return DailyJobResult.SUCCESS;
     }
 
-    public void showNotification() {
+    private void showNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "MainChannel";
             String description = "Show Main Notifications";
@@ -65,19 +70,39 @@ public class DailyReminderCreator extends DailyJob {
             NotificationManager notificationManager = getContext().getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-        Intent openAppIntent = new Intent(getContext(), DashboardActivity.class);
-        PendingIntent openAppFromNotification = PendingIntent.getActivity(getContext(), REQ_OPEN_APP, openAppIntent, 0);
-        NotificationCompat.Action actionOpenAppBuilder = new NotificationCompat.Action.Builder(R.drawable.ic_navigation_dashboard, "Open App", openAppFromNotification).build();
+
+
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext(), "NOTIFICATION_MAIN")
+                .setAutoCancel(true)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("Add Attendance Now")
                 .setContentText("Hi There! If you have not yet completed the attendance yet ,Better do it now!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .addAction(actionOpenAppBuilder)
-                .addAction(actionOpenAppBuilder);
+                .addAction(getOpenAppAction());
         //TODO Set Notification to cancel when tapped on Open App
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
+
         notificationManager.notify(263, mBuilder.build());
     }
 
+    private NotificationCompat.Action getOpenAppAction() {
+        Intent openAppIntent = new Intent(getContext(), DashboardActivity.class);
+        PendingIntent openAppFromNotification = PendingIntent.getActivity(getContext(), REQ_OPEN_APP, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        return (new NotificationCompat.Action.Builder(R.drawable.ic_navigation_dashboard, "Open App", openAppFromNotification).build());
+    }
+
+//    private NotificationCompat.Action getMarkAllAction(){
+//        Intent markAllIntent = new Intent(getContext(), DashboardActivity.class);
+//        PendingIntent openAppFromNotification = PendingIntent.getActivity(getContext(), REQ_OPEN_APP, markAllIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        return (new NotificationCompat.Action.Builder(R.drawable.ic_navigation_dashboard, "Open App", openAppFromNotification).build());
+//    }
+
+    private void showNotificationIfNotHoliday() {
+        List<Date> holidays = HolidayDatabase.getsInstance(getContext()).holidayDao().getAllDates();
+        if (!holidays.contains(new Date())
+                && !Converters.getDayOfWeek(new Date()).equals("Saturday")
+                && !Converters.getDayOfWeek(new Date()).equals("Sunday")) {
+            showNotification();
+        }
+    }
 }

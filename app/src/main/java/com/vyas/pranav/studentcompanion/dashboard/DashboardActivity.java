@@ -2,6 +2,7 @@ package com.vyas.pranav.studentcompanion.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -32,12 +33,14 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
     public static final String KEY_SAVED_STATE_ATTENDNACE_MAIN_FRAG = "CurrentSavedStateOfTimeTableFragment";
     private static final String SAVE_TIMETABLE_FRAG = "TimeTableMainFragState";
     private static final String SAVE_ATTENDANCE_FRAG = "AttendanceMainFragState";
+    int CURR_FRAG_TIMETABLE = TimetableMainFragment.FRAG_TIMETABLE_FRAG;
+    int CURR_FRAG_ATTENDANCE = AttendanceMainFragment.ATTENDANCE_FRAGMENT;
+
     @BindView(R.id.toolbar_main)
     Toolbar mToolbar;
     Drawer drawer;
+
     FragmentManager fragmentManager;
-    int CURR_FRAG_TIMETABLE = TimetableMainFragment.FRAG_TIMETABLE_FRAG;
-    int CURR_FRAG_ATTENDANCE = AttendanceMainFragment.ATTENDANCE_FRAGMENT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
+        mToolbar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         fragmentManager = getSupportFragmentManager();
         // and set things in overall database ShowSubjectAppWidget.UpdateWidgetNow(this);
         drawer = ViewsUtils.buildNavigationDrawer(DashboardActivity.this, mToolbar);
@@ -72,6 +76,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         fragmentManager.beginTransaction()
                 .replace(R.id.frame_dashboard_container, attendanceMainFragment)
                 .commit();
+        mToolbar.setTitle(R.string.app_name);
     }
 
     @Override
@@ -89,6 +94,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_dashboard_container, timetableFrag)
                         .commit();
+                mToolbar.setTitle("Time Table");
                 break;
 
             case ViewsUtils.ID_SHARE_APP_NAVIGATION:
@@ -101,6 +107,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_dashboard_container, settingsFrag)
                         .commit();
+                mToolbar.setTitle("Settings");
                 break;
 
             case ViewsUtils.ID_ABOUT_THIS_APP_NAVIGATION:
@@ -108,6 +115,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_dashboard_container, aboutAppFrag)
                         .commit();
+                mToolbar.setTitle("About this App");
                 break;
 
             case ViewsUtils.ID_LOG_OUT_APP_NAVIGATION:
@@ -156,10 +164,20 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
     @Override
     public void OnTimeTableMainFragmentChanged(int currFrag) {
         CURR_FRAG_TIMETABLE = currFrag;
+        if (currFrag == TimetableMainFragment.FRAG_TIMETABLE_FRAG) {
+            mToolbar.setTitle("Time Table");
+        } else {
+            mToolbar.setTitle("Holidays");
+        }
     }
 
     @Override
     public void OnAttendanceMainFragmentChanged(int currFrag) {
         CURR_FRAG_ATTENDANCE = currFrag;
+        if (currFrag == AttendanceMainFragment.ATTENDANCE_FRAGMENT) {
+            mToolbar.setTitle(R.string.app_name);
+        } else {
+            mToolbar.setTitle("Overall Attendance");
+        }
     }
 }
