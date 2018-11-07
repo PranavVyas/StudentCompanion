@@ -5,8 +5,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp"
-    android:text="Column"
+    android:background="@color/colorAccent"
     android:textAlignment="center"
+    android:text="@string/tv_tiime_table_holder_column"
     android:textSize="18sp"
     android:textStyle="bold">
 

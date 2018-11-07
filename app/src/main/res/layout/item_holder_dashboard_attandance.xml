@@ -17,25 +17,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Add Recycler view decoration to recyclerview-->
     <TextView
         android:id="@+id/tv_dashboard_recycler_subname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="TextView"
+        android:text="@string/tv_item_holder_dashboard_attendance_subject_name"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/switch_dashboard_recycler_present"
         app:layout_constraintStart_toEndOf="@+id/tv_dashboard_recycler_no"
         app:layout_constraintTop_toTopOf="@+id/tv_dashboard_recycler_no" />
 
+    <!--TODO Set OnClick listener to listen to all touches-->
     <TextView
         android:id="@+id/tv_dashboard_recycler_facultyname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:layout_marginBottom="8dp"
+        android:text="@string/tv_item_holder_dashboard_attendance_faculty_name"
         android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_dashboard_recycler_subname"
         app:layout_constraintTop_toBottomOf="@+id/tv_dashboard_recycler_subname" />
 

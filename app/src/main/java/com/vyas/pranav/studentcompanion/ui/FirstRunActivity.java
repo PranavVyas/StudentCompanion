@@ -39,6 +39,7 @@ public class FirstRunActivity extends AppCompatActivity implements TimetableData
     ProgressBar mProgress;
     @BindView(R.id.tv_first_run_progress_tag)
     TextView tvProgressTag;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class FirstRunActivity extends AppCompatActivity implements TimetableData
         ButterKnife.bind(this);
         mProgress.setVisibility(View.GONE);
         tvProgressTag.setVisibility(View.GONE);
+        mAuth = FirebaseAuth.getInstance();
         //Check if user has completed registration or not
         if (SharedPrefsUtils.isFirstTimeRunActivity(this, TAG)) {
             //User has not registered
@@ -60,7 +62,7 @@ public class FirstRunActivity extends AppCompatActivity implements TimetableData
     }
 
     public void showDetails() {
-        tvGreetings.setText("Hello " + FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        tvGreetings.setText("Hello " + mAuth.getCurrentUser().getDisplayName());
         // Set Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.term_array, android.R.layout.simple_spinner_item);
@@ -68,7 +70,7 @@ public class FirstRunActivity extends AppCompatActivity implements TimetableData
         mSpinner.setAdapter(adapter);
     }
 
-    @OnClick(R.id.btn_first_run_login)
+    @OnClick(R.id.btn_first_run_continue)
     public void loginBtnClicked() {
         if (mSpinner.getSelectedItem().toString().equals(getResources().getStringArray(R.array.term_array)[1])) {
             startFetchingNecessaryData();
@@ -131,6 +133,15 @@ public class FirstRunActivity extends AppCompatActivity implements TimetableData
         Intent startDashboard = new Intent(this, DashboardActivity.class);
         startActivity(startDashboard);
         SharedPrefsUtils.setFirstTimeRunActivity(this, TAG, true);
+        finish();
+    }
+
+    /*
+     * User pressed Login button*/
+    @OnClick(R.id.btn_first_run_login)
+    public void onBackToLoginPressed() {
+        mAuth.signOut();
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 

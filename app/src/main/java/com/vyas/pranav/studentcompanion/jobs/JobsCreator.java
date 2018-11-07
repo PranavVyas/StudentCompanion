@@ -11,9 +11,6 @@ public class JobsCreator implements JobCreator {
     @Override
     public Job create(@NonNull String tag) {
         switch (tag) {
-            case DailyAttendanceCreater.TAG:
-                return new DailyAttendanceCreater();
-
             case DailyReminderCreator.TAG:
                 return new DailyReminderCreator();
 

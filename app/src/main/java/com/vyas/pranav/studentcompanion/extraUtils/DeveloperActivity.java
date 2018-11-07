@@ -7,7 +7,6 @@ import android.widget.Toast;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualEntry;
-import com.vyas.pranav.studentcompanion.jobs.DailyAttendanceCreater;
 import com.vyas.pranav.studentcompanion.services.AddEmptyAttendanceIntentService;
 
 import java.text.ParseException;
@@ -83,14 +82,10 @@ public class DeveloperActivity extends AppCompatActivity {
 
     @OnClick(R.id.developer_start_sheduling)
     public void startService() {
-        //if (!JobManager.instance().getAllJobRequestsForTag(DailyAttendanceCreater.TAG).isEmpty()) {
-        //DailyAttendanceCreater.schedule(0, 10, 0, 12);
-        //}
     }
 
     @OnClick(R.id.developer_stop_shedule)
     public void stopService() {
-        DailyAttendanceCreater.cancelDailyJob();
     }
 
     @OnClick(R.id.developer_confogure_init_database)
@@ -105,7 +100,6 @@ public class DeveloperActivity extends AppCompatActivity {
         //Intent intent = new Intent(this, AddOverallAttendanceForDayIntentService.class);
         //intent.putExtra(Constances.KEY_SEND_END_DATE_TO_SERVICE_OVERALL, Constances.endOfSem);
         //startService(intent);
-        //OverallAttendanceHelper.addDataInOverallAttendance(this, Converters.convertStringToDate(Constances.endOfSem));
     }
 
     @OnClick(R.id.developer_test_anything)

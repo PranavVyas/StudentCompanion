@@ -15,7 +15,7 @@
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
-        android:text="Mark Attedance" />
+        android:text="@string/widget_mark_attedance" />
 
     <ListView
         android:id="@+id/list_widget_main"

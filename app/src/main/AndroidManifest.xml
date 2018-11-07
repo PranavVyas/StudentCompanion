@@ -10,8 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ui.RegistrationActivity" />
         <activity
             android:name=".dashboard.DashboardActivity"
             android:launchMode="singleTop"></activity>
@@ -28,7 +26,9 @@
             android:name=".widget.WidgetUpdateService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <activity android:name=".ui.FirstRunActivity" />
+        <activity
+            android:name=".ui.FirstRunActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".subjectOverallDetail.SubjectOverallDetailActivity"
             android:parentActivityName=".dashboard.DashboardActivity" />
@@ -45,7 +45,10 @@
 
         <activity android:name=".ui.LoginActivity" />
 
-        <activity android:name=".ui.SplashActivity">
+        <activity
+            android:name=".ui.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

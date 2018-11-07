@@ -25,9 +25,6 @@ public class TimeTableFragment extends Fragment {
     @BindView(R.id.time_table_container)
     TableView tableView;
     AppExecutors mExecutors;
-    //    List<ColumnHeader> mCH;
-//    List<RowHeader> mRH;
-//    List<List<Cell>> mC;
     List<String> mCH;
     List<String> mRH;
     List<List<String>> mC;
@@ -57,7 +54,6 @@ public class TimeTableFragment extends Fragment {
                     //
                     String dayTitle = x.getDay();
                     mRH.add(dayTitle);
-                    //List<List<Cell>> allLectures = new ArrayList<>();
                     List<String> dayWiseLacture = new ArrayList<>();
                     String lecture1 = "";
                     String lecture2 = "";

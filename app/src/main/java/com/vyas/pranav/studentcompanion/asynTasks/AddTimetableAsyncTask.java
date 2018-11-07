@@ -16,10 +16,12 @@ import java.util.List;
 
 import static com.vyas.pranav.studentcompanion.extraUtils.ServiceUtils.setTodaysAttendanceInSharedPref;
 
+/*
+ * Adding timetable to database in background*/
 public class AddTimetableAsyncTask extends AsyncTask<Void, Void, Void> {
 
-    TimetableDatabase mTimetableDb;
-    TimetableDataFetcher.OnTimeTableReceived mCallback;
+    private TimetableDatabase mTimetableDb;
+    private TimetableDataFetcher.OnTimeTableReceived mCallback;
     private DataSnapshot data;
     private Context context;
 
@@ -29,6 +31,8 @@ public class AddTimetableAsyncTask extends AsyncTask<Void, Void, Void> {
         mCallback = (TimetableDataFetcher.OnTimeTableReceived) context;
     }
 
+    /*
+     * Setting datasnapshot from Firebase data fetcher in asynctask*/
     public void setDataSnapshot(DataSnapshot data) {
         this.data = data;
     }
@@ -41,6 +45,7 @@ public class AddTimetableAsyncTask extends AsyncTask<Void, Void, Void> {
             Logger.json(new Gson().toJson(currDay));
             TimetableEntry tempDay = new TimetableEntry();
             String day = daysSnapshot.getKey();
+            //To Sort data when the timetable is shown in Timetable Fragment
             switch (day) {
                 case "Monday":
                     tempDay.setDayOfWeek(2);
@@ -65,7 +70,6 @@ public class AddTimetableAsyncTask extends AsyncTask<Void, Void, Void> {
                 default:
                     tempDay.setDayOfWeek(10);
                     break;
-
             }
             tempDay.setDay(day);
             tempDay.setLacture1Name(currDay.getLecture1());
@@ -84,6 +88,7 @@ public class AddTimetableAsyncTask extends AsyncTask<Void, Void, Void> {
     }
 
 
+    /*To Notify the FirstRunActivity When the timetable is fetched and added to database*/
     @Override
     protected void onPostExecute(Void aVoid) {
         mCallback.OnTimetableReceived();

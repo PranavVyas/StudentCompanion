@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="Reminders">
+    <PreferenceCategory android:title="@string/pref_group_reminders">
 
         <SwitchPreference
             android:defaultValue="false"
             android:key="@string/pref_switch_key_reminder"
-            android:summaryOff="Reminder Disabled"
-            android:summaryOn="Reminder Enabled"
-            android:title="Switch preference" />
+            android:summaryOff="@string/pref_switch_reminder_summery_off"
+            android:summaryOn="@string/pref_switch_reminder_summery_on"
+            android:title="@string/pref_switch_reminder_title" />
 
         <com.vyas.pranav.studentcompanion.prefences.TimePreference
-            android:defaultValue="0"
+            android:defaultValue="@string/pref_time_pref_reminder_set_default"
             android:key="@string/pref_time_key_set_reminder"
-            android:title="Time Preference" />
+            android:title="@string/pref_time_pref_reminder_set_title" />
 
     </PreferenceCategory>
 </PreferenceScreen>

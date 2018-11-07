@@ -4,9 +4,9 @@
     <item
         android:id="@+id/dashboard_bottomnav_today"
         android:icon="@drawable/ic_bottom_navigation_today"
-        android:title="Today" />
+        android:title="@string/menu_bottom_today" />
     <item
         android:id="@+id/dashboard_bottomnav_overall"
         android:icon="@drawable/ic_bottom_navigation_overall"
-        android:title="Overall" />
+        android:title="@string/menu_bottom_overall" />
 </menu>

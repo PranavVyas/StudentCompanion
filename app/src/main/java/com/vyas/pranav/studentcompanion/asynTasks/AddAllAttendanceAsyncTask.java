@@ -20,23 +20,23 @@ import java.util.List;
 import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_ABSENT;
 import static com.vyas.pranav.studentcompanion.services.AddEmptyAttendanceIntentService.NO_OF_LACTURES;
 
+/*AsyncTask to perform all attendance init when app is run first time in background*/
 public class AddAllAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
 
-    Context context;
-    Date startDate, endDate;
-    HolidayDatabase mHolidayDb;
-    TimetableDatabase mTimetableDb;
-    AttendanceIndividualDatabase mAttendanceDb;
-    OnAllAttendanceInitializedListener mCallback;
+    private Date startDate, endDate;
+    private HolidayDatabase mHolidayDb;
+    private TimetableDatabase mTimetableDb;
+    private AttendanceIndividualDatabase mAttendanceDb;
+    private OnAllAttendanceInitializedListener mCallback;
 
     public AddAllAttendanceAsyncTask(Context context, OnAllAttendanceInitializedListener mCallback) {
-        this.context = context;
         mHolidayDb = HolidayDatabase.getsInstance(context);
         mTimetableDb = TimetableDatabase.getInstance(context);
         mAttendanceDb = AttendanceIndividualDatabase.getInstance(context);
         this.mCallback = mCallback;
     }
 
+    /*Setting dates in AsyncTask to add attendance from startDate to endDate*/
     public void setDates(Date startDate, Date endDate) {
         this.endDate = endDate;
         this.startDate = startDate;
@@ -44,19 +44,69 @@ public class AddAllAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        List<Date> holidays = mHolidayDb.holidayDao().getAllDates();
-        //Logger.d(holidays + ",");
-        //Logger.d("Sending start date : " + startDate + "\nEnd DAte : " + endDate + " To getEligibleDatesBetween");
         List<Date> finalDates = getEligibleDatesbetweenDates();
         Logger.d(finalDates);
-        for (Date tempDate :
-                finalDates) {
-            addDataInIndividualDatabase(tempDate);
-        }
+        addAllAttendanceAtOnce(finalDates);
+        //TODO testing new version
+//        for (Date tempDate :
+//                finalDates) {
+//            addDataInIndividualDatabase(tempDate);
+//        }
         return null;
     }
 
-    public void addDataInIndividualDatabase(Date date) {
+    /*
+     * Method to add all of the attendance between startDate and endDate in database
+     */
+    private void addAllAttendanceAtOnce(List<Date> dates) {
+        List<AttendanceIndividualEntry> mEntries = new ArrayList<>();
+        for (Date x :
+                dates) {
+            String dayOfWeek = Converters.getDayOfWeek(x);
+            TimetableEntry mTimetable = mTimetableDb.timetableDao().getTimetableForDay(dayOfWeek);
+            for (int i = 0; i < NO_OF_LACTURES; i++) {
+                AttendanceIndividualEntry newEntry = new AttendanceIndividualEntry();
+                newEntry.setDate(x);
+                newEntry.setAttended(VALUE_ABSENT);
+                switch (i + 1) {
+                    case 1:
+                        newEntry.setSubName(mTimetable.getLacture1Name());
+                        newEntry.setFacultyName(mTimetable.getLacture1Faculty());
+                        newEntry.set_ID(Converters.generateIdForIndividualAttendance(x, 1));
+                        break;
+
+                    case 2:
+                        newEntry.setSubName(mTimetable.getLacture2Name());
+                        newEntry.setFacultyName(mTimetable.getLacture2Faculty());
+                        newEntry.set_ID(Converters.generateIdForIndividualAttendance(x, 2));
+                        break;
+
+                    case 3:
+                        newEntry.setSubName(mTimetable.getLacture3Name());
+                        newEntry.setFacultyName(mTimetable.getLacture3Faculty());
+                        newEntry.set_ID(Converters.generateIdForIndividualAttendance(x, 3));
+                        break;
+
+                    case 4:
+                        newEntry.setSubName(mTimetable.getLacture4Name());
+                        newEntry.setFacultyName(mTimetable.getLacture4Faculty());
+                        newEntry.set_ID(Converters.generateIdForIndividualAttendance(x, 4));
+                        break;
+                }
+                newEntry.setLactureNo(i + 1);
+                newEntry.setDurationInMillis(3600);
+                newEntry.setLactureType("L");
+                mEntries.add(newEntry);
+            }
+        }
+        mAttendanceDb.attendanceIndividualDao().insertAttendances(mEntries);
+    }
+
+    /*
+     * Method to add the attendance of single date in the database
+     * this will called each time for each day
+     * TODO Old Version*/
+    private void addDataInIndividualDatabase(Date date) {
         String dayOfWeek = Converters.getDayOfWeek(date);
         TimetableEntry mTimetable = mTimetableDb.timetableDao().getTimetableForDay(dayOfWeek);
         List<AttendanceIndividualEntry> mEntries = new ArrayList<>();
@@ -93,13 +143,14 @@ public class AddAllAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
             newEntry.setDurationInMillis(3600);
             newEntry.setLactureType("L");
             mEntries.add(newEntry);
-            //mAttendanceDb.attendanceIndividualDao().insertAttendance(newEntry);
         }
         mAttendanceDb.attendanceIndividualDao().insertAttendances(mEntries);
     }
 
-    /*Helper Method for Initalization of attendance database*/
-    public List<Date> getEligibleDatesbetweenDates() {
+    /*
+     * Helper Method for Initialization of attendance database
+     * Returns dates list that have either Saturday,Sunday or holiday on that date*/
+    private List<Date> getEligibleDatesbetweenDates() {
         List<Date> tempDates = getDatesListBetweenDates();
         List<Date> holidays = mHolidayDb.holidayDao().getAllDates();
         List<Date> finalDates = new ArrayList<>();
@@ -117,8 +168,11 @@ public class AddAllAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
         return finalDates;
     }
 
-    /*Helper Method for Initalization of attendance database*/
-    public List<Date> getDatesListBetweenDates() {
+    /*
+     * Helper Method for Initialization of attendance database
+     * Returns all the dates between the startDate and endDate (including saturday,sunday, holiday etc.)
+     * tested for max span of 2 years but generally no one has semester more than 2 years!  */
+    private List<Date> getDatesListBetweenDates() {
         Converters.CustomDate startCustomDate = Converters.extractElementsFromDate(startDate);
         Converters.CustomDate endCusomDate = Converters.extractElementsFromDate(endDate);
         int startYear = startCustomDate.getYear();
@@ -153,12 +207,16 @@ public class AddAllAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
         return result;
     }
 
+    /*
+     * To Notify FirstRunActivity that the data has been successfully initialized */
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         mCallback.OnAllAttendanceInitialized();
     }
 
+    /*
+     * Callback for notifying the FirstRunActivity from this asynctask*/
     public interface OnAllAttendanceInitializedListener {
         void OnAllAttendanceInitialized();
     }

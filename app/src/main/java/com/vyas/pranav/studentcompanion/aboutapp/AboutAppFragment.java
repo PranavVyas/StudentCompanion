@@ -11,6 +11,8 @@ import com.vyas.pranav.studentcompanion.R;
 import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
 
+/*
+ * Fragment to show About app*/
 public class AboutAppFragment extends Fragment {
 
 

@@ -21,11 +21,13 @@ import androidx.preference.PreferenceManager;
 
 import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_PRESENT;
 
+/*
+ * */
 public class OverallAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
 
-    Context mContext;
-    Date currDate;
-    OnOverallAttendanceAddedListener mCallback;
+    private Context mContext;
+    private Date currDate;
+    private OnOverallAttendanceAddedListener mCallback;
 
     public OverallAttendanceAsyncTask(Context mContext, OnOverallAttendanceAddedListener mCallback) {
         this.mContext = mContext;

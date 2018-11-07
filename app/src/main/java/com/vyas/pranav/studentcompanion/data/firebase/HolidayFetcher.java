@@ -15,11 +15,11 @@ import androidx.annotation.NonNull;
 
 public class HolidayFetcher implements ValueEventListener {
 
-    FirebaseDatabase mDb;
-    DatabaseReference mRef;
-    HolidayDatabase mHolidayDb;
-    Context context;
-    OnHolidayFechedListener mCallback;
+    private FirebaseDatabase mDb;
+    private DatabaseReference mRef;
+    private HolidayDatabase mHolidayDb;
+    private Context context;
+    private OnHolidayFechedListener mCallback;
 
     public HolidayFetcher(Context context, OnHolidayFechedListener mCallback) {
         this.context = context;
@@ -35,7 +35,7 @@ public class HolidayFetcher implements ValueEventListener {
 
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        AddHolidaysAsyncTask asyncTask = new AddHolidaysAsyncTask(context);
+        AddHolidaysAsyncTask asyncTask = new AddHolidaysAsyncTask(context, mCallback);
         asyncTask.setDataSnapShot(dataSnapshot);
         asyncTask.execute();
         mRef.child("Holidays").removeEventListener(this);

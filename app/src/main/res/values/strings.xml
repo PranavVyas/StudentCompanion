@@ -8,7 +8,6 @@
     <string name="action_citylife_navigation">City Life</string>
     <string name="action_share_app_navigation">Share This App</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_log_out_navigation">Log Out</string>
     <string name="appwidget_text">EXAMPLE</string>
@@ -16,26 +15,48 @@
 
     <string name="pref_time_key_set_reminder">setReminder</string>
     <string name="pref_switch_key_reminder">isReminderEnabled</string>
-
+    <string name="pref_time_pref_reminder_set_title">Reminder Time</string>
+    <string name="pref_time_pref_reminder_set_default">00</string>
+    <string name="btn_first_run_continue">Continue To App</string>
+    <string name="select_your_term">Select Your Term</string>
+    <string name="btn_first_run_login">Back to Login</string>
+    <string name="login_log_in">Log In</string>
+    <string name="tv_login_info">Hello There! \nPlease Log in with either Email or Google Account to use this application
+        \n\n\n*We only need email or gmail to know who is acessing our firbase database nothing more!</string>
+    <string name="tv_overall_detail_subname">Subject Name</string>
+    <string name="tv_overall_text_days_present">Days Present</string>
+    <string name="tv_overall_detail_text_days_present_percentage">Days Present Percentage</string>
+    <string name="tv_overall_text_days_bunked">Days Bunked</string>
+    <string name="tv_overall_text_total_days">Total Days</string>
+    <string name="tv_overall_text_days_available_to_bunk">Days Available to Bunk</string>
+    <string name="tv_overall_text_attendance_as_on">Attendance as on</string>
+    <string name="tv_overall_text_days_elapsed">Days Elapsed</string>
+    <string name="tv_item_holder_dashboard_attendance_subject_name">Subject Name</string>
+    <string name="tv_item_holder_dashboard_attendance_faculty_name">Faculty Name</string>
+    <string name="tv_item_holder_holiday_no">01.</string>
+    <string name="tv_item_holder_holiday_holiday_name">Holiday</string>
+    <string name="widget_list_sub_name">Maths</string>
+    <string name="tv_item_holder_overall_percent">50 %</string>
+    <string name="tv_item_holder_overall_subject_name">SubjectName</string>
+    <string name="tv_tiime_table_holder_cell">Cell</string>
+    <string name="tv_tiime_table_holder_column">Column</string>
+    <string name="tv_tiime_table_holder_row">Row</string>
+    <string name="widget_mark_attedance">Mark Attedance</string>
+    <string name="menu_bottom_today">Today</string>
+    <string name="menu_bottom_overall">Overall</string>
+    <string name="menu_bottom_timetable">Timetable</string>
+    <string name="menu_bottom_holidays">Holidays</string>
+    <string name="pref_switch_reminder_summery_off">Reminder Disabled</string>
+    <string name="pref_switch_reminder_summery_on">Reminder Enabled</string>
+    <string name="pref_switch_reminder_title">Notification Reminder</string>
+    <string name="pref_group_reminders">Reminders</string>
+    <string name="tv_first_run_select_your_term">Select Your Term</string>
+    <string name="tv_splash_grettings">Welcome to \n Student Companion</string>
 
     <string-array name="term_array">
         <item>PLease Select</item>
         <item>Nov 2018 - Dec 2018</item>
         <item>Jan 2019 - May 2019</item>
     </string-array>
-
-    <string-array name="pref_lilst_time_labels">
-        <item>Afternoon - 3:00 PM</item>
-        <item>Evening - 6:00 PM</item>
-        <item>Night - 9:00 PM</item>
-    </string-array>
-
-
-    <string-array name="pref_lilst_time_values">
-        <item>value_afternoon</item>
-        <item>value_evening</item>
-        <item>value_night</item>
-    </string-array>
-
 
 </resources>

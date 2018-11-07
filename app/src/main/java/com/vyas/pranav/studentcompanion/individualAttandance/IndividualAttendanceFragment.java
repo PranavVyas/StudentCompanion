@@ -15,6 +15,7 @@ import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -30,6 +31,7 @@ public class IndividualAttendanceFragment extends Fragment {
     AttendanceIndividualDatabase mDb;
     private String dateString;
     AppExecutors mExecutors;
+    List<AttendanceIndividualEntry> attendances;
 
     public IndividualAttendanceFragment() {
         // Required empty public constructor
@@ -62,6 +64,8 @@ public class IndividualAttendanceFragment extends Fragment {
         mAdapter = new IndividualAttendanceAdapter(getContext());
         LinearLayoutManager lm = new LinearLayoutManager(getContext());
         lm.setOrientation(RecyclerView.VERTICAL);
+        DividerItemDecoration decoration = new DividerItemDecoration(getContext(), lm.getOrientation());
+        rvIndividualAttendance.addItemDecoration(decoration);
         rvIndividualAttendance.setAdapter(mAdapter);
         rvIndividualAttendance.setLayoutManager(lm);
     }
@@ -70,8 +74,13 @@ public class IndividualAttendanceFragment extends Fragment {
         mExecutors.diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                List<AttendanceIndividualEntry> attendances = mDb.attendanceIndividualDao().getAttendanceForDate(convertStringToDate(dateString));
-                mAdapter.setAttendanceForDate(attendances);
+                attendances = mDb.attendanceIndividualDao().getAttendanceForDate(convertStringToDate(dateString));
+                mExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.setAttendanceForDate(attendances);
+                    }
+                });
             }
         });
     }

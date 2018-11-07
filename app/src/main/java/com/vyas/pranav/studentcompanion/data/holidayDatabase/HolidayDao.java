@@ -12,7 +12,7 @@ import androidx.room.Query;
 @Dao
 public interface HolidayDao {
 
-    @Query("SELECT * FROM Holidays")
+    @Query("SELECT * FROM Holidays ORDER BY holidayDate")
     LiveData<List<HolidayEntry>> getAllHolidays();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

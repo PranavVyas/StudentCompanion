@@ -4,9 +4,9 @@
     <item
         android:id="@+id/timetable_bottomnav_timetable"
         android:icon="@drawable/ic_navigation_timetable"
-        android:title="Timetable" />
+        android:title="@string/menu_bottom_timetable" />
     <item
         android:id="@+id/timetable_bottomnav_holidays"
         android:icon="@drawable/ic_bottom_navigation_holiday"
-        android:title="Holidays" />
+        android:title="@string/menu_bottom_holidays" />
 </menu>

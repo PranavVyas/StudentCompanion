@@ -16,7 +16,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
         android:layout_weight="1"
-        android:text="01."
+        android:text="@string/tv_item_holder_holiday_no"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_recycler_holiday_date"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,11 +30,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_weight="1"
-        android:text="01/02/2018"
+        android:textAlignment="center"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tv_recycler_holiday_no"
         app:layout_constraintEnd_toStartOf="@+id/tv_recycler_holiday_day"
         app:layout_constraintStart_toEndOf="@+id/tv_recycler_holiday_no"
-        app:layout_constraintTop_toTopOf="@+id/tv_recycler_holiday_no" />
+        app:layout_constraintTop_toTopOf="@+id/tv_recycler_holiday_no"
+        tools:text="@tools:sample/date/ddmmyy" />
 
     <TextView
         android:id="@+id/tv_recycler_holiday_name"
@@ -42,7 +45,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_weight="1"
-        android:text="Holiday"
+        android:text="@string/tv_item_holder_holiday_holiday_name"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/tv_recycler_holiday_day"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_recycler_holiday_day"
@@ -54,9 +58,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Wednesday"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/tv_recycler_holiday_date"
         app:layout_constraintEnd_toStartOf="@+id/tv_recycler_holiday_name"
         app:layout_constraintStart_toEndOf="@+id/tv_recycler_holiday_date"
-        app:layout_constraintTop_toTopOf="@+id/tv_recycler_holiday_date" />
+        app:layout_constraintTop_toTopOf="@+id/tv_recycler_holiday_date"
+        tools:text="@tools:sample/date/day_of_week" />
 </androidx.constraintlayout.widget.ConstraintLayout>

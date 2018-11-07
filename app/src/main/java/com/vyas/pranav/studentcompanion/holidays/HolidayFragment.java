@@ -14,6 +14,7 @@ import java.util.List;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -44,6 +45,8 @@ public class HolidayFragment extends Fragment {
         mAdapter = new HolidaysAdapter(getContext());
         LinearLayoutManager lm = new LinearLayoutManager(getContext());
         lm.setOrientation(RecyclerView.VERTICAL);
+        DividerItemDecoration decoration = new DividerItemDecoration(getContext(), lm.getOrientation());
+        rvHolidays.addItemDecoration(decoration);
         rvHolidays.setAdapter(mAdapter);
         rvHolidays.setLayoutManager(lm);
     }
