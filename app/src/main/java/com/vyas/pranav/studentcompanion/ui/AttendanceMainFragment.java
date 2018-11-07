@@ -35,7 +35,6 @@ public class AttendanceMainFragment extends Fragment {
     private OnAttendanceMainFragmentChangeListener mCallback;
 
     public AttendanceMainFragment() {
-        //TODO Handle saving of state of fragment here
     }
 
     @Override

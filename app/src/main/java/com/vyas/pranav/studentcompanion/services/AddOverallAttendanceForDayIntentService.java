@@ -26,12 +26,12 @@ public class AddOverallAttendanceForDayIntentService extends IntentService imple
             overallAttendanceAsyncTask.setCurrDate(currDate);
             overallAttendanceAsyncTask.execute();
         } else {
-            Toast.makeText(getApplicationContext(), "Error occured updating overall database", Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(), "Error occured updating overall database", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void OnOverallAttendanceAdded() {
-        //TODO
+        Toast.makeText(getApplicationContext(), "Successfully Updated Overall Attendance Database", Toast.LENGTH_SHORT).show();
     }
 }

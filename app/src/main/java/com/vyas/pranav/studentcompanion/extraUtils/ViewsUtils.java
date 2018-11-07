@@ -91,19 +91,6 @@ public class ViewsUtils {
                     }
                 });
 
-        //TODO Post 1.0 Update
-//        PrimaryDrawerItem myBookShelf = new PrimaryDrawerItem()
-//                .withIdentifier(ID_MY_BOOK_SHELF_NAVIGATION)
-//                .withIcon(R.drawable.ic_lnavigation_book_shelf)
-//                .withName(R.string.action_my_book_shelf_navigation)
-//                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-//                    @Override
-//                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-//                        Toast.makeText(context, "My book shelf clicked", Toast.LENGTH_SHORT).show();
-//                        return false;
-//                    }
-//                });
-
         PrimaryDrawerItem shareApp = new PrimaryDrawerItem()
                 .withIdentifier(ID_SHARE_APP_NAVIGATION)
                 .withIcon(R.drawable.ic_navigation_share)
@@ -156,7 +143,6 @@ public class ViewsUtils {
                                 .withTextColor(context.getResources().getColor(R.color.colorWhite))
                                 .withEmail(email)
                                 .withIcon(photoUri)
-                                //TODO Change background or text color to white
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
@@ -180,7 +166,6 @@ public class ViewsUtils {
                 .withAccountHeader(navigationHeader)
                 .addDrawerItems(
                         dashboard,
-                        // TODO Post 1.0 update // myBookShelf,
                         timetable,
                         shareApp,
                         prefences,

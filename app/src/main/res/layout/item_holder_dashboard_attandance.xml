@@ -30,7 +30,6 @@
         app:layout_constraintStart_toEndOf="@+id/tv_dashboard_recycler_no"
         app:layout_constraintTop_toTopOf="@+id/tv_dashboard_recycler_no" />
 
-    <!--TODO Set OnClick listener to listen to all touches-->
     <TextView
         android:id="@+id/tv_dashboard_recycler_facultyname"
         android:layout_width="wrap_content"

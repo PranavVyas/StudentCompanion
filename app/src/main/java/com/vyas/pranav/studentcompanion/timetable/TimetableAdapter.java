@@ -50,7 +50,6 @@ public class TimetableAdapter extends AbstractTableAdapter<String, String, Strin
         viewHolder.tvCell.setText(cellDetail);
 //        viewHolder.itemView.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
 //        viewHolder.tvCell.requestLayout();
-        //TODO TRY TO fix width problem here
     }
 
     @Override

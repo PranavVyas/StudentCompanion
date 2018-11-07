@@ -129,7 +129,7 @@ public class FirstRunActivity extends AppCompatActivity implements TimetableData
      */
     @Override
     public void OnOverallAttendanceAdded() {
-        DailyExecutingJobs.sheduleDailyJob();
+        DailyExecutingJobs.scheduleDailyJob();
         Intent startDashboard = new Intent(this, DashboardActivity.class);
         startActivity(startDashboard);
         SharedPrefsUtils.setFirstTimeRunActivity(this, TAG, true);

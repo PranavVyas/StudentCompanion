@@ -22,8 +22,6 @@ public class MainApp extends Application {
     public void onCreate() {
         super.onCreate();
         JobManager.create(this).addJobCreator(new JobsCreator());
-        //JobManager.create(this);
-        //TODO Add JobCreator
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
             public void set(ImageView imageView, Uri uri, Drawable placeholder, String tag) {

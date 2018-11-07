@@ -25,16 +25,15 @@ import static com.vyas.pranav.studentcompanion.extraUtils.ServiceUtils.setTodays
 public class DailyExecutingJobs extends DailyJob implements OverallAttendanceAsyncTask.OnOverallAttendanceAddedListener {
     public static final String TAG = "DailyExecutingJobs";
 
-    public static void sheduleDailyJob() {
+    public static void scheduleDailyJob() {
         if (!JobManager.instance().getAllJobRequestsForTag(TAG).isEmpty()) {
             Logger.d("Skipping starting of dailt tasks as it has started already");
-            //TODO FOR testing removing this line now return;
-            cancleJob();
+            return;
         }
         Logger.d("Starting new Daily executing job as old was not working fine");
         JobRequest.Builder builder = new JobRequest.Builder(TAG).setUpdateCurrent(true);
         //TODO Set time here
-        long startTime = TimeUnit.HOURS.toMillis(0) + TimeUnit.MINUTES.toMillis(10);
+        long startTime = TimeUnit.HOURS.toMillis(0) + TimeUnit.MINUTES.toMillis(0);
         long endTime = startTime + TimeUnit.MINUTES.toMillis(20);
         DailyJob.schedule(builder, startTime, endTime);
     }

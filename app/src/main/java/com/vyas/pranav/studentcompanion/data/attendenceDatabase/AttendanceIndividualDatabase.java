@@ -24,7 +24,6 @@ public abstract class AttendanceIndividualDatabase extends RoomDatabase {
                 sInstance = Room.databaseBuilder(context.getApplicationContext()
                         ,AttendanceIndividualDatabase.class,
                         DB_NAME).build();
-                //TODO Move this to background
             }
             return sInstance;
         }

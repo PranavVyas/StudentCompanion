@@ -96,7 +96,4 @@ public class AppSettingsFragment extends PreferenceFragmentCompat implements Sha
     private int getTimeFromSharedPrefences(SharedPreferences mPrefs) {
         return mPrefs.getInt(getString(R.string.pref_time_key_set_reminder), 0);
     }
-
-    //TODO Set time in format HH:MM When time is lower than 09 minutes or hours
-
 }

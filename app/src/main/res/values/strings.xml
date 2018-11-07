@@ -56,6 +56,8 @@
     <string name="developer_name">Pranav Vyas</string>
     <string name="capstone_notice">A Project made as Capstone Project in Udacity\'s Android Developer Nanodegree powered by Google Reskilling India Scholarship</string>
     <string name="tv_about_features">Features</string>
+    <string name="tv_about_text_features">* An app designed for helping out students in life! \n* With this app one can keep their attendance tracked, If collage have attendance threshold (Which most of the collages now a days have) ,than can monitor the attendance percent directly from the Overall attendance Page!\n* By Clicking on specific Subject shows the information about that subject like how many have you attended and most important How Many Lectures Can Be Bunked from now on! \n* A helper widget allows you to keep in mind what lectures are there today!\n* With the Smart card It is even easier to monitor Your attendance as smart card will show necessary data (like attend next x lectues to get over threshold) ! \n* Apart from the attendance This app also have some handy functionality like TimeTable and Holidays,\n* With the Notification reminders it is one less thing to remember to put attendance of today!</string>
+    <string name="desc_image_about_logo">AppLogo</string>
 
     <string-array name="term_array">
         <item>PLease Select</item>
