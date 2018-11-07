@@ -10,7 +10,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mikepenz.materialdrawer.Drawer;
-import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.aboutapp.AboutAppFragment;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
@@ -27,12 +26,18 @@ import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DashboardActivity extends AppCompatActivity implements ViewsUtils.OnCustomDrawerItemClickListener {
+public class DashboardActivity extends AppCompatActivity implements ViewsUtils.OnCustomDrawerItemClickListener, TimetableMainFragment.OnTimeTableMainFragmentChangeListener, AttendanceMainFragment.OnAttendanceMainFragmentChangeListener {
 
+    public static final String KEY_SAVED_STATE_TIME_TABLE_MAIN_FRAG = "CurrentSavedStateOfTimeTableFragment";
+    public static final String KEY_SAVED_STATE_ATTENDNACE_MAIN_FRAG = "CurrentSavedStateOfTimeTableFragment";
+    private static final String SAVE_TIMETABLE_FRAG = "TimeTableMainFragState";
+    private static final String SAVE_ATTENDANCE_FRAG = "AttendanceMainFragState";
     @BindView(R.id.toolbar_main)
     Toolbar mToolbar;
     Drawer drawer;
     FragmentManager fragmentManager;
+    int CURR_FRAG_TIMETABLE = TimetableMainFragment.FRAG_TIMETABLE_FRAG;
+    int CURR_FRAG_ATTENDANCE = AttendanceMainFragment.ATTENDANCE_FRAGMENT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +49,8 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         // and set things in overall database ShowSubjectAppWidget.UpdateWidgetNow(this);
         drawer = ViewsUtils.buildNavigationDrawer(DashboardActivity.this, mToolbar);
         if (savedInstanceState != null) {
-            Logger.d("Activity State Changed");
-            Toast.makeText(this, "sdkfhajksdfsjkdfajdfkjasdfkajsdkfjslkdjflksjdfklsjadkfjalskjflkejakjflkadjlkasjdijaoe,aovoe io ei fwe iefiwief iefi we fwei fwef", Toast.LENGTH_LONG).show();
+            CURR_FRAG_TIMETABLE = savedInstanceState.getInt(SAVE_TIMETABLE_FRAG);
+            CURR_FRAG_ATTENDANCE = savedInstanceState.getInt(SAVE_ATTENDANCE_FRAG);
             onClickedDrawerItem((int) savedInstanceState.getLong(Constances.SAVE_STATE_DASHBOARD_ACTVITY_DRAWER_ITEM));
             drawer.setSelection(savedInstanceState.getLong(Constances.SAVE_STATE_DASHBOARD_ACTVITY_DRAWER_ITEM));
         } else {
@@ -60,6 +65,9 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
 
     public void showMainAttendanceFragment() {
         AttendanceMainFragment attendanceMainFragment = new AttendanceMainFragment();
+        Bundle currState = new Bundle();
+        currState.putInt(KEY_SAVED_STATE_ATTENDNACE_MAIN_FRAG, CURR_FRAG_ATTENDANCE);
+        attendanceMainFragment.setArguments(currState);
         //Logger.d("Adding Main Fragment to Root");
         fragmentManager.beginTransaction()
                 .replace(R.id.frame_dashboard_container, attendanceMainFragment)
@@ -75,6 +83,9 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
 
             case ViewsUtils.ID_TIME_TABLE_NAVIGATION:
                 TimetableMainFragment timetableFrag = new TimetableMainFragment();
+                Bundle currState = new Bundle();
+                currState.putInt(KEY_SAVED_STATE_TIME_TABLE_MAIN_FRAG, CURR_FRAG_TIMETABLE);
+                timetableFrag.setArguments(currState);
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_dashboard_container, timetableFrag)
                         .commit();
@@ -137,6 +148,18 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putInt(SAVE_TIMETABLE_FRAG, CURR_FRAG_TIMETABLE);
+        outState.putInt(SAVE_ATTENDANCE_FRAG, CURR_FRAG_ATTENDANCE);
         outState.putLong(Constances.SAVE_STATE_DASHBOARD_ACTVITY_DRAWER_ITEM, drawer.getCurrentSelection());
+    }
+
+    @Override
+    public void OnTimeTableMainFragmentChanged(int currFrag) {
+        CURR_FRAG_TIMETABLE = currFrag;
+    }
+
+    @Override
+    public void OnAttendanceMainFragmentChanged(int currFrag) {
+        CURR_FRAG_ATTENDANCE = currFrag;
     }
 }
