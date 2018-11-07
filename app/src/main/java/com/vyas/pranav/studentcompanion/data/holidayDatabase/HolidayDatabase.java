@@ -21,7 +21,7 @@ public abstract class HolidayDatabase extends RoomDatabase {
         if(sInstance == null){
             synchronized (LOCK){
                 sInstance = Room.databaseBuilder(context.getApplicationContext()
-                ,HolidayDatabase.class,DB_NAME).allowMainThreadQueries().build();
+                        , HolidayDatabase.class, DB_NAME).build();
             }
             return sInstance;
         }

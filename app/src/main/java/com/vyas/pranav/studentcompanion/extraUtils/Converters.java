@@ -125,7 +125,12 @@ public class Converters {
 
     public static String convertTimeIntInString(int time) {
         CustomTime customTime = extractHourandMinFromTime(time);
-        return customTime.getHour() + ":" + customTime.getMin();
+        int hour = customTime.getHour();
+        int min = customTime.getMin();
+        String hourStr = ((hour < 10) ? "0" + hour : "" + hour);
+        String minStr = ((min < 10) ? "0" + min : "" + min);
+
+        return hourStr + ":" + minStr;
     }
 
     public static CustomTime extractHourandMinFromTime(int time) {

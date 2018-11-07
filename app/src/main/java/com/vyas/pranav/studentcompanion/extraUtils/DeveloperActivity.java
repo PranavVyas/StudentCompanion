@@ -7,7 +7,6 @@ import android.widget.Toast;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualEntry;
-import com.vyas.pranav.studentcompanion.data.firebase.HolidayDataFetcher;
 import com.vyas.pranav.studentcompanion.jobs.DailyAttendanceCreater;
 import com.vyas.pranav.studentcompanion.services.AddEmptyAttendanceIntentService;
 
@@ -66,7 +65,7 @@ public class DeveloperActivity extends AppCompatActivity {
 
     @OnClick(R.id.developer_get_holidays)
     public void checkFirebase(){
-        HolidayDataFetcher.fetchHolidays(this);
+//        HolidayFetcher.fetchHolidays(this);
     }
 
     @OnClick(R.id.developer_get_timetable)

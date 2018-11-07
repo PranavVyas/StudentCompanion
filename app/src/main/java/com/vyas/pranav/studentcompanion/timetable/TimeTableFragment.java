@@ -8,15 +8,15 @@ import android.view.ViewGroup;
 import com.evrencoskun.tableview.TableView;
 import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
-import com.vyas.pranav.studentcompanion.timetable.viewModels.Cell;
-import com.vyas.pranav.studentcompanion.timetable.viewModels.ColumnHeader;
-import com.vyas.pranav.studentcompanion.timetable.viewModels.RowHeader;
+import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableDatabase;
+import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableEntry;
+import com.vyas.pranav.studentcompanion.extraUtils.AppExecutors;
+import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -24,6 +24,13 @@ public class TimeTableFragment extends Fragment {
 
     @BindView(R.id.time_table_container)
     TableView tableView;
+    AppExecutors mExecutors;
+    //    List<ColumnHeader> mCH;
+//    List<RowHeader> mRH;
+//    List<List<Cell>> mC;
+    List<String> mCH;
+    List<String> mRH;
+    List<List<String>> mC;
 
     public TimeTableFragment() {
     }
@@ -33,33 +40,69 @@ public class TimeTableFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_time_table, container, false);
         ButterKnife.bind(this, view);
-
-        TimetableAdapter mAdapter = new TimetableAdapter(getContext());
-
+        mExecutors = AppExecutors.getInstance();
+        final TimetableAdapter mAdapter = new TimetableAdapter(getContext());
         tableView.setAdapter(mAdapter);
+        mExecutors.diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mCH = new ArrayList<>();
+                mRH = new ArrayList<>();
+                mC = new ArrayList<>();
 
-        List<ColumnHeader> mCH = new ArrayList<>();
-        List<RowHeader> mRH = new ArrayList<>();
-        List<List<Cell>> mC = new ArrayList<>();
+                List<TimetableEntry> fullTimetable = TimetableDatabase.getInstance(getContext()).timetableDao().getFullTimetable();
+                int dayOfWeek = 1;
+                for (TimetableEntry x :
+                        fullTimetable) {
+                    //
+                    String dayTitle = x.getDay();
+                    mRH.add(dayTitle);
+                    //List<List<Cell>> allLectures = new ArrayList<>();
+                    List<String> dayWiseLacture = new ArrayList<>();
+                    String lecture1 = "";
+                    String lecture2 = "";
+                    String lecture3 = "";
+                    String lecture4 = "";
+                    String faculty1 = "";
+                    String faculty2 = "";
+                    String faculty3 = "";
+                    String faculty4 = "";
 
-        for (int i = 0; i < 4; i++) {
-            List<Cell> tempCellList = new ArrayList<>();
-            ColumnHeader columnHeader = ViewModelProviders.of(this).get(ColumnHeader.class);
-            columnHeader.setmData("Subject " + (i + 1));
-            mCH.add(columnHeader);
-            RowHeader rowHeader = ViewModelProviders.of(this).get(RowHeader.class);
-            rowHeader.setmData("Day " + (i + 1));
-            mRH.add(rowHeader);
-            for (int j = 0; j < 4; j++) {
-                Cell cell = ViewModelProviders.of(this).get(Cell.class);
-                cell.setmData("L " + i + " " + j);
-                tempCellList.add(cell);
+                    lecture1 = x.getLacture1Name();
+                    faculty1 = x.getLacture1Faculty();
+                    lecture2 = x.getLacture2Name();
+                    faculty2 = x.getLacture2Faculty();
+                    lecture3 = x.getLacture3Name();
+                    faculty3 = x.getLacture3Faculty();
+                    lecture4 = x.getLacture4Name();
+                    faculty4 = x.getLacture4Faculty();
+
+                    dayWiseLacture.add(lecture1);
+                    dayWiseLacture.add(faculty1);
+                    dayWiseLacture.add(lecture2);
+                    dayWiseLacture.add(faculty2);
+                    dayWiseLacture.add(lecture3);
+                    dayWiseLacture.add(faculty3);
+                    dayWiseLacture.add(lecture4);
+                    dayWiseLacture.add(faculty4);
+                    mC.add(dayWiseLacture);
+                    dayOfWeek++;
+                }
+                for (int i = 0; i < Constances.NO_OF_LECTURES_PER_DAY; i++) {
+                    String lectureTitle = "Lecture " + i;
+                    String facultyTitle = "Faculty Name";
+                    mCH.add(lectureTitle);
+                    mCH.add(facultyTitle);
+                }
+                Logger.d("Test Log");
+                AppExecutors.getInstance().mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.setAllItems(mCH, mRH, mC);
+                    }
+                });
             }
-            mC.add(tempCellList);
-        }
-
-        Logger.d("Test Log");
-        mAdapter.setAllItems(mCH, mRH, mC);
+        });
         return view;
     }
 

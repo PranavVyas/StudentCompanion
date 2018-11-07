@@ -11,11 +11,13 @@ import androidx.room.Update;
 
 @Dao
 public interface TimetableDao {
-    @Query("SELECT * FROM  timetable")
-    List<TimetableEntry> getFullTimetable();
+
 
     @Query("SELECT * FROM timetable WHERE day = :day")
     TimetableEntry getTimetableForDay(String day);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAllTimeTableEntry(List<TimetableEntry> newTimetableEntries);
 
     @Query("DELETE FROM timetable")
     void deleteWholeTimetable();
@@ -26,8 +28,8 @@ public interface TimetableDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTimeTableEntry(TimetableEntry newTimetableEntry);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAllTimeTableEntry(List<TimetableEntry> newTimetableEntries);
+    @Query("SELECT * FROM  timetable ORDER BY dayOfWeek")
+    List<TimetableEntry> getFullTimetable();
 
     @Delete
     void deleteTimetableEntry(TimetableEntry timetableEntry);

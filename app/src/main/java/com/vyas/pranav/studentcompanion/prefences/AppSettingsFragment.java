@@ -2,7 +2,6 @@ package com.vyas.pranav.studentcompanion.prefences;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.extraUtils.Converters;
@@ -60,7 +59,7 @@ public class AppSettingsFragment extends PreferenceFragmentCompat implements Sha
                 TimePreference mTimePreference = (TimePreference) preference;
                 int time = getTimeFromSharedPrefences(getPreferenceScreen().getSharedPreferences());
                 String timeStr = Converters.convertTimeIntInString(time);
-                Toast.makeText(getContext(), "New Time is " + timeStr, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "New Time is " + timeStr, Toast.LENGTH_SHORT).show();
                 mTimePreference.setSummary(timeStr);
             }
         }
@@ -97,5 +96,7 @@ public class AppSettingsFragment extends PreferenceFragmentCompat implements Sha
     private int getTimeFromSharedPrefences(SharedPreferences mPrefs) {
         return mPrefs.getInt(getString(R.string.pref_time_key_set_reminder), 0);
     }
+
+    //TODO Set time in format HH:MM When time is lower than 09 minutes or hours
 
 }

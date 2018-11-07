@@ -20,6 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import static com.vyas.pranav.studentcompanion.extraUtils.ServiceUtils.setTodaysAttendanceInSharedPref;
+
 public class DailyExecutingJobs extends DailyJob implements OverallAttendanceAsyncTask.OnOverallAttendanceAddedListener {
     public static final String TAG = "DailyExecutingJobs";
 
@@ -32,7 +34,7 @@ public class DailyExecutingJobs extends DailyJob implements OverallAttendanceAsy
         Logger.d("Starting new Daily executing job as old was not working fine");
         JobRequest.Builder builder = new JobRequest.Builder(TAG).setUpdateCurrent(true);
         //TODO Set time here
-        long startTime = TimeUnit.HOURS.toMillis(0) + TimeUnit.MINUTES.toMillis(30);
+        long startTime = TimeUnit.HOURS.toMillis(0) + TimeUnit.MINUTES.toMillis(10);
         long endTime = startTime + TimeUnit.MINUTES.toMillis(20);
         DailyJob.schedule(builder, startTime, endTime);
     }
@@ -49,6 +51,7 @@ public class DailyExecutingJobs extends DailyJob implements OverallAttendanceAsy
         //TODO Add OverallDatabase Entry
         //TODO Update Widget
         updateOverallDatabase();
+        setTodaysAttendanceInSharedPref(getContext());
         ShowSubjectAppWidget.UpdateWidgetNow(getContext().getApplicationContext());
         //showNotification("DONE DAIY JOBS");
         return DailyJobResult.SUCCESS;

@@ -10,6 +10,7 @@ public class TimetableEntry {
     @PrimaryKey
     @NonNull
     String day;
+    int dayOfWeek;
     String lacture1Name;
     String lacture1Faculty;
     String lacture2Name;
@@ -23,8 +24,9 @@ public class TimetableEntry {
     public TimetableEntry() {
     }
 
-    public TimetableEntry(String day, String lacture1Name, String lacture1Faculty, String lacture2Name, String lacture2Faculty, String lacture3Name, String lacture3Faculty, String lacture4Name, String lacture4Faculty) {
+    public TimetableEntry(String day, int dayOfWeek, String lacture1Name, String lacture1Faculty, String lacture2Name, String lacture2Faculty, String lacture3Name, String lacture3Faculty, String lacture4Name, String lacture4Faculty) {
         this.day = day;
+        this.dayOfWeek = dayOfWeek;
         this.lacture1Name = lacture1Name;
         this.lacture1Faculty = lacture1Faculty;
         this.lacture2Name = lacture2Name;
@@ -105,5 +107,13 @@ public class TimetableEntry {
 
     public void setLacture4Faculty(String lacture4Faculty) {
         this.lacture4Faculty = lacture4Faculty;
+    }
+
+    public int getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(int dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 }

@@ -17,7 +17,7 @@ public abstract class TimetableDatabase extends RoomDatabase {
         if(sInstance == null){
             synchronized (LOCK){
                 sInstance = Room.databaseBuilder(context.getApplicationContext(),
-                        TimetableDatabase.class,DB_NAME).allowMainThreadQueries().build();
+                        TimetableDatabase.class, DB_NAME).build();
             }
             return sInstance;
         }else{

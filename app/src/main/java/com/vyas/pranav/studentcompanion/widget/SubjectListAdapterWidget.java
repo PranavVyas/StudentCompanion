@@ -1,33 +1,34 @@
 package com.vyas.pranav.studentcompanion.widget;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.google.gson.Gson;
 import com.vyas.pranav.studentcompanion.R;
-import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableDatabase;
 import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableEntry;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
-import com.vyas.pranav.studentcompanion.extraUtils.Converters;
-
-import java.util.Date;
 
 public class SubjectListAdapterWidget implements RemoteViewsService.RemoteViewsFactory {
 
     Context mContext;
-    TimetableEntry mTimeTableDay;
-    String mDay;
-    TimetableDatabase mDb;
+    TimetableEntry mTimeTableDay = null;
 
     public SubjectListAdapterWidget(Context mContext) {
         this.mContext = mContext;
-        mDb = TimetableDatabase.getInstance(mContext);
+        Gson gson = new Gson();
+        SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String today = mPrefs.getString(Constances.KEY_TODAY_TIMETABLE_STRING, null);
+        if (today != null) {
+            this.mTimeTableDay = gson.fromJson(today, TimetableEntry.class);
+        }
     }
 
     @Override
     public void onCreate() {
-        String day = Converters.getDayOfWeek(new Date());
-        mTimeTableDay = mDb.timetableDao().getTimetableForDay(day);
+
     }
 
     @Override
