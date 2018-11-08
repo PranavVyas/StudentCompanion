@@ -22,7 +22,7 @@ import androidx.preference.PreferenceManager;
 import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_PRESENT;
 
 /*
- * */
+ * To add overall attendance to the database in background*/
 public class OverallAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private Context mContext;
@@ -34,6 +34,10 @@ public class OverallAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
         this.mCallback = mCallback;
     }
 
+    /*
+     * For setting current date in adding overall attendance
+     * This is necessary for calculating days available to bunk from given date
+     * */
     public void setCurrDate(Date currDate) {
         this.currDate = currDate;
     }
@@ -43,13 +47,14 @@ public class OverallAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
         AttendanceIndividualDatabase mIndividualDb = AttendanceIndividualDatabase.getInstance(mContext);
         OverallAttendanceDatabase mOverallDb = OverallAttendanceDatabase.getInstance(mContext);
         List<OverallAttendanceEntry> overallAttendanceEntries = new ArrayList<>();
+        String startDateStr = PreferenceManager.getDefaultSharedPreferences(mContext).getString(Constances.START_DATE_SEM, "Please Select");
         for (int i = 0; i < Constances.NO_OF_SUBJECTS; i++) {
             String subName = Constances.SUBJECTS.get(i);
             int daysTotal = mIndividualDb.attendanceIndividualDao().getTotalDaysForSubject(subName);
             int daysPresent = mIndividualDb.attendanceIndividualDao().getAttendedDays(subName, VALUE_PRESENT);
             double presentPercentage = (daysPresent * 100) / daysTotal;
             int minDaysThreshold = (int) Math.ceil((daysTotal * 0.75f));
-            int daysElapsedTillToday = mIndividualDb.attendanceIndividualDao().getDatesBetweenForSubject(subName, Converters.convertStringToDate(Constances.startOfSem), currDate);
+            int daysElapsedTillToday = mIndividualDb.attendanceIndividualDao().getDatesBetweenForSubject(subName, Converters.convertStringToDate(startDateStr), currDate);
             int daysBunked = daysElapsedTillToday - daysPresent;
             int daysTotalAvailableForBunk = daysTotal - minDaysThreshold;
             int daysAvailableForBunkNow = daysTotalAvailableForBunk - daysBunked;
@@ -65,22 +70,25 @@ public class OverallAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
                     "\nDays Total available to bunk : " + daysTotalAvailableForBunk + "\t\tDays Can Be Bunked : " + daysAvailableForBunkNow;
             Logger.d(log);
         }
+        //Save data in SharedPrefs if needed for smart card
         addDataToSmartCardIfNeeded(overallAttendanceEntries);
         mOverallDb.overallAttandanceDao().insertAllSubjectOverallAttedance(overallAttendanceEntries);
         return null;
     }
 
+    /*
+     * To provide callback to First run activity when the attendance is added successfully*/
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
+        //FirstRunActivity Notified
         mCallback.OnOverallAttendanceAdded();
     }
 
-    public interface OnOverallAttendanceAddedListener {
-        void OnOverallAttendanceAdded();
-    }
-
-    public void addDataToSmartCardIfNeeded(List<OverallAttendanceEntry> mEnties) {
+    /*
+     * Method to save the data in shared preferences if condition matched
+     * This information will be used to populate data inside Smartcard in Dashboard Activity*/
+    private void addDataToSmartCardIfNeeded(List<OverallAttendanceEntry> mEnties) {
         List<String> warnings = new ArrayList<>();
         for (OverallAttendanceEntry x :
                 mEnties) {
@@ -94,23 +102,26 @@ public class OverallAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
             int daysElapsed = daysPresent + daysAlreadyBunked;
             int daysTillThreshold = daysThreshold - daysPresent;
             int daysLeft = daysTotal - daysElapsed;
-            if (daysAvailableToBunk <= 5 && daysAvailableToBunk > 0) {
+            if (daysAvailableToBunk > 5) {
+                warning = "You are safe in Subject : " + x.getSubjectName();
+            } else if (daysAvailableToBunk > 0) {
                 warning = "You Only have " + daysAvailableToBunk + " days to bunk in Subject : " + x.getSubjectName() + ", Attend at least " + daysTillThreshold + " days out of " + daysLeft + " days to get Attendance greater than 75 %";
             } else if (daysAvailableToBunk == 0) {
-                warning = "You Should have All the coming lactures in Subject : " + x.getSubjectName();
+                warning = "You Should attend All the coming lectures in Subject : " + x.getSubjectName();
             } else {
                 warning = "You will have XX in Subject " + x.getSubjectName();
             }
             warnings.add(warning);
-        }
-        if (warnings.isEmpty()) {
-            warnings.add("Smart Card is Empty!!");
         }
         SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         SharedPreferences.Editor mEditor = mPrefs.edit();
         Set<String> warningSet = new HashSet<>(warnings);
         mEditor.putStringSet(Constances.KEY_SMART_CARD_DETAILS, warningSet);
         mEditor.apply();
+    }
+
+    public interface OnOverallAttendanceAddedListener {
+        void OnOverallAttendanceAdded();
     }
 
 }

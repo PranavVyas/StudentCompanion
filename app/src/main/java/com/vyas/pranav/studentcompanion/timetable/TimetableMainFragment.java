@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.ui;
+package com.vyas.pranav.studentcompanion.timetable;
 
 
 import android.content.Context;
@@ -13,7 +13,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
 import com.vyas.pranav.studentcompanion.holidays.HolidayFragment;
-import com.vyas.pranav.studentcompanion.timetable.TimeTableFragment;
 
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;

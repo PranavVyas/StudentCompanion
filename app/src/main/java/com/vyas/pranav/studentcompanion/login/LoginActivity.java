@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.ui;
+package com.vyas.pranav.studentcompanion.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
 import com.vyas.pranav.studentcompanion.data.SharedPrefsUtils;
+import com.vyas.pranav.studentcompanion.firstRun.FirstRunActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final int REQUEST_SIGN_IN_KEY = 1023;
 
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     @BindView(R.id.toolbar_login)
     Toolbar mToolbar;

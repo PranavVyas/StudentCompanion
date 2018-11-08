@@ -10,6 +10,7 @@ import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 
 import java.util.Date;
+import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -58,13 +59,13 @@ public class SubjectOverallDetailActivity extends AppCompatActivity {
             int daysElapsed = daysPresent + daysAlreadyBunked;
 
             tvSubName.setText(overallAttendanceEntry.getSubjectName());
-            tvTotalDays.setText(daysTotal + "");
-            tvPresentPercent.setText(percentPresent + "");
-            tvDaysAlreadyBunked.setText(daysAlreadyBunked + "");
-            tvAvailableToBunk.setText(daysAvailableToBunk + "");
-            tvPresentDays.setText(daysPresent + "");
+            tvTotalDays.setText(String.format(Locale.US, "%d", daysTotal));
+            tvPresentPercent.setText(String.format(Locale.US, "%s", percentPresent));
+            tvDaysAlreadyBunked.setText(String.format(Locale.US, "%d", daysAlreadyBunked));
+            tvAvailableToBunk.setText(String.format(Locale.US, "%d", daysAvailableToBunk));
+            tvPresentDays.setText(String.format(Locale.US, "%d", daysPresent));
             tvDate.setText(Converters.convertDateToString(new Date()));
-            tvElaspsedDays.setText(daysElapsed + "");
+            tvElaspsedDays.setText(String.format(Locale.US, "%d", daysElapsed));
         }
     }
 }

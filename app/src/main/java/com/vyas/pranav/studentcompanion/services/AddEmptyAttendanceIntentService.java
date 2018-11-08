@@ -28,8 +28,8 @@ import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_ABSEN
 public class AddEmptyAttendanceIntentService extends IntentService {
 
     public static final int NO_OF_LACTURES = 4;
-    TimetableDatabase mDb;
-    AttendanceIndividualDatabase mAttendanceDb;
+    private TimetableDatabase mDb;
+    private AttendanceIndividualDatabase mAttendanceDb;
 
     public AddEmptyAttendanceIntentService() {
         super("AddEmptyAttendanceIntentService");

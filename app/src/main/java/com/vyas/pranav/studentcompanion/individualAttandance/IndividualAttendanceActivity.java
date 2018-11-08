@@ -16,7 +16,7 @@ public class IndividualAttendanceActivity extends AppCompatActivity {
     @BindView(R.id.toolbar_individual_attendence_activity)
     Toolbar toolbar;
 
-    String dateString;
+    private String dateString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -71,14 +71,13 @@ public class DailyReminderCreator extends DailyJob {
             notificationManager.createNotificationChannel(channel);
         }
 
-
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext(), "NOTIFICATION_MAIN")
-                .setAutoCancel(true)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("Add Attendance Now")
-                .setContentText("Hi There! If you have not yet completed the attendance yet ,Better do it now!")
+                .setContentTitle(getContext().getString(R.string.java_reminder_notification_title))
+                .setContentText(getContext().getString(R.string.java_reminder_notification_msg))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .addAction(getOpenAppAction());
+                .addAction(getOpenAppAction())
+                .setAutoCancel(true);
         //TODO Set Notification to cancel when tapped on Open App
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
 

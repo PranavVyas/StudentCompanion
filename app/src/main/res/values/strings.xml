@@ -1,28 +1,42 @@
 <resources>
     <string name="app_name">Student Companion</string>
+
+    <!--Drawer-->
     <string name="action_dashboard_navigation">Dashboard</string>
     <string name="action_preference_navigation">Settings</string>
     <string name="action_about_app_navigation">About This App</string>
     <string name="action_time_table_navigation">Time Table</string>
-    <string name="action_my_book_shelf_navigation">My Book Shelf</string>
-    <string name="action_citylife_navigation">City Life</string>
     <string name="action_share_app_navigation">Share This App</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_log_out_navigation">Log Out</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
 
+    <!--Settings-->
     <string name="pref_time_key_set_reminder">setReminder</string>
     <string name="pref_switch_key_reminder">isReminderEnabled</string>
     <string name="pref_time_pref_reminder_set_title">Reminder Time</string>
     <string name="pref_time_pref_reminder_set_default">00</string>
+    <string name="pref_switch_reminder_summery_off">Reminder Disabled</string>
+    <string name="pref_switch_reminder_summery_on">Reminder Enabled</string>
+    <string name="pref_switch_reminder_title">Notification Reminder</string>
+    <string name="pref_group_reminders">Reminders</string>
+
+    <!--FirstRunActivity-->
     <string name="btn_first_run_continue">Continue To App</string>
-    <string name="select_your_term">Select Your Term</string>
     <string name="btn_first_run_login">Back to Login</string>
+    <string name="tv_first_run_select_your_term">Select Your Term</string>
+    <string name="tv_first_run_select_starting_date">Select Starting Date</string>
+    <string name="tv_first_run_starting_date">Starting Date</string>
+    <string name="tv_first_ruun_ending_date">Ending Date</string>
+    <string name="tv_first_run_select_ending_date">Select Ending Date</string>
+    <string name="tv_first_run_please_select">Please Select\nFrom Above\nButton</string>
+    <string name="java_first_run_progress_timetable">Fetching Timetable from Internet…</string>
+    <string name="java_first_run_progress_holiday">Fetching Holidays from Internet…</string>
+
+    <!--LoginActivity-->
     <string name="login_log_in">Log In</string>
     <string name="tv_login_info">Hello There! \nPlease Log in with either Email or Google Account to use this application
         \n\n\n*We only need email or gmail to know who is acessing our firbase database nothing more!</string>
+
+    <!--OverallDetailActivity-->
     <string name="tv_overall_detail_subname">Subject Name</string>
     <string name="tv_overall_text_days_present">Days Present</string>
     <string name="tv_overall_detail_text_days_present_percentage">Days Present Percentage</string>
@@ -31,27 +45,42 @@
     <string name="tv_overall_text_days_available_to_bunk">Days Available to Bunk</string>
     <string name="tv_overall_text_attendance_as_on">Attendance as on</string>
     <string name="tv_overall_text_days_elapsed">Days Elapsed</string>
+
+    <!--OverallFragment-->
+    <string name="tv_item_holder_overall_percent">50 %</string>
+    <string name="tv_item_holder_overall_subject_name">SubjectName</string>
+
+    <!--IndividualAttendanceFragment-->
+    <!--rv-->
     <string name="tv_item_holder_dashboard_attendance_subject_name">Subject Name</string>
     <string name="tv_item_holder_dashboard_attendance_faculty_name">Faculty Name</string>
     <string name="tv_item_holder_holiday_no">01.</string>
+
+    <string name="frag_individual_attendance_holiday_image">HolidayImage</string>
+    <string name="frag_individual_attendance_holiday_text">Woohoo !!\\nEnjoy It looks like you have Holiday Today!</string>
+
+    <!--HolidayFragment-->
     <string name="tv_item_holder_holiday_holiday_name">Holiday</string>
+
+    <!--Widget-->
     <string name="widget_list_sub_name">Maths</string>
-    <string name="tv_item_holder_overall_percent">50 %</string>
-    <string name="tv_item_holder_overall_subject_name">SubjectName</string>
+    <string name="widget_mark_attedance">Mark Attedance</string>
+
+    <!--Timetable-->
     <string name="tv_tiime_table_holder_cell">Cell</string>
     <string name="tv_tiime_table_holder_column">Column</string>
     <string name="tv_tiime_table_holder_row">Row</string>
-    <string name="widget_mark_attedance">Mark Attedance</string>
+
+    <!--Bottom Navigation menus-->
     <string name="menu_bottom_today">Today</string>
     <string name="menu_bottom_overall">Overall</string>
     <string name="menu_bottom_timetable">Timetable</string>
     <string name="menu_bottom_holidays">Holidays</string>
-    <string name="pref_switch_reminder_summery_off">Reminder Disabled</string>
-    <string name="pref_switch_reminder_summery_on">Reminder Enabled</string>
-    <string name="pref_switch_reminder_title">Notification Reminder</string>
-    <string name="pref_group_reminders">Reminders</string>
-    <string name="tv_first_run_select_your_term">Select Your Term</string>
+
+    <!--Splash-->
     <string name="tv_splash_grettings">Welcome to \n Student Companion</string>
+
+    <!--About Us-->
     <string name="tv_about_tag_developer">Developer :</string>
     <string name="developer_name">Pranav Vyas</string>
     <string name="capstone_notice">A Project made as Capstone Project in Udacity\'s Android Developer Nanodegree powered by Google Reskilling India Scholarship</string>
@@ -59,10 +88,8 @@
     <string name="tv_about_text_features">* An app designed for helping out students in life! \n* With this app one can keep their attendance tracked, If collage have attendance threshold (Which most of the collages now a days have) ,than can monitor the attendance percent directly from the Overall attendance Page!\n* By Clicking on specific Subject shows the information about that subject like how many have you attended and most important How Many Lectures Can Be Bunked from now on! \n* A helper widget allows you to keep in mind what lectures are there today!\n* With the Smart card It is even easier to monitor Your attendance as smart card will show necessary data (like attend next x lectues to get over threshold) ! \n* Apart from the attendance This app also have some handy functionality like TimeTable and Holidays,\n* With the Notification reminders it is one less thing to remember to put attendance of today!</string>
     <string name="desc_image_about_logo">AppLogo</string>
 
-    <string-array name="term_array">
-        <item>PLease Select</item>
-        <item>Nov 2018 - Dec 2018</item>
-        <item>Jan 2019 - May 2019</item>
-    </string-array>
+    <!--Reminder Notification-->
+    <string name="java_reminder_notification_msg">Hi There! If you have not yet completed the attendance yet ,Better do it now!</string>
+    <string name="java_reminder_notification_title">Add Attendance Now</string>
 
 </resources>

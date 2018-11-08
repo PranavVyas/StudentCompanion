@@ -15,6 +15,7 @@ import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import com.vyas.pranav.studentcompanion.subjectOverallDetail.SubjectOverallDetailActivity;
 
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,8 +24,8 @@ import butterknife.ButterKnife;
 
 public class OverallAttendanceAdapter extends RecyclerView.Adapter<OverallAttendanceAdapter.OverallAttendanceHolder> {
 
-    Context mContext;
-    List<OverallAttendanceEntry> attendanceData;
+    private Context mContext;
+    private List<OverallAttendanceEntry> attendanceData;
 
     public OverallAttendanceAdapter(Context mContext) {
         this.mContext = mContext;
@@ -40,7 +41,7 @@ public class OverallAttendanceAdapter extends RecyclerView.Adapter<OverallAttend
     @Override
     public void onBindViewHolder(@NonNull OverallAttendanceHolder overallAttendanceHolder, final int i) {
         overallAttendanceHolder.chartSub.setValue((float) attendanceData.get(i).getPercentPresent());
-        overallAttendanceHolder.tvPercent.setText((int) attendanceData.get(i).getPercentPresent()+" %");
+        overallAttendanceHolder.tvPercent.setText(String.format(Locale.US, "%d %%", (int) attendanceData.get(i).getPercentPresent()));
         overallAttendanceHolder.tvSubName.setText(attendanceData.get(i).getSubjectName());
 //        overallAttendanceHolder.chartSub.setOnClickListener(new View.OnClickListener() {
 //            @Override

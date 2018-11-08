@@ -30,11 +30,11 @@ public class IndividualAttendanceFragment extends Fragment {
     RecyclerView rvIndividualAttendance;
     @BindView(R.id.constraint_individual_holiday)
     ConstraintLayout holidayTemplate;
-    IndividualAttendanceAdapter mAdapter;
-    AttendanceIndividualDatabase mDb;
+    private IndividualAttendanceAdapter mAdapter;
+    private AttendanceIndividualDatabase mDb;
     private String dateString = "";
-    AppExecutors mExecutors;
-    List<AttendanceIndividualEntry> attendances;
+    private AppExecutors mExecutors;
+    private List<AttendanceIndividualEntry> attendances;
 
     public IndividualAttendanceFragment() {
         // Required empty public constructor

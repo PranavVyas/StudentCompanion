@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.ui;
+package com.vyas.pranav.studentcompanion.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
 import com.vyas.pranav.studentcompanion.data.SharedPrefsUtils;
+import com.vyas.pranav.studentcompanion.firstRun.FirstRunActivity;
+import com.vyas.pranav.studentcompanion.login.LoginActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

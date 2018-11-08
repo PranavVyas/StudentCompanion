@@ -24,10 +24,10 @@ public class TimeTableFragment extends Fragment {
 
     @BindView(R.id.time_table_container)
     TableView tableView;
-    AppExecutors mExecutors;
-    List<String> mCH;
-    List<String> mRH;
-    List<List<String>> mC;
+    private AppExecutors mExecutors;
+    private List<String> mCH;
+    private List<String> mRH;
+    private List<List<String>> mC;
 
     public TimeTableFragment() {
     }

@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 
 public class TimetableAdapter extends AbstractTableAdapter<String, String, String> {
 
-    Context mContext;
+    private Context mContext;
 
     public TimetableAdapter(Context context) {
         super(context);

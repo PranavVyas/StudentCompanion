@@ -13,8 +13,8 @@ import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 
 public class SubjectListAdapterWidget implements RemoteViewsService.RemoteViewsFactory {
 
-    Context mContext;
-    TimetableEntry mTimeTableDay = null;
+    private Context mContext;
+    private TimetableEntry mTimeTableDay = null;
 
     public SubjectListAdapterWidget(Context mContext) {
         this.mContext = mContext;

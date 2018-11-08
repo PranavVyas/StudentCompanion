@@ -11,6 +11,7 @@ import com.vyas.pranav.studentcompanion.data.holidayDatabase.HolidayEntry;
 import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,9 +19,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HolidaysAdapter extends RecyclerView.Adapter<HolidaysAdapter.HolidayHolder> {
-    Context mContext;
-    List<HolidayEntry> mHolidays;
-    public HolidaysAdapter(Context mContext) {
+    private Context mContext;
+    private List<HolidayEntry> mHolidays;
+
+    HolidaysAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -33,7 +35,7 @@ public class HolidaysAdapter extends RecyclerView.Adapter<HolidaysAdapter.Holida
 
     @Override
     public void onBindViewHolder(@NonNull HolidayHolder holder, int position) {
-        holder.mHolidayNo.setText( (position + 1) + ".");
+        holder.mHolidayNo.setText(String.format(Locale.US, "%d.", position + 1));
         holder.mHolidayDate.setText(Converters.convertDateToString(mHolidays.get(position).getHolidayDate()));
         holder.mHolidayName.setText(mHolidays.get(position).getHolidayName());
         holder.mHolidayDay.setText(mHolidays.get(position).getHolidayDay());

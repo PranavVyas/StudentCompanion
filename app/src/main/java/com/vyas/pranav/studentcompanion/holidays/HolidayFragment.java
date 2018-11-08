@@ -24,8 +24,8 @@ public class HolidayFragment extends Fragment {
 
     @BindView(R.id.recycler_holiday_frag)
     RecyclerView rvHolidays;
-    HolidaysAdapter mAdapter;
-    HolidayDatabase mDb;
+    private HolidaysAdapter mAdapter;
+    private HolidayDatabase mDb;
 
     public HolidayFragment() {
     }

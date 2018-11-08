@@ -1,11 +1,12 @@
-package com.vyas.pranav.studentcompanion.ui;
+package com.vyas.pranav.studentcompanion.firstRun;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,26 +21,37 @@ import com.vyas.pranav.studentcompanion.data.firebase.TimetableDataFetcher;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 import com.vyas.pranav.studentcompanion.jobs.DailyExecutingJobs;
+import com.vyas.pranav.studentcompanion.login.LoginActivity;
 
 import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FirstRunActivity extends AppCompatActivity implements TimetableDataFetcher.OnTimeTableReceived, HolidayFetcher.OnHolidayFechedListener, OverallAttendanceAsyncTask.OnOverallAttendanceAddedListener, AddAllAttendanceAsyncTask.OnAllAttendanceInitializedListener {
+public class FirstRunActivity extends AppCompatActivity implements TimetableDataFetcher.OnTimeTableReceived, HolidayFetcher.OnHolidayFechedListener, OverallAttendanceAsyncTask.OnOverallAttendanceAddedListener, AddAllAttendanceAsyncTask.OnAllAttendanceInitializedListener, DatePickerFrag.OnSelectedStartDateListener {
     public static final String TAG = "FirstRunActivity";
 
     @BindView(R.id.tv_first_run_greeting)
     TextView tvGreetings;
-    @BindView(R.id.spinner_first_run_term)
-    Spinner mSpinner;
     @BindView(R.id.progress_first_run_term)
     ProgressBar mProgress;
     @BindView(R.id.tv_first_run_progress_tag)
     TextView tvProgressTag;
-    FirebaseAuth mAuth;
+    @BindView(R.id.tv_first_run_start_date)
+    TextView tvStartDate;
+    @BindView(R.id.tv_first_run_end_date)
+    TextView tvEndDate;
+    @BindView(R.id.btn_first_run_open_start_date)
+    Button startDateBtn;
+    @BindView(R.id.btn_first_run_open_end_date)
+    Button endDateBtn;
+
+    private FirebaseAuth mAuth;
+    private SharedPreferences mPrefs;
+    private SharedPreferences.Editor mEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +61,15 @@ public class FirstRunActivity extends AppCompatActivity implements TimetableData
         mProgress.setVisibility(View.GONE);
         tvProgressTag.setVisibility(View.GONE);
         mAuth = FirebaseAuth.getInstance();
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mPrefs.edit();
+        mEditor.apply();
+        startDateBtn.setEnabled(true);
+        endDateBtn.setEnabled(true);
         //Check if user has completed registration or not
         if (SharedPrefsUtils.isFirstTimeRunActivity(this, TAG)) {
             //User has not registered
-            showDetails();
+            tvGreetings.setText(String.format("Hello %s", mAuth.getCurrentUser().getDisplayName()));
         } else {
             //User has registered already
             Intent intent = new Intent(this, DashboardActivity.class);
@@ -61,18 +78,25 @@ public class FirstRunActivity extends AppCompatActivity implements TimetableData
         }
     }
 
-    public void showDetails() {
-        tvGreetings.setText("Hello " + mAuth.getCurrentUser().getDisplayName());
-        // Set Spinner
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.term_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinner.setAdapter(adapter);
+    @OnClick(R.id.btn_first_run_open_start_date)
+    void clickedStartDateSelector() {
+        DialogFragment datePicker = new DatePickerFrag();
+        datePicker.show(getSupportFragmentManager(), "StartDate");
+    }
+
+    @OnClick(R.id.btn_first_run_open_end_date)
+    void clickedEndDateSelector() {
+        DialogFragment datePicker = new DatePickerFrag();
+        datePicker.show(getSupportFragmentManager(), "EndDate");
     }
 
     @OnClick(R.id.btn_first_run_continue)
-    public void loginBtnClicked() {
-        if (mSpinner.getSelectedItem().toString().equals(getResources().getStringArray(R.array.term_array)[1])) {
+    public void continueBtnClicked() {
+        if (tvStartDate.getText().equals(getString(R.string.tv_first_run_please_select)) || tvEndDate.getText().equals(getString(R.string.tv_first_run_please_select))) {
+            Toast.makeText(this, "Please Select all two dates", Toast.LENGTH_SHORT).show();
+        } else if (tvEndDate.getText().equals(tvStartDate.getText())) {
+            Toast.makeText(this, "Both the dates can not be equal", Toast.LENGTH_SHORT).show();
+        } else {
             startFetchingNecessaryData();
             mProgress.setVisibility(View.VISIBLE);
             tvProgressTag.setVisibility(View.VISIBLE);
@@ -80,9 +104,10 @@ public class FirstRunActivity extends AppCompatActivity implements TimetableData
     }
 
     public void startFetchingNecessaryData() {
-        mSpinner.setEnabled(false);
+        startDateBtn.setEnabled(false);
+        endDateBtn.setEnabled(false);
         //Fetch TimeTable Data
-        tvProgressTag.setText("Fetching Timetable from Internet...");
+        tvProgressTag.setText(getString(R.string.java_first_run_progress_timetable));
         TimetableDataFetcher dataFetcher = new TimetableDataFetcher(this, this);
         dataFetcher.fetchTimetable();
     }
@@ -90,10 +115,10 @@ public class FirstRunActivity extends AppCompatActivity implements TimetableData
     /*When Timetable is successfully retrieved than Start retrieving the Holidays Database*/
     @Override
     public void OnTimetableReceived() {
-        tvProgressTag.setText("Fetching Holidays from Internet...");
+        tvProgressTag.setText(getString(R.string.java_first_run_progress_holiday));
         Toast.makeText(this, "Time Table Recieved", Toast.LENGTH_SHORT).show();
         HolidayFetcher holidayFetcher = new HolidayFetcher(this, this);
-        holidayFetcher.startFething();
+        holidayFetcher.startFetching();
         //HolidayFetcher.fetchHolidays(this);
     }
 
@@ -104,8 +129,10 @@ public class FirstRunActivity extends AppCompatActivity implements TimetableData
     public void OnHolidayFeched() {
         tvProgressTag.setText("Initilazing Attendance Database Now...\nThis might take a minute or less...");
         Toast.makeText(this, "Holiday Received", Toast.LENGTH_SHORT).show();
-        Date startDate = Converters.convertStringToDate(Constances.startOfSem);
-        Date endDate = Converters.convertStringToDate(Constances.endOfSem);
+        String startDateStr = mPrefs.getString(Constances.START_DATE_SEM, "01/01/2019");
+        String endDateStr = mPrefs.getString(Constances.END_DATE_SEM, "06/05/2019");
+        Date startDate = Converters.convertStringToDate(startDateStr);
+        Date endDate = Converters.convertStringToDate(endDateStr);
         AddAllAttendanceAsyncTask addAllAttendanceAsyncTask = new AddAllAttendanceAsyncTask(this, this);
         addAllAttendanceAsyncTask.setDates(startDate, endDate);
         addAllAttendanceAsyncTask.execute();
@@ -145,5 +172,17 @@ public class FirstRunActivity extends AppCompatActivity implements TimetableData
         finish();
     }
 
+    @Override
+    public void OnSelectedStartDate(String dateStr) {
+        mEditor.putString(Constances.START_DATE_SEM, dateStr);
+        mEditor.apply();
+        tvStartDate.setText(dateStr);
+    }
 
+    @Override
+    public void OnSelectedEndDate(String dateStr) {
+        mEditor.putString(Constances.END_DATE_SEM, dateStr);
+        mEditor.apply();
+        tvEndDate.setText(dateStr);
+    }
 }

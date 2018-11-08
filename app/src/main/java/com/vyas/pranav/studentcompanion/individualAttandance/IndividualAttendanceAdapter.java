@@ -16,6 +16,7 @@ import com.vyas.pranav.studentcompanion.services.AddOverallAttendanceForDayInten
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
@@ -29,11 +30,12 @@ import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_PRESE
 
 public class IndividualAttendanceAdapter extends RecyclerView.Adapter<IndividualAttendanceAdapter.AttendanceHolder> {
 
-    Context mContext;
-    List<AttendanceIndividualEntry> mAtttendances;
-    AttendanceIndividualDatabase mAttendanceDb;
-    AppExecutors mExecutors;
-    public IndividualAttendanceAdapter(Context context) {
+    private Context mContext;
+    private List<AttendanceIndividualEntry> mAtttendances;
+    private AttendanceIndividualDatabase mAttendanceDb;
+    private AppExecutors mExecutors;
+
+    IndividualAttendanceAdapter(Context context) {
         this.mContext = context;
         mAttendanceDb = AttendanceIndividualDatabase.getInstance(mContext);
         mExecutors = AppExecutors.getInstance();
@@ -48,7 +50,7 @@ public class IndividualAttendanceAdapter extends RecyclerView.Adapter<Individual
 
     @Override
     public void onBindViewHolder(@NonNull final AttendanceHolder attandanceHolder, final int i) {
-        attandanceHolder.tvNo.setText((i+1) + ".");
+        attandanceHolder.tvNo.setText(String.format(Locale.US, "%d.", i + 1));
         attandanceHolder.tvSubName.setText(mAtttendances.get(i).getSubName());
         attandanceHolder.tvFacultyName.setText(mAtttendances.get(i).getFacultyName());
         if (mAtttendances.get(i).getAttended() == null) {
@@ -81,7 +83,10 @@ public class IndividualAttendanceAdapter extends RecyclerView.Adapter<Individual
                 });
             }
         };
-        attandanceHolder.itemView.setOnClickListener(clickListener);
+        attandanceHolder.swithPresent.setOnClickListener(clickListener);
+        attandanceHolder.tvNo.setOnClickListener(clickListener);
+        attandanceHolder.tvFacultyName.setOnClickListener(clickListener);
+        attandanceHolder.tvSubName.setOnClickListener(clickListener);
     }
 
     @Override

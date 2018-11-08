@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent=".35" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_dashboard_frag_smartcard"
@@ -36,7 +36,10 @@
                 android:id="@+id/linear_dashboard_frag_smart_card_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" />
+                android:orientation="vertical"
+                android:padding="2dp">
+
+            </LinearLayout>
         </ScrollView>
 
     </androidx.cardview.widget.CardView>

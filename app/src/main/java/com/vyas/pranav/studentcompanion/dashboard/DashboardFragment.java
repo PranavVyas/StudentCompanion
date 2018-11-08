@@ -27,7 +27,7 @@ public class DashboardFragment extends Fragment implements SharedPreferences.OnS
 
     @BindView(R.id.linear_dashboard_frag_smart_card_container)
     LinearLayout containerSmartCard;
-    SharedPreferences mPref;
+    private SharedPreferences mPref;
 
     public DashboardFragment() {
     }
@@ -47,7 +47,6 @@ public class DashboardFragment extends Fragment implements SharedPreferences.OnS
         IndividualAttendanceFragment todayAttendanceFrag = new IndividualAttendanceFragment();
         Bundle dataToSend = new Bundle();
         Date date = new Date();
-        //Logger.d("Date String is : " + Converters.convertDateToString(date));
         dataToSend.putString(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_FRAG, Converters.convertDateToString(date));
         todayAttendanceFrag.setArguments(dataToSend);
         getChildFragmentManager().beginTransaction()
@@ -59,20 +58,14 @@ public class DashboardFragment extends Fragment implements SharedPreferences.OnS
      * */
     private void showSmartCard() {
         Set<String> warnings = mPref.getStringSet(KEY_SMART_CARD_DETAILS, null);
-        String warning = "";
+        containerSmartCard.removeAllViews();
         for (String x :
                 warnings) {
-//            TextView tv = new TextView(getContext());
-//            tv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-//            tv.setText(x);
-//            containerSmartCard.addView(tv);
-            warning = warning + x + "\n\n* ";
+            TextView tv = new TextView(getContext());
+            tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            tv.setText(x);
+            containerSmartCard.addView(tv);
         }
-        TextView tv = new TextView(getContext());
-        tv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        tv.setText(warning.trim());
-        containerSmartCard.removeAllViews();
-        containerSmartCard.addView(tv);
     }
 
 

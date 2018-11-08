@@ -32,6 +32,6 @@ public class AddOverallAttendanceForDayIntentService extends IntentService imple
 
     @Override
     public void OnOverallAttendanceAdded() {
-        Toast.makeText(getApplicationContext(), "Successfully Updated Overall Attendance Database", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Successfully Updated Overall Attendance Database", Toast.LENGTH_SHORT).show();
     }
 }

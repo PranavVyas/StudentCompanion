@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--suppress AndroidElementNotAllowed -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/pref_group_reminders">
 
@@ -9,6 +9,7 @@
             android:summaryOn="@string/pref_switch_reminder_summery_on"
             android:title="@string/pref_switch_reminder_title" />
 
+        <!--suppress AndroidElementNotAllowed -->
         <com.vyas.pranav.studentcompanion.prefences.TimePreference
             android:defaultValue="@string/pref_time_pref_reminder_set_default"
             android:key="@string/pref_time_key_set_reminder"

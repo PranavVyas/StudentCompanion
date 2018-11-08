@@ -15,10 +15,9 @@ import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.aboutapp.AboutAppFragment;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import com.vyas.pranav.studentcompanion.extraUtils.ViewsUtils;
+import com.vyas.pranav.studentcompanion.login.LoginActivity;
 import com.vyas.pranav.studentcompanion.prefences.AppSettingsFragment;
-import com.vyas.pranav.studentcompanion.ui.AttendanceMainFragment;
-import com.vyas.pranav.studentcompanion.ui.LoginActivity;
-import com.vyas.pranav.studentcompanion.ui.TimetableMainFragment;
+import com.vyas.pranav.studentcompanion.timetable.TimetableMainFragment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,20 +26,25 @@ import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/*
+ * Very first activity that will be called after all fetching is done
+ * Contains all the main fragments*/
 public class DashboardActivity extends AppCompatActivity implements ViewsUtils.OnCustomDrawerItemClickListener, TimetableMainFragment.OnTimeTableMainFragmentChangeListener, AttendanceMainFragment.OnAttendanceMainFragmentChangeListener {
 
+    //For Saving state
     public static final String KEY_SAVED_STATE_TIME_TABLE_MAIN_FRAG = "CurrentSavedStateOfTimeTableFragment";
     public static final String KEY_SAVED_STATE_ATTENDNACE_MAIN_FRAG = "CurrentSavedStateOfTimeTableFragment";
     private static final String SAVE_TIMETABLE_FRAG = "TimeTableMainFragState";
     private static final String SAVE_ATTENDANCE_FRAG = "AttendanceMainFragState";
+    //for holding values of both timetableMain and attendanceMain fragment
     int CURR_FRAG_TIMETABLE = TimetableMainFragment.FRAG_TIMETABLE_FRAG;
     int CURR_FRAG_ATTENDANCE = AttendanceMainFragment.ATTENDANCE_FRAGMENT;
 
     @BindView(R.id.toolbar_main)
     Toolbar mToolbar;
-    Drawer drawer;
+    private Drawer drawer;
 
-    FragmentManager fragmentManager;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,6 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         setSupportActionBar(mToolbar);
         mToolbar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         fragmentManager = getSupportFragmentManager();
-        // and set things in overall database ShowSubjectAppWidget.UpdateWidgetNow(this);
         drawer = ViewsUtils.buildNavigationDrawer(DashboardActivity.this, mToolbar);
         if (savedInstanceState != null) {
             CURR_FRAG_TIMETABLE = savedInstanceState.getInt(SAVE_TIMETABLE_FRAG);
@@ -62,11 +65,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
+    //Show main fragment as attendanceMainFragment
     public void showMainAttendanceFragment() {
         AttendanceMainFragment attendanceMainFragment = new AttendanceMainFragment();
         Bundle currState = new Bundle();
@@ -79,6 +78,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         mToolbar.setTitle(R.string.app_name);
     }
 
+    //Callback from Drawer, when An item in drawer is clicked change the fragment accordingly
     @Override
     public void onClickedDrawerItem(int identifier) {
         switch (identifier) {
@@ -89,6 +89,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
             case ViewsUtils.ID_TIME_TABLE_NAVIGATION:
                 TimetableMainFragment timetableFrag = new TimetableMainFragment();
                 Bundle currState = new Bundle();
+                //Send data to timeTableMainFragment to indicate last saved state before rotation of device
                 currState.putInt(KEY_SAVED_STATE_TIME_TABLE_MAIN_FRAG, CURR_FRAG_TIMETABLE);
                 timetableFrag.setArguments(currState);
                 fragmentManager.beginTransaction()
@@ -122,6 +123,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
                 AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        //User successfully signed out
                         Toast.makeText(DashboardActivity.this, "Sucessfully Signed Out", Toast.LENGTH_SHORT).show();
                         Intent startAppAgain = new Intent(DashboardActivity.this, LoginActivity.class);
                         startActivity(startAppAgain);
@@ -130,6 +132,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        //There was some error while signing out
                         Toast.makeText(DashboardActivity.this, "Error Occured while Signing Out Try Again", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -137,6 +140,12 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         }
     }
 
+
+    /*
+     * Overriding back button :
+     * If drawer is opened than close it first
+     * than Move to dashboard activity if not already on that activity
+     * finally close app */
     @Override
     public void onBackPressed() {
         if (drawer != null) {
@@ -153,6 +162,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         }
     }
 
+    /*Saving state in bundle to retrieve it afterwards*/
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -161,6 +171,9 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         outState.putLong(Constances.SAVE_STATE_DASHBOARD_ACTVITY_DRAWER_ITEM, drawer.getCurrentSelection());
     }
 
+    /*
+     * Callback from timetableMainFragment means the fragment is changed in the timetableFragmentMain
+     * either to holiday or to timetable*/
     @Override
     public void OnTimeTableMainFragmentChanged(int currFrag) {
         CURR_FRAG_TIMETABLE = currFrag;
@@ -171,6 +184,9 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         }
     }
 
+    /*
+     * Callback from attendanceMain means the fragment is changed in the attendanceMain
+     * either to today or to overall*/
     @Override
     public void OnAttendanceMainFragmentChanged(int currFrag) {
         CURR_FRAG_ATTENDANCE = currFrag;

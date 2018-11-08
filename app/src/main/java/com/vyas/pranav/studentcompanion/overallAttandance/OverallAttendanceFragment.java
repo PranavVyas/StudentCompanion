@@ -37,9 +37,9 @@ public class OverallAttendanceFragment extends Fragment {
     CalendarView calendarView;
     @BindView(R.id.recycler_overall_attandance_frag_subjects)
     RecyclerView rvSubAttendance;
-    OverallAttendanceAdapter mAdapter;
-    OverallAttendanceDatabase mDb;
-    LiveData<List<OverallAttendanceEntry>> overallAttednanceList;
+    private OverallAttendanceAdapter mAdapter;
+    private OverallAttendanceDatabase mDb;
+    private LiveData<List<OverallAttendanceEntry>> overallAttednanceList;
 
     public OverallAttendanceFragment() {
     }

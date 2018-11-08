@@ -29,7 +29,7 @@ public class HolidayFetcher implements ValueEventListener {
         this.mCallback = mCallback;
     }
 
-    public void startFething() {
+    public void startFetching() {
         mRef.child("Holidays").addListenerForSingleValueEvent(this);
     }
 
