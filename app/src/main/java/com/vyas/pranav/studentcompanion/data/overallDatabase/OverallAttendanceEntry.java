@@ -10,7 +10,7 @@ public class OverallAttendanceEntry {
     @PrimaryKey
     @NonNull
     private String subjectName;
-    private double percentPresent;
+    private float percentPresent;
     private int totalDays;
     private int daysAvailableToBunk;
     private int daysBunked;
@@ -19,7 +19,7 @@ public class OverallAttendanceEntry {
     public OverallAttendanceEntry() {
     }
 
-    public OverallAttendanceEntry(String subjectName, double percentPresent, int totalDays, int daysAvailableToBunk, int daysBunked) {
+    public OverallAttendanceEntry(String subjectName, float percentPresent, int totalDays, int daysAvailableToBunk, int daysBunked) {
         this.subjectName = subjectName;
         this.percentPresent = percentPresent;
         this.totalDays = totalDays;
@@ -35,11 +35,11 @@ public class OverallAttendanceEntry {
         this.subjectName = subjectName;
     }
 
-    public double getPercentPresent() {
+    public float getPercentPresent() {
         return percentPresent;
     }
 
-    public void setPercentPresent(double percentPresent) {
+    public void setPercentPresent(float percentPresent) {
         this.percentPresent = percentPresent;
     }
 

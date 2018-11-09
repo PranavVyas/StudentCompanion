@@ -13,11 +13,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        tools:text="Hello There!"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_first_run"
+        tools:text="Hello There!" />
 
     <Button
         android:id="@+id/btn_first_run_login"
@@ -84,10 +85,12 @@
     <Button
         android:id="@+id/btn_first_run_open_start_date"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/button_rounded"
         android:text="@string/tv_first_run_select_starting_date"
+        android:textAlignment="center"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="@+id/tv_first_run_tag_start_date"
         app:layout_constraintStart_toStartOf="@+id/tv_first_run_tag_start_date"
         app:layout_constraintTop_toBottomOf="@+id/tv_first_run_tag_start_date" />
@@ -120,10 +123,14 @@
     <Button
         android:id="@+id/btn_first_run_open_end_date"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/button_rounded"
+        android:paddingStart="2dp"
+        android:paddingBottom="2dp"
         android:text="@string/tv_first_run_select_ending_date"
+        android:textAlignment="center"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="@+id/textView22"
         app:layout_constraintStart_toStartOf="@+id/textView22"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
@@ -151,5 +158,28 @@
         app:layout_constraintStart_toStartOf="@+id/btn_first_run_open_end_date"
         app:layout_constraintTop_toBottomOf="@+id/btn_first_run_open_end_date"
         tools:text="@tools:sample/date/ddmmyy" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_first_run"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/tv_first_run_info_extra"
+        app:layout_constraintBottom_toTopOf="@+id/btn_first_run_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

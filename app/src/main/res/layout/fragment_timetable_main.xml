@@ -10,7 +10,7 @@
         android:id="@+id/bottom_navigation_timetable"
         android:layout_width="0dp"
         android:layout_height="?actionBarSize"
-        android:background="@color/colorWhite"
+        android:background="?attr/customBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +19,7 @@
     <FrameLayout
         android:id="@+id/frame_timetable_frag_container"
         android:layout_width="0dp"
-        android:background="@color/colorWhite"
+        android:background="?attr/customBackground"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_timetable"
         app:layout_constraintEnd_toEndOf="parent"

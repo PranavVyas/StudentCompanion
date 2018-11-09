@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_ABSENT;
 import static com.vyas.pranav.studentcompanion.services.AddEmptyAttendanceIntentService.NO_OF_LACTURES;
@@ -47,11 +48,6 @@ public class AddAllAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
         List<Date> finalDates = getEligibleDatesbetweenDates();
         Logger.d(finalDates);
         addAllAttendanceAtOnce(finalDates);
-        //TODO testing new version
-//        for (Date tempDate :
-//                finalDates) {
-//            addDataInIndividualDatabase(tempDate);
-//        }
         return null;
     }
 
@@ -103,51 +99,6 @@ public class AddAllAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
     }
 
     /*
-     * Method to add the attendance of single date in the database
-     * this will called each time for each day
-     * TODO Old Version*/
-    private void addDataInIndividualDatabase(Date date) {
-        String dayOfWeek = Converters.getDayOfWeek(date);
-        TimetableEntry mTimetable = mTimetableDb.timetableDao().getTimetableForDay(dayOfWeek);
-        List<AttendanceIndividualEntry> mEntries = new ArrayList<>();
-        for (int i = 0; i < NO_OF_LACTURES; i++) {
-            AttendanceIndividualEntry newEntry = new AttendanceIndividualEntry();
-            newEntry.setDate(date);
-            newEntry.setAttended(VALUE_ABSENT);
-            switch (i + 1) {
-                case 1:
-                    newEntry.setSubName(mTimetable.getLacture1Name());
-                    newEntry.setFacultyName(mTimetable.getLacture1Faculty());
-                    newEntry.set_ID(Converters.generateIdForIndividualAttendance(date, 1));
-                    break;
-
-                case 2:
-                    newEntry.setSubName(mTimetable.getLacture2Name());
-                    newEntry.setFacultyName(mTimetable.getLacture2Faculty());
-                    newEntry.set_ID(Converters.generateIdForIndividualAttendance(date, 2));
-                    break;
-
-                case 3:
-                    newEntry.setSubName(mTimetable.getLacture3Name());
-                    newEntry.setFacultyName(mTimetable.getLacture3Faculty());
-                    newEntry.set_ID(Converters.generateIdForIndividualAttendance(date, 3));
-                    break;
-
-                case 4:
-                    newEntry.setSubName(mTimetable.getLacture4Name());
-                    newEntry.setFacultyName(mTimetable.getLacture4Faculty());
-                    newEntry.set_ID(Converters.generateIdForIndividualAttendance(date, 4));
-                    break;
-            }
-            newEntry.setLactureNo(i + 1);
-            newEntry.setDurationInMillis(3600);
-            newEntry.setLactureType("L");
-            mEntries.add(newEntry);
-        }
-        mAttendanceDb.attendanceIndividualDao().insertAttendances(mEntries);
-    }
-
-    /*
      * Helper Method for Initialization of attendance database
      * Returns dates list that have either Saturday,Sunday or holiday on that date*/
     private List<Date> getEligibleDatesbetweenDates() {
@@ -191,7 +142,7 @@ public class AddAllAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
         while (currYear <= endYear) {
             while (currDay <= endDay) {
                 try {
-                    tempdate = new SimpleDateFormat("D yyyy").parse(currDay + " " + currYear);
+                    tempdate = new SimpleDateFormat("D yyyy", Locale.US).parse(currDay + " " + currYear);
                     result.add(tempdate);
                 } catch (ParseException e) {
                     e.printStackTrace();

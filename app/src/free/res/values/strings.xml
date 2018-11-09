@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Student Companion Free</string>
+
+    <string name="pref_group_reminders">Reminders (Only available in Paid Version)</string>
+    <string name="pref_group_ui_tweaks">UI Tweaks (Only available in Paid Version)</string>
+    <string name="sample_app_unit_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="customBackground" format="color" />
+    <attr name="ic_pref_reminder" format="reference" />
+    <attr name="ic_pref_dark_theme" format="reference" />
+    <attr name="ic_pref_reminder_time" format="reference" />
+</resources>

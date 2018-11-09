@@ -13,6 +13,7 @@ import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -57,16 +58,22 @@ public class IndividualAttendanceFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_individual_attendance, container, false);
         ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         setUpRecyclerView();
         mDb = AttendanceIndividualDatabase.getInstance(getContext());
         loadDateAttendance();
-        return view;
     }
 
     private void setUpRecyclerView(){
         mAdapter = new IndividualAttendanceAdapter(getContext());
         LinearLayoutManager lm = new LinearLayoutManager(getContext());
         lm.setOrientation(RecyclerView.VERTICAL);
+        mAdapter.setHasStableIds(true);
         DividerItemDecoration decoration = new DividerItemDecoration(getContext(), lm.getOrientation());
         rvIndividualAttendance.addItemDecoration(decoration);
         rvIndividualAttendance.setAdapter(mAdapter);

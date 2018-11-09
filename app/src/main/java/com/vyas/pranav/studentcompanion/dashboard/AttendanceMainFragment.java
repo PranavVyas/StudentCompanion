@@ -54,14 +54,14 @@ public class AttendanceMainFragment extends Fragment {
         return view;
     }
 
-    //To set colors of bottom navigation bar programatically
+    //To set colors of bottom navigation bar programmatically
     private void setupBottomNavigationBar() {
         int[][] states = new int[][]{
                 new int[]{android.R.attr.state_checked}, // enabled
                 new int[]{-android.R.attr.state_checked}, // disabled
         };
         int[] colors = new int[]{
-                Color.BLACK,
+                getContext().getResources().getColor(R.color.accent),
                 Color.GRAY
         };
         ColorStateList myList = new ColorStateList(states, colors);

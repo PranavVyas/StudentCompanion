@@ -10,7 +10,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.asynTasks.AddTimetableAsyncTask;
-import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableDatabase;
 
 import androidx.annotation.NonNull;
 
@@ -19,14 +18,13 @@ public class TimetableDataFetcher {
     private Context context;
     private OnTimeTableReceived mCallback;
     private FirebaseDatabase mDb;
-    private TimetableDatabase mTDB;
     private DatabaseReference mRef;
+    public AddTimetableAsyncTask addTimetableAsyncTask;
 
 
     public TimetableDataFetcher(Context context, OnTimeTableReceived mCallback) {
         this.context = context;
         this.mCallback = mCallback;
-        mTDB = TimetableDatabase.getInstance(context);
         mDb = FirebaseDatabase.getInstance();
         mRef = mDb.getReference();
     }
@@ -35,7 +33,7 @@ public class TimetableDataFetcher {
         ValueEventListener mListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                AddTimetableAsyncTask addTimetableAsyncTask = new AddTimetableAsyncTask(context);
+                addTimetableAsyncTask = new AddTimetableAsyncTask(context);
                 addTimetableAsyncTask.setDataSnapshot(dataSnapshot);
                 addTimetableAsyncTask.execute();
             }
@@ -47,6 +45,10 @@ public class TimetableDataFetcher {
             }
         };
         mRef.child("TimeTable").addListenerForSingleValueEvent(mListener);
+    }
+
+    public void cancelFetching() {
+        addTimetableAsyncTask.cancel(true);
     }
 
     public interface OnTimeTableReceived {

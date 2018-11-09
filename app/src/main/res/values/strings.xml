@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Student Companion</string>
 
     <!--Drawer-->
     <string name="action_dashboard_navigation">Dashboard</string>
@@ -17,7 +16,12 @@
     <string name="pref_switch_reminder_summery_off">Reminder Disabled</string>
     <string name="pref_switch_reminder_summery_on">Reminder Enabled</string>
     <string name="pref_switch_reminder_title">Notification Reminder</string>
-    <string name="pref_group_reminders">Reminders</string>
+
+    <string name="pref_switch_key_dark_theme">isDarkThemeEnabled</string>
+    <string name="pref_switch_dark_theme_summery_on">Dark Theme Enabled</string>
+    <string name="pref_switch_dark_theme_summery_off">Dark Theme Disabled</string>
+    <string name="pref_switch_dark_theme_title">Dark Theme</string>
+
 
     <!--FirstRunActivity-->
     <string name="btn_first_run_continue">Continue To App</string>
@@ -30,6 +34,7 @@
     <string name="tv_first_run_please_select">Please Select\nFrom Above\nButton</string>
     <string name="java_first_run_progress_timetable">Fetching Timetable from Internet…</string>
     <string name="java_first_run_progress_holiday">Fetching Holidays from Internet…</string>
+    <string name="tv_first_run_info_extra">*Attendance will be initialized for dates between starting date and ending date\n*Attendance will not be initlized for holidays and saturday and sunday by @string/fui_next_default</string>
 
     <!--LoginActivity-->
     <string name="login_log_in">Log In</string>
@@ -57,7 +62,7 @@
     <string name="tv_item_holder_holiday_no">01.</string>
 
     <string name="frag_individual_attendance_holiday_image">HolidayImage</string>
-    <string name="frag_individual_attendance_holiday_text">Woohoo !!\\nEnjoy It looks like you have Holiday Today!</string>
+    <string name="frag_individual_attendance_holiday_text">Woohoo !!\nEnjoy It looks like you have Holiday Today!</string>
 
     <!--HolidayFragment-->
     <string name="tv_item_holder_holiday_holiday_name">Holiday</string>

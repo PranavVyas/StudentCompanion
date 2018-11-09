@@ -52,7 +52,7 @@ public class OverallAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
             String subName = Constances.SUBJECTS.get(i);
             int daysTotal = mIndividualDb.attendanceIndividualDao().getTotalDaysForSubject(subName);
             int daysPresent = mIndividualDb.attendanceIndividualDao().getAttendedDays(subName, VALUE_PRESENT);
-            double presentPercentage = (daysPresent * 100) / daysTotal;
+            float presentPercentage = (daysPresent * 100) / daysTotal;
             int minDaysThreshold = (int) Math.ceil((daysTotal * 0.75f));
             int daysElapsedTillToday = mIndividualDb.attendanceIndividualDao().getDatesBetweenForSubject(subName, Converters.convertStringToDate(startDateStr), currDate);
             int daysBunked = daysElapsedTillToday - daysPresent;
@@ -94,7 +94,7 @@ public class OverallAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
                 mEnties) {
             String warning = "";
             int daysTotal = x.getTotalDays();
-            float percentPresent = (float) x.getPercentPresent();
+            float percentPresent = x.getPercentPresent();
             int daysPresent = (int) Math.ceil((percentPresent * daysTotal) / 100);
             int daysThreshold = (int) Math.ceil(daysTotal * 0.75);
             int daysAlreadyBunked = x.getDaysBunked();
@@ -103,13 +103,13 @@ public class OverallAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
             int daysTillThreshold = daysThreshold - daysPresent;
             int daysLeft = daysTotal - daysElapsed;
             if (daysAvailableToBunk > 5) {
-                warning = "You are safe in Subject : " + x.getSubjectName();
+                warning = "* You are safe in Subject : <b>" + x.getSubjectName() + "</b>";
             } else if (daysAvailableToBunk > 0) {
-                warning = "You Only have " + daysAvailableToBunk + " days to bunk in Subject : " + x.getSubjectName() + ", Attend at least " + daysTillThreshold + " days out of " + daysLeft + " days to get Attendance greater than 75 %";
+                warning = "* You Only have <b>" + daysAvailableToBunk + "</b> days to bunk in Subject : <b>" + x.getSubjectName() + "</b>, Attend at least <b>" + daysTillThreshold + "</b> days out of <b>" + daysLeft + "</b> days to get Attendance greater than 75 %";
             } else if (daysAvailableToBunk == 0) {
-                warning = "You Should attend All the coming lectures in Subject : " + x.getSubjectName();
+                warning = "* You Should attend All the coming lectures in Subject : <b>" + x.getSubjectName() + "</b>";
             } else {
-                warning = "You will have XX in Subject " + x.getSubjectName();
+                warning = "* You have less than needed attendance in  Subject <b>" + x.getSubjectName() + "</b>";
             }
             warnings.add(warning);
         }

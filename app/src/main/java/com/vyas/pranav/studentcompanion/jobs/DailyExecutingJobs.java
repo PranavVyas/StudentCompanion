@@ -46,8 +46,6 @@ public class DailyExecutingJobs extends DailyJob implements OverallAttendanceAsy
     @NonNull
     @Override
     protected DailyJobResult onRunDailyJob(@NonNull Params params) {
-        //TODO Add OverallDatabase Entry
-        //TODO Update Widget
         updateOverallDatabase();
         setTodaysAttendanceInSharedPref(getContext());
         ShowSubjectAppWidget.UpdateWidgetNow(getContext().getApplicationContext());

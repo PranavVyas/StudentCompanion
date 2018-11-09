@@ -50,7 +50,7 @@ public class TimetableMainFragment extends Fragment {
         };
 
         int[] colors = new int[]{
-                Color.BLACK,
+                getContext().getResources().getColor(R.color.accent),
                 Color.GRAY
         };
         ColorStateList myList = new ColorStateList(states, colors);

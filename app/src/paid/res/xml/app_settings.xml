@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?><!--suppress AndroidElementNotAllowed -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/pref_group_ui_tweaks">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:icon="?attr/ic_pref_dark_theme"
+            android:key="@string/pref_switch_key_dark_theme"
+            android:summaryOff="@string/pref_switch_dark_theme_summery_off"
+            android:summaryOn="@string/pref_switch_dark_theme_summery_on"
+            android:title="@string/pref_switch_dark_theme_title" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_group_reminders">
 
         <SwitchPreference
             android:defaultValue="false"
+            android:icon="?attr/ic_pref_reminder"
             android:key="@string/pref_switch_key_reminder"
             android:summaryOff="@string/pref_switch_reminder_summery_off"
             android:summaryOn="@string/pref_switch_reminder_summery_on"
@@ -12,6 +23,7 @@
         <!--suppress AndroidElementNotAllowed -->
         <com.vyas.pranav.studentcompanion.prefences.TimePreference
             android:defaultValue="@string/pref_time_pref_reminder_set_default"
+            android:icon="?attr/ic_pref_reminder_time"
             android:key="@string/pref_time_key_set_reminder"
             android:title="@string/pref_time_pref_reminder_set_title" />
 

@@ -1,11 +1,16 @@
 package com.vyas.pranav.studentcompanion.dashboard;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -13,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.mikepenz.materialdrawer.Drawer;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.aboutapp.AboutAppFragment;
+import com.vyas.pranav.studentcompanion.data.SharedPrefsUtils;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import com.vyas.pranav.studentcompanion.extraUtils.ViewsUtils;
 import com.vyas.pranav.studentcompanion.login.LoginActivity;
@@ -29,7 +35,7 @@ import butterknife.ButterKnife;
 /*
  * Very first activity that will be called after all fetching is done
  * Contains all the main fragments*/
-public class DashboardActivity extends AppCompatActivity implements ViewsUtils.OnCustomDrawerItemClickListener, TimetableMainFragment.OnTimeTableMainFragmentChangeListener, AttendanceMainFragment.OnAttendanceMainFragmentChangeListener {
+public class DashboardActivity extends AppCompatActivity implements ViewsUtils.OnCustomDrawerItemClickListener, TimetableMainFragment.OnTimeTableMainFragmentChangeListener, AttendanceMainFragment.OnAttendanceMainFragmentChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     //For Saving state
     public static final String KEY_SAVED_STATE_TIME_TABLE_MAIN_FRAG = "CurrentSavedStateOfTimeTableFragment";
@@ -42,12 +48,15 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
 
     @BindView(R.id.toolbar_main)
     Toolbar mToolbar;
+    @BindView(R.id.ad_dashboard_main)
+    AdView adMain;
+    SharedPreferences mPrefs;
     private Drawer drawer;
-
     private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPrefsUtils.setThemeOfUser(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
@@ -55,6 +64,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         mToolbar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         fragmentManager = getSupportFragmentManager();
         drawer = ViewsUtils.buildNavigationDrawer(DashboardActivity.this, mToolbar);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (savedInstanceState != null) {
             CURR_FRAG_TIMETABLE = savedInstanceState.getInt(SAVE_TIMETABLE_FRAG);
             CURR_FRAG_ATTENDANCE = savedInstanceState.getInt(SAVE_ATTENDANCE_FRAG);
@@ -63,6 +73,11 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         } else {
             showMainAttendanceFragment();
         }
+        MobileAds.initialize(this, getString(R.string.banner_ad_unit_id));
+        AdRequest request = new AdRequest.Builder()
+                .addTestDevice("57C0017BCFBFA5603DF4520A562C5B19")  // An example device ID
+                .build();
+        adMain.loadAd(request);
     }
 
     //Show main fragment as attendanceMainFragment
@@ -99,10 +114,10 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
                 break;
 
             case ViewsUtils.ID_SHARE_APP_NAVIGATION:
-                Toast.makeText(this, "Share Clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Share Clicked", Toast.LENGTH_SHORT).show();
+                shareApp();
                 break;
 
-            //TODO Implement Share feature here
             case ViewsUtils.ID_PREFERENCE_NAVIGATION:
                 AppSettingsFragment settingsFrag = new AppSettingsFragment();
                 fragmentManager.beginTransaction()
@@ -138,6 +153,17 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
                 });
                 break;
         }
+    }
+
+
+    private void shareApp() {
+        String url = "<url-will-come-here>";
+        String text = "Hey ! I am  using this app to track my attendance,\nYou can also get it for free from this link \n" + url;
+        Intent shareApp = new Intent(Intent.ACTION_SEND);
+        shareApp.setType("text/plain");
+        shareApp.putExtra(Intent.EXTRA_SUBJECT, "Checkout this awesome attendance app");
+        shareApp.putExtra(Intent.EXTRA_TEXT, text);
+        startActivity(Intent.createChooser(shareApp, "Share Using..."));
     }
 
 
@@ -194,6 +220,25 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
             mToolbar.setTitle(R.string.app_name);
         } else {
             mToolbar.setTitle("Overall Attendance");
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mPrefs.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mPrefs.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        if (s.equals(getString(R.string.pref_switch_key_dark_theme))) {
+            this.recreate();
         }
     }
 }

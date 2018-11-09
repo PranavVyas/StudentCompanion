@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.vyas.pranav.studentcompanion.R;
+import com.vyas.pranav.studentcompanion.data.SharedPrefsUtils;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ public class IndividualAttendanceActivity extends AppCompatActivity {
     private String dateString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPrefsUtils.setThemeOfUser(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_attendance);
         ButterKnife.bind(this);

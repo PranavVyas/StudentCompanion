@@ -3,6 +3,7 @@ package com.vyas.pranav.studentcompanion.dashboard;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.vyas.pranav.studentcompanion.individualAttandance.IndividualAttendanc
 import java.util.Date;
 import java.util.Set;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,10 +40,15 @@ public class DashboardFragment extends Fragment implements SharedPreferences.OnS
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         mPref = PreferenceManager.getDefaultSharedPreferences(getContext());
         showSmartCard();
         showIndividualAttendance();
-        return view;
     }
 
     private void showIndividualAttendance() {
@@ -63,7 +71,7 @@ public class DashboardFragment extends Fragment implements SharedPreferences.OnS
                 warnings) {
             TextView tv = new TextView(getContext());
             tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            tv.setText(x);
+            tv.setText(Html.fromHtml(x));
             containerSmartCard.addView(tv);
         }
     }

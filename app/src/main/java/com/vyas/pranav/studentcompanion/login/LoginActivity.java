@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPrefsUtils.setThemeOfUser(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
@@ -45,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
             //User is not logged In
             logIn();
         } else {
-            /*User is already logged in
+            /* User is already logged in
              * Proceed to check if user has completed initial setup or not if not than redirect to the setup activity
              *  If finished setup start the DashboardActivity Now
              *  In both cases finish this activity

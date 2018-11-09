@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.vyas.pranav.studentcompanion.R;
+import com.vyas.pranav.studentcompanion.data.SharedPrefsUtils;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceEntry;
 import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import com.vyas.pranav.studentcompanion.extraUtils.Converters;
@@ -40,6 +41,7 @@ public class SubjectOverallDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPrefsUtils.setThemeOfUser(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_overall_detail);
         ButterKnife.bind(this);
@@ -52,7 +54,7 @@ public class SubjectOverallDetailActivity extends AppCompatActivity {
 
             OverallAttendanceEntry overallAttendanceEntry = gson.fromJson(getIntent().getStringExtra(Constances.KEY_SEND_DATA_TO_OVERALL_DETAIL), OverallAttendanceEntry.class);
             int daysTotal = overallAttendanceEntry.getTotalDays();
-            float percentPresent = (float) overallAttendanceEntry.getPercentPresent();
+            float percentPresent = overallAttendanceEntry.getPercentPresent();
             int daysPresent = (int) Math.ceil((percentPresent * daysTotal) / 100);
             int daysAlreadyBunked = overallAttendanceEntry.getDaysBunked();
             int daysAvailableToBunk = overallAttendanceEntry.getDaysAvailableToBunk();

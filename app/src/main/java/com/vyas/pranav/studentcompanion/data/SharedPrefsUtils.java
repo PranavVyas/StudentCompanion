@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.vyas.pranav.studentcompanion.R;
+
 public class SharedPrefsUtils {
 
     public static final String KEY_FIRST_TIME_APP = "FirstTimeUsingApp";
@@ -31,7 +33,15 @@ public class SharedPrefsUtils {
         SharedPreferences.Editor mEditor = mPrefs.edit();
         mEditor.putBoolean(KEY_FIRST_TIME_APP + activityName, isFirstTimeRunActivityValue);
         mEditor.apply();
+    }
 
+    public static void setThemeOfUser(Context context) {
+        SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if (mPrefs.getBoolean(context.getString(R.string.pref_switch_key_dark_theme), false)) {
+            context.setTheme(R.style.AppTheme_Dark);
+        } else {
+            context.setTheme(R.style.AppTheme);
+        }
     }
 
 }

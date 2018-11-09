@@ -9,16 +9,15 @@ import androidx.room.RoomDatabase;
 @Database(entities = OverallAttendanceEntry.class, version = 1, exportSchema = false)
 public abstract class OverallAttendanceDatabase extends RoomDatabase {
 
-    public static final Object LOCK = new Object();
-    public static final String DB_NAME = "OverallAttendanceDB";
-    static OverallAttendanceDatabase sInstance;
+    private static final Object LOCK = new Object();
+    private static final String DB_NAME = "OverallAttendanceDB";
+    private static OverallAttendanceDatabase sInstance;
 
     public static OverallAttendanceDatabase getInstance(Context context){
         if(sInstance == null){
             synchronized (LOCK){
                 sInstance = Room.databaseBuilder(context.getApplicationContext()
                         , OverallAttendanceDatabase.class, DB_NAME).build();
-                //TODO Move this to background
             }
             return sInstance;
         }

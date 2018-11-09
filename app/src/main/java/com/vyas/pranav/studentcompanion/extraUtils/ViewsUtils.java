@@ -43,6 +43,7 @@ public class ViewsUtils {
                 .withIdentifier(ID_DASHBOARD_NAVIGATION)
                 .withIcon(R.drawable.ic_navigation_dashboard)
                 .withName(R.string.action_dashboard_navigation)
+                .withIconTintingEnabled(true)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -56,6 +57,7 @@ public class ViewsUtils {
                 .withIdentifier(ID_PREFERENCE_NAVIGATION)
                 .withIcon(R.drawable.ic_navigation_settings)
                 .withName(R.string.action_preference_navigation)
+                .withIconTintingEnabled(true)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -69,6 +71,7 @@ public class ViewsUtils {
                 .withIdentifier(ID_ABOUT_THIS_APP_NAVIGATION)
                 .withIcon(R.drawable.ic_navigation_about_app)
                 .withName(R.string.action_about_app_navigation)
+                .withIconTintingEnabled(true)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -81,6 +84,7 @@ public class ViewsUtils {
         PrimaryDrawerItem timetable = new PrimaryDrawerItem()
                 .withIdentifier(ID_TIME_TABLE_NAVIGATION)
                 .withIcon(R.drawable.ic_navigation_timetable)
+                .withIconTintingEnabled(true)
                 .withName(R.string.action_time_table_navigation)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -94,6 +98,7 @@ public class ViewsUtils {
         PrimaryDrawerItem shareApp = new PrimaryDrawerItem()
                 .withIdentifier(ID_SHARE_APP_NAVIGATION)
                 .withIcon(R.drawable.ic_navigation_share)
+                .withIconTintingEnabled(true)
                 .withSelectable(false)
                 .withName(R.string.action_share_app_navigation)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -108,6 +113,7 @@ public class ViewsUtils {
                 .withIdentifier(ID_LOG_OUT_APP_NAVIGATION)
                 .withIcon(R.drawable.ic_navigation_log_out)
                 .withSelectable(false)
+                .withIconTintingEnabled(true)
                 .withName(R.string.action_log_out_navigation)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -119,6 +125,7 @@ public class ViewsUtils {
 
         PrimaryDrawerItem testApp = new PrimaryDrawerItem()
                 .withIdentifier(100)
+                .withIconTintingEnabled(true)
                 .withIcon(R.drawable.ic_navigation_share)
                 .withName("Developer Mode")
                 .withSelectable(false)
@@ -137,6 +144,7 @@ public class ViewsUtils {
         Uri photoUri = currUser != null ? mAuth.getCurrentUser().getPhotoUrl() : null;
         AccountHeader navigationHeader = new AccountHeaderBuilder()
                 .withActivity((Activity) context)
+                .withSelectionListEnabledForSingleProfile(false)
                 .withHeaderBackground(R.drawable.navigation_header_bkg)
                 .addProfiles(
                         new ProfileDrawerItem().withName(userName)
@@ -147,14 +155,7 @@ public class ViewsUtils {
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        Toast.makeText(context, "Profile Changed", Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                })
-                .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
-                    @Override
-                    public boolean onClick(View view, IProfile profile) {
-                        Toast.makeText(context, "Selected New Account", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Profile Clicked", Toast.LENGTH_SHORT).show();
                         return false;
                     }
                 })

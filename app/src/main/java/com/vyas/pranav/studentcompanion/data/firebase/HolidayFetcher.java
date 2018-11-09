@@ -20,6 +20,7 @@ public class HolidayFetcher implements ValueEventListener {
     private HolidayDatabase mHolidayDb;
     private Context context;
     private OnHolidayFechedListener mCallback;
+    public AddHolidaysAsyncTask asyncTask;
 
     public HolidayFetcher(Context context, OnHolidayFechedListener mCallback) {
         this.context = context;
@@ -35,10 +36,9 @@ public class HolidayFetcher implements ValueEventListener {
 
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        AddHolidaysAsyncTask asyncTask = new AddHolidaysAsyncTask(context, mCallback);
+        asyncTask = new AddHolidaysAsyncTask(context, mCallback);
         asyncTask.setDataSnapShot(dataSnapshot);
         asyncTask.execute();
-        mRef.child("Holidays").removeEventListener(this);
     }
 
     @Override
@@ -46,9 +46,12 @@ public class HolidayFetcher implements ValueEventListener {
         Logger.d("Connection Cancelled");
     }
 
+    public void cancelFetching() {
+        asyncTask.cancel(true);
+        mRef.child("Holidays").removeEventListener(this);
+    }
+
     public interface OnHolidayFechedListener {
         void OnHolidayFeched();
     }
-
-
 }

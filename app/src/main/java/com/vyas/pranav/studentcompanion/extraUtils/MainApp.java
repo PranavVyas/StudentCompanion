@@ -13,6 +13,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
+import com.treebo.internetavailabilitychecker.InternetAvailabilityChecker;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.jobs.JobsCreator;
 
@@ -22,10 +23,11 @@ public class MainApp extends Application {
     public void onCreate() {
         super.onCreate();
         JobManager.create(this).addJobCreator(new JobsCreator());
+        InternetAvailabilityChecker.init(this);
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
             public void set(ImageView imageView, Uri uri, Drawable placeholder, String tag) {
-                RequestOptions requestOptions = new RequestOptions().placeholder(placeholder);
+                RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.ic_account_circle_black_24dp).error(R.drawable.ic_account_circle_black_24dp);
 
                 Glide.with(imageView.getContext())
                         .setDefaultRequestOptions(requestOptions)

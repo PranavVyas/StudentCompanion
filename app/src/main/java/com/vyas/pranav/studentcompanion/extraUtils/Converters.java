@@ -8,11 +8,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class Converters {
 
     public static Date convertStringToDate(String dateString){
-        SimpleDateFormat dateFormator = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormator = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         Date date = new Date();
         try {
             date = dateFormator.parse(dateString);
@@ -23,7 +24,7 @@ public class Converters {
     }
 
     public static String convertDateToString(Date date){
-        SimpleDateFormat dateFormator = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormator = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         return dateFormator.format(date);
     }
 
@@ -43,13 +44,13 @@ public class Converters {
     }
 
     public static String getDayOfWeek(String dateString) {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.US);
         Date d = convertStringToDate(dateString);
         return sdf.format(d);
     }
 
     public static String getDayOfWeek(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.US);
         return sdf.format(date);
     }
 
@@ -102,6 +103,7 @@ public class Converters {
         public int getYear() {
             return year;
         }
+
 
         public void setYear(int year) {
             this.year = year;

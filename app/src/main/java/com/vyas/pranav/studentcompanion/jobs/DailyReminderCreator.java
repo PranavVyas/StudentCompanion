@@ -78,7 +78,7 @@ public class DailyReminderCreator extends DailyJob {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .addAction(getOpenAppAction())
                 .setAutoCancel(true);
-        //TODO Set Notification to cancel when tapped on Open App
+        //TODO BUG Set Notification to cancel when tapped on Open App
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
 
         notificationManager.notify(263, mBuilder.build());
@@ -89,12 +89,6 @@ public class DailyReminderCreator extends DailyJob {
         PendingIntent openAppFromNotification = PendingIntent.getActivity(getContext(), REQ_OPEN_APP, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         return (new NotificationCompat.Action.Builder(R.drawable.ic_navigation_dashboard, "Open App", openAppFromNotification).build());
     }
-
-//    private NotificationCompat.Action getMarkAllAction(){
-//        Intent markAllIntent = new Intent(getContext(), DashboardActivity.class);
-//        PendingIntent openAppFromNotification = PendingIntent.getActivity(getContext(), REQ_OPEN_APP, markAllIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        return (new NotificationCompat.Action.Builder(R.drawable.ic_navigation_dashboard, "Open App", openAppFromNotification).build());
-//    }
 
     private void showNotificationIfNotHoliday() {
         List<Date> holidays = HolidayDatabase.getsInstance(getContext()).holidayDao().getAllDates();
