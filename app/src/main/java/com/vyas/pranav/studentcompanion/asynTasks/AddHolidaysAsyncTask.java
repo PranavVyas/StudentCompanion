@@ -42,7 +42,6 @@ public class AddHolidaysAsyncTask extends AsyncTask<Void, Void, Void> {
             tempHoliday.setHolidayName(currHoliday.getName());
             tempHoliday.setHolidayDay(Converters.getDayOfWeek(currHoliday.getDate()));
             holidays.add(tempHoliday);
-            //TODO BUG Solve problem of loading multiple times
         }
         //Adding holidays to database
         mHolidayDb.holidayDao().insertAllHolidays(holidays);

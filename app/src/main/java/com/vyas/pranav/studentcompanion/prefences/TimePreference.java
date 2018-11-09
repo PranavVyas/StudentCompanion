@@ -8,33 +8,72 @@ import com.vyas.pranav.studentcompanion.R;
 
 import androidx.preference.DialogPreference;
 
+/**
+ * The type Time preference.
+ * Custom preference that creates dialog of the time picker and sets time when the dialog is closed
+ */
 public class TimePreference extends DialogPreference {
 
     private int mTime;
 
+    /**
+     * Instantiates a new Time preference.
+     *
+     * @param context      the context
+     * @param attrs        the attrs
+     * @param defStyleAttr the def style attr
+     * @param defStyleRes  the def style res
+     */
     public TimePreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+    /**
+     * Instantiates a new Time preference.
+     *
+     * @param context      the context
+     * @param attrs        the attrs
+     * @param defStyleAttr the def style attr
+     */
     public TimePreference(Context context, AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, defStyleAttr);
     }
 
+    /**
+     * Instantiates a new Time preference.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public TimePreference(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.dialogPreferenceStyle);
     }
 
+    /**
+     * Instantiates a new Time preference.
+     *
+     * @param context the context
+     */
     public TimePreference(Context context) {
         this(context, null);
     }
 
+    /**
+     * Gets time.
+     *
+     * @return the time
+     */
     public int getTime() {
         return mTime;
     }
 
+    /**
+     * Sets time.
+     *
+     * @param time the time
+     */
     public void setTime(int time) {
         this.mTime = time;
-
         //Time Saved to Shared Preference
         persistInt(time);
     }

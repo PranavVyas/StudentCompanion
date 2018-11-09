@@ -8,6 +8,9 @@ import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 
+/**
+ * Class for providing methods to make database operations in seperate background thread
+ */
 public class AppExecutors {
     // For Singleton instantiation
     private static final Object LOCK = new Object();
@@ -33,6 +36,9 @@ public class AppExecutors {
         return sInstance;
     }
 
+    /**
+     * Doing disk releated operations like DB operations
+     */
     public Executor diskIO() {
         return diskIO;
     }
@@ -45,6 +51,9 @@ public class AppExecutors {
         return networkIO;
     }
 
+    /**
+     * For doing changing in UI stuff like stting adapter frm within the background thread
+     */
     private static class MainThreadExecutor implements Executor {
         private Handler mainThreadHandler = new Handler(Looper.getMainLooper());
 

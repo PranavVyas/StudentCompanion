@@ -19,11 +19,11 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_ABSENT;
-import static com.vyas.pranav.studentcompanion.services.AddEmptyAttendanceIntentService.NO_OF_LACTURES;
 
 /*AsyncTask to perform all attendance init when app is run first time in background*/
 public class AddAllAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
 
+    public static final int NO_OF_LACTURES = 4;
     private Date startDate, endDate;
     private HolidayDatabase mHolidayDb;
     private TimetableDatabase mTimetableDb;

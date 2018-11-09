@@ -75,7 +75,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         }
         MobileAds.initialize(this, getString(R.string.banner_ad_unit_id));
         AdRequest request = new AdRequest.Builder()
-                .addTestDevice("57C0017BCFBFA5603DF4520A562C5B19")  // An example device ID
+                .addTestDevice("57C0017BCFBFA5603DF4520A562C5B19")
                 .build();
         adMain.loadAd(request);
     }
@@ -110,7 +110,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_dashboard_container, timetableFrag)
                         .commit();
-                mToolbar.setTitle("Time Table");
+                mToolbar.setTitle(R.string.action_time_table_navigation);
                 break;
 
             case ViewsUtils.ID_SHARE_APP_NAVIGATION:
@@ -123,7 +123,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_dashboard_container, settingsFrag)
                         .commit();
-                mToolbar.setTitle("Settings");
+                mToolbar.setTitle(R.string.action_preference_navigation);
                 break;
 
             case ViewsUtils.ID_ABOUT_THIS_APP_NAVIGATION:
@@ -131,7 +131,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_dashboard_container, aboutAppFrag)
                         .commit();
-                mToolbar.setTitle("About this App");
+                mToolbar.setTitle(R.string.action_about_app_navigation);
                 break;
 
             case ViewsUtils.ID_LOG_OUT_APP_NAVIGATION:
@@ -155,7 +155,9 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
         }
     }
 
-
+    /**
+     * Sharing App url
+     */
     private void shareApp() {
         String url = "<url-will-come-here>";
         String text = "Hey ! I am  using this app to track my attendance,\nYou can also get it for free from this link \n" + url;

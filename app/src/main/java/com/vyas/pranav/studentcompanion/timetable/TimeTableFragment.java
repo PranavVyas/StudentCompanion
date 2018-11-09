@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.evrencoskun.tableview.TableView;
-import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableDatabase;
 import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableEntry;
@@ -16,17 +15,25 @@ import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Fragment to show the timetable of lectures and faculties
+ */
 public class TimeTableFragment extends Fragment {
 
     @BindView(R.id.time_table_container)
     TableView tableView;
     private AppExecutors mExecutors;
+    //For storing lectures header and faculty name header
     private List<String> mCH;
+    //For storing days names
     private List<String> mRH;
+    //For storing details of the lectures
     private List<List<String>> mC;
 
     public TimeTableFragment() {
@@ -37,9 +44,20 @@ public class TimeTableFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_time_table, container, false);
         ButterKnife.bind(this, view);
+        return view;
+    }
+
+    /**
+     * @param view               Fragment View
+     * @param savedInstanceState Saved state of fragment
+     */
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         mExecutors = AppExecutors.getInstance();
         final TimetableAdapter mAdapter = new TimetableAdapter(getContext());
         tableView.setAdapter(mAdapter);
+        //Execute the fetching of data from DB and setting it in the table view adapter in background
         mExecutors.diskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -90,16 +108,14 @@ public class TimeTableFragment extends Fragment {
                     mCH.add(lectureTitle);
                     mCH.add(facultyTitle);
                 }
-                Logger.d("Test Log");
                 AppExecutors.getInstance().mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
+                        //Setting all items requires UI thread so in mainThread exec
                         mAdapter.setAllItems(mCH, mRH, mC);
                     }
                 });
             }
         });
-        return view;
     }
-
 }

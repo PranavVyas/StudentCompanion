@@ -17,6 +17,12 @@ import com.treebo.internetavailabilitychecker.InternetAvailabilityChecker;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.jobs.JobsCreator;
 
+/**
+ * The type Main app.
+ * The first method to get called
+ * Here getting the instance of the Evernote job Manager that will be used throughout the app
+ * Used to init loading of images in drawer with the help of Glide Image Loading library
+ */
 public class MainApp extends Application {
 
     @Override

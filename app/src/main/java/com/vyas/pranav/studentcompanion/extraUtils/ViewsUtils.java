@@ -2,10 +2,8 @@ package com.vyas.pranav.studentcompanion.extraUtils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,17 +19,50 @@ import com.vyas.pranav.studentcompanion.R;
 
 import androidx.appcompat.widget.Toolbar;
 
+/**
+ * The type Views utils.
+ * Class to help the UI operations
+ */
 public class ViewsUtils {
 
+    /**
+     * The constant ID_DASHBOARD_NAVIGATION.
+     */
     public static final int ID_DASHBOARD_NAVIGATION = 1;
+    /**
+     * The constant ID_MY_BOOK_SHELF_NAVIGATION.
+     */
     public static final int ID_MY_BOOK_SHELF_NAVIGATION = 2;
+    /**
+     * The constant ID_TIME_TABLE_NAVIGATION.
+     */
     public static final int ID_TIME_TABLE_NAVIGATION = 3;
+    /**
+     * The constant ID_SHARE_APP_NAVIGATION.
+     */
     public static final int ID_SHARE_APP_NAVIGATION = 4;
+    /**
+     * The constant ID_PREFERENCE_NAVIGATION.
+     */
     public static final int ID_PREFERENCE_NAVIGATION = 5;
+    /**
+     * The constant ID_ABOUT_THIS_APP_NAVIGATION.
+     */
     public static final int ID_ABOUT_THIS_APP_NAVIGATION = 6;
+    /**
+     * The constant ID_LOG_OUT_APP_NAVIGATION.
+     */
     public static final int ID_LOG_OUT_APP_NAVIGATION = 7;
 
 
+    /**
+     * Build navigation drawer drawer.
+     * and returns it in DashboardActivity
+     *
+     * @param context the context
+     * @param toolbar the toolbar in which toolbar integrates itself
+     * @return the drawer
+     */
     public static Drawer buildNavigationDrawer(final Context context, Toolbar toolbar) {
         final FirebaseAuth mAuth;
         final OnCustomDrawerItemClickListener mCallback;
@@ -48,7 +79,7 @@ public class ViewsUtils {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         mCallback.onClickedDrawerItem(ID_DASHBOARD_NAVIGATION);
-                        Toast.makeText(context, "DashBoard Clicked", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, "DashBoard Clicked", Toast.LENGTH_SHORT).show();
                         return false;
                     }
                 });
@@ -62,7 +93,7 @@ public class ViewsUtils {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         mCallback.onClickedDrawerItem(ID_PREFERENCE_NAVIGATION);
-                        Toast.makeText(context, "Preference Clicked", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, "Preference Clicked", Toast.LENGTH_SHORT).show();
                         return false;
                     }
                 });
@@ -75,7 +106,7 @@ public class ViewsUtils {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        Toast.makeText(context, "aboutApp Clicked", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, "aboutApp Clicked", Toast.LENGTH_SHORT).show();
                         mCallback.onClickedDrawerItem(ID_ABOUT_THIS_APP_NAVIGATION);
                         return false;
                     }
@@ -89,7 +120,7 @@ public class ViewsUtils {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        Toast.makeText(context, "Time Table Clicked", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, "Time Table Clicked", Toast.LENGTH_SHORT).show();
                         mCallback.onClickedDrawerItem(ID_TIME_TABLE_NAVIGATION);
                         return false;
                     }
@@ -123,21 +154,6 @@ public class ViewsUtils {
                     }
                 });
 
-        PrimaryDrawerItem testApp = new PrimaryDrawerItem()
-                .withIdentifier(100)
-                .withIconTintingEnabled(true)
-                .withIcon(R.drawable.ic_navigation_share)
-                .withName("Developer Mode")
-                .withSelectable(false)
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        Toast.makeText(context, "Developer Mode Enabled", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(context,DeveloperActivity.class);
-                        context.startActivity(intent);
-                        return false;
-                    }
-                });
         FirebaseUser currUser = mAuth.getCurrentUser();
         String userName = currUser != null ? mAuth.getCurrentUser().getDisplayName() : "ANYNOMOUS";
         String email = currUser != null ? mAuth.getCurrentUser().getEmail() : "PLEASE REGISTER";
@@ -155,7 +171,7 @@ public class ViewsUtils {
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        Toast.makeText(context, "Profile Clicked", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, "Profile Clicked", Toast.LENGTH_SHORT).show();
                         return false;
                     }
                 })
@@ -171,14 +187,22 @@ public class ViewsUtils {
                         shareApp,
                         prefences,
                         aboutApp,
-                        testApp,
                         logOut
                 )
                 .build();
         return drawer;
     }
 
+    /**
+     * The interface On custom drawer item click listener.
+     * To notify if the item is clicked in the drawer to set Title of the Dashboard Activity and change the view accordingly
+     */
     public interface OnCustomDrawerItemClickListener {
+        /**
+         * On clicked drawer item.
+         *
+         * @param identifier the identifier
+         */
         void onClickedDrawerItem(int identifier);
     }
 }

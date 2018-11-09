@@ -34,25 +34,58 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * The type First run activity.
+ */
 public class FirstRunActivity extends AppCompatActivity implements InternetConnectivityListener, TimetableDataFetcher.OnTimeTableReceived, HolidayFetcher.OnHolidayFechedListener, OverallAttendanceAsyncTask.OnOverallAttendanceAddedListener, AddAllAttendanceAsyncTask.OnAllAttendanceInitializedListener, DatePickerFrag.OnSelectedStartDateListener {
+    /**
+     * The constant TAG.
+     */
     public static final String TAG = "FirstRunActivity";
 
+    /**
+     * The textview greetings.
+     */
     @BindView(R.id.tv_first_run_greeting)
     TextView tvGreetings;
+    /**
+     * The progressbar instance
+     */
     @BindView(R.id.progress_first_run_term)
     ProgressBar mProgress;
+    /**
+     * The TextView progress tag used to show what is being happened in background thread
+     */
     @BindView(R.id.tv_first_run_progress_tag)
     TextView tvProgressTag;
+    /**
+     * The TextView start date.
+     */
     @BindView(R.id.tv_first_run_start_date)
     TextView tvStartDate;
+    /**
+     * The TextView end date.
+     */
     @BindView(R.id.tv_first_run_end_date)
     TextView tvEndDate;
+    /**
+     * The Start date Button.
+     */
     @BindView(R.id.btn_first_run_open_start_date)
     Button startDateBtn;
+    /**
+     * The End date Button.
+     */
     @BindView(R.id.btn_first_run_open_end_date)
     Button endDateBtn;
+    /**
+     * The continue button
+     */
     @BindView(R.id.btn_first_run_continue)
     Button btnContinue;
+    /**
+     * The toolbar.
+     */
     @BindView(R.id.toolbar_first_run)
     Toolbar mToolbar;
 
@@ -92,30 +125,45 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
         }
     }
 
+    /**
+     * Attach the internet connectivity listener
+     */
     @Override
     protected void onResume() {
         super.onResume();
         mInternetChecker.addInternetConnectivityListener(this);
     }
 
+    /**
+     * Detach the internet connectivity listener
+     */
     @Override
     protected void onPause() {
         super.onPause();
         mInternetChecker.removeInternetConnectivityChangeListener(this);
     }
 
+    /**
+     * Clicked start date selector.
+     */
     @OnClick(R.id.btn_first_run_open_start_date)
     void clickedStartDateSelector() {
         DialogFragment datePicker = new DatePickerFrag();
         datePicker.show(getSupportFragmentManager(), "StartDate");
     }
 
+    /**
+     * Clicked end date selector.
+     */
     @OnClick(R.id.btn_first_run_open_end_date)
     void clickedEndDateSelector() {
         DialogFragment datePicker = new DatePickerFrag();
         datePicker.show(getSupportFragmentManager(), "EndDate");
     }
 
+    /**
+     * Continue Button clicked.
+     */
     @OnClick(R.id.btn_first_run_continue)
     public void continueBtnClicked() {
         if (tvStartDate.getText().equals(getString(R.string.tv_first_run_please_select)) || tvEndDate.getText().equals(getString(R.string.tv_first_run_please_select))) {
@@ -150,6 +198,9 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
     }
 
 
+    /**
+     * Start fetching necessary data.
+     */
     public void startFetchingNecessaryData() {
         disableButtons();
         //Fetch TimeTable Data
@@ -208,6 +259,9 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
         finish();
     }
 
+    /**
+     * On back to login pressed.
+     */
     /*
      * User pressed Login button*/
     @OnClick(R.id.btn_first_run_login)
@@ -217,6 +271,11 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
         finish();
     }
 
+    /**
+     * Start date selected
+     *
+     * @param dateStr starting date
+     */
     @Override
     public void OnSelectedStartDate(String dateStr) {
         mEditor.putString(Constances.START_DATE_SEM, dateStr);
@@ -224,6 +283,10 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
         tvStartDate.setText(dateStr);
     }
 
+    /**
+     * End date selected
+     * @param dateStr Ending date
+     */
     @Override
     public void OnSelectedEndDate(String dateStr) {
         mEditor.putString(Constances.END_DATE_SEM, dateStr);
@@ -231,6 +294,9 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
         tvEndDate.setText(dateStr);
     }
 
+    /**
+     * The internet connection is broken while fetching data, so we should stop fetching data if any asyncTask is available
+     */
     private void cancelFetching() {
         if (holidayFetcher != null) {
             if (holidayFetcher.asyncTask != null) {
@@ -247,18 +313,29 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
         enableButtons();
     }
 
+    /**
+     * To enable buttons
+     */
     private void enableButtons() {
         endDateBtn.setEnabled(true);
         startDateBtn.setEnabled(true);
         btnContinue.setEnabled(true);
     }
 
+    /**
+     * To disable buttons
+     */
     private void disableButtons() {
         endDateBtn.setEnabled(false);
         startDateBtn.setEnabled(false);
         btnContinue.setEnabled(false);
     }
 
+    /**
+     *  Used to indicate if network is gone or available
+     *  if not connected stop fetching data now
+     * @param isConnected is connected to internet
+     */
     @Override
     public void onInternetConnectivityChanged(boolean isConnected) {
         this.isConnected = isConnected;

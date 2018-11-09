@@ -22,11 +22,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * The type Overall attendance adapter.
+ * Adapter for recycler view that shows the overall attendance chart in overallAttendanceFragment
+ */
 public class OverallAttendanceAdapter extends RecyclerView.Adapter<OverallAttendanceAdapter.OverallAttendanceHolder> {
 
     private Context mContext;
     private List<OverallAttendanceEntry> attendanceData;
 
+    /**
+     * Instantiates a new Overall attendance adapter.
+     *
+     * @param mContext the m context
+     */
     public OverallAttendanceAdapter(Context mContext) {
         this.mContext = mContext;
     }
@@ -40,19 +49,9 @@ public class OverallAttendanceAdapter extends RecyclerView.Adapter<OverallAttend
 
     @Override
     public void onBindViewHolder(@NonNull OverallAttendanceHolder overallAttendanceHolder, final int i) {
-        overallAttendanceHolder.chartSub.setValue((float) attendanceData.get(i).getPercentPresent());
+        overallAttendanceHolder.chartSub.setValue(attendanceData.get(i).getPercentPresent());
         overallAttendanceHolder.tvPercent.setText(String.format(Locale.US, "%d %%", (int) attendanceData.get(i).getPercentPresent()));
         overallAttendanceHolder.tvSubName.setText(attendanceData.get(i).getSubjectName());
-//        overallAttendanceHolder.chartSub.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Gson gson = new Gson();
-//                String subDataJsongson = gson.toJson(attendanceData.get(i));
-//                Intent intent = new Intent(mContext,SubjectOverallDetailActivity.class);
-//                intent.putExtra(Constances.KEY_SEND_DATA_TO_OVERALL_DETAIL,subDataJsongson);
-//                mContext.startActivity(intent);
-//            }
-//        });
     }
 
     @Override
@@ -60,21 +59,43 @@ public class OverallAttendanceAdapter extends RecyclerView.Adapter<OverallAttend
         return (attendanceData == null) ? 0 : attendanceData.size();
     }
 
-    public void setAttendanceData(List<OverallAttendanceEntry> attendanceData) {
+    /**
+     * Sets attendance data.
+     *
+     * @param attendanceData the attendance data
+     */
+    void setAttendanceData(List<OverallAttendanceEntry> attendanceData) {
         this.attendanceData = attendanceData;
         notifyDataSetChanged();
     }
 
+    /**
+     * The type Overall attendance holder.
+     */
     class OverallAttendanceHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        /**
+         * The Chart of the subject.
+         */
         @BindView(R.id.chart_recycler_overall_subject)
         FitChart chartSub;
+        /**
+         * The Tv percent.
+         */
         @BindView(R.id.tv_recycler_overall_percent)
         TextView tvPercent;
+        /**
+         * The Tv sub name.
+         */
         @BindView(R.id.tv_recycler_overall_sub_name)
         TextView tvSubName;
 
-        public OverallAttendanceHolder(@NonNull View itemView) {
+        /**
+         * Instantiates a new Overall attendance holder.
+         *
+         * @param itemView the item view
+         */
+        OverallAttendanceHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);

@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
 import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 
@@ -13,6 +12,10 @@ import java.util.Calendar;
 
 import androidx.fragment.app.DialogFragment;
 
+/**
+ * The type Date picker frag.
+ * Used to select date of starting of sem and end date of sem
+ */
 public class DatePickerFrag extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     private OnSelectedStartDateListener mCallback;
@@ -20,10 +23,10 @@ public class DatePickerFrag extends DialogFragment implements DatePickerDialog.O
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         if (getTag().equals("StartDate")) {
-            Toast.makeText(getContext(), "Start Date : " + i + "month" + i1 + "Year " + i2, Toast.LENGTH_SHORT).show();
+            //The dialog is used to set Start date so return callback as starting date selected
             mCallback.OnSelectedStartDate(Converters.formatDateStringfromCalender(i2, i1 + 1, i));
         } else if (getTag().equals("EndDate")) {
-            Toast.makeText(getContext(), "End Date : " + i + "month" + i1 + "Year " + i2, Toast.LENGTH_SHORT).show();
+            //The dialog is used to set End date so return callback as end date selected
             mCallback.OnSelectedEndDate(Converters.formatDateStringfromCalender(i2, i1 + 1, i));
         }
     }
@@ -46,9 +49,22 @@ public class DatePickerFrag extends DialogFragment implements DatePickerDialog.O
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
+    /**
+     * The interface On selected start date listener.
+     */
     public interface OnSelectedStartDateListener {
+        /**
+         * On selected start date.
+         *
+         * @param dateStr the date str
+         */
         void OnSelectedStartDate(String dateStr);
 
+        /**
+         * On selected end date.
+         *
+         * @param dateStr the date str
+         */
         void OnSelectedEndDate(String dateStr);
     }
 }

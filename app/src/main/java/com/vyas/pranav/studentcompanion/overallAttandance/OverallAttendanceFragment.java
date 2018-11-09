@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
-import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceDatabase;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceEntry;
@@ -31,22 +29,30 @@ import butterknife.ButterKnife;
 import static com.vyas.pranav.studentcompanion.extraUtils.Converters.formatDateStringfromCalender;
 import static com.vyas.pranav.studentcompanion.extraUtils.Converters.getDayOfWeek;
 
+/**
+ * The type Overall attendance fragment.
+ * Fragment that shows calenderview and Overall attendance recycerview
+ */
 public class OverallAttendanceFragment extends Fragment {
 
+    /**
+     * The Calendar view.
+     */
     @BindView(R.id.calernder_overall_attendance_frag)
     CalendarView calendarView;
+    /**
+     * The Rv sub attendance.
+     */
     @BindView(R.id.recycler_overall_attandance_frag_subjects)
     RecyclerView rvSubAttendance;
     private OverallAttendanceAdapter mAdapter;
     private OverallAttendanceDatabase mDb;
     private LiveData<List<OverallAttendanceEntry>> overallAttednanceList;
 
+    /**
+     * Instantiates a new Overall attendance fragment.
+     */
     public OverallAttendanceFragment() {
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -54,6 +60,12 @@ public class OverallAttendanceFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_overall_attendance, container, false);
         ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
@@ -61,7 +73,7 @@ public class OverallAttendanceFragment extends Fragment {
                 int month = i1 + 1;
                 int year = i;
                 String dateString = formatDateStringfromCalender(date, month, year);
-                Logger.d("Date : "+dateString + "Day : " +getDayOfWeek(dateString));
+                //Logger.d("Date : "+dateString + "Day : " +getDayOfWeek(dateString));
                 Toast.makeText(getContext(), dateString + " " +getDayOfWeek(dateString), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), IndividualAttendanceActivity.class);
                 intent.putExtra(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_ACTIVITY, dateString);
@@ -69,9 +81,9 @@ public class OverallAttendanceFragment extends Fragment {
             }
         });
         setUpRecyclerView();
-        Logger.addLogAdapter(new AndroidLogAdapter());
         mDb = OverallAttendanceDatabase.getInstance(getContext());
         loadDataInRecyclerView();
+        //To observer changes happening in main DB and react to it by updating the adapter of recycler view
         overallAttednanceList = mDb.overallAttandanceDao().getAllOverallAttedance();
         overallAttednanceList.observe(this, new Observer<List<OverallAttendanceEntry>>() {
             @Override
@@ -79,15 +91,20 @@ public class OverallAttendanceFragment extends Fragment {
                 mAdapter.setAttendanceData(overallAttendanceEntries);
             }
         });
-        return view;
     }
 
+    /**
+     * Remove observers in LiveData when view is destroyed
+     */
     @Override
     public void onDestroyView() {
         overallAttednanceList.removeObservers(this);
         super.onDestroyView();
     }
 
+    /**
+     * Set up recyclerview
+     */
     private void setUpRecyclerView() {
         mAdapter = new OverallAttendanceAdapter(getContext());
         LinearLayoutManager lm = new LinearLayoutManager(getContext());
@@ -96,7 +113,7 @@ public class OverallAttendanceFragment extends Fragment {
         rvSubAttendance.setAdapter(mAdapter);
     }
 
+    //Callback to notify if the overall attendance has been added/updated
     private void loadDataInRecyclerView() {
-//        mAdapter.setAttendanceData(mDb.overallAttandanceDao().getAllOverallAttedance());
     }
 }

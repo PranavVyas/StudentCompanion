@@ -11,6 +11,9 @@ import androidx.fragment.app.DialogFragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
+/**
+ * The type App settings fragment.
+ */
 public class AppSettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
@@ -66,13 +69,22 @@ public class AppSettingsFragment extends PreferenceFragmentCompat implements Sha
 
     }
 
+    /**
+     * Register the listener
+     *
+     * @param savedInstanceState saved state of the fragment
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 
-    public void setTimepickerStateFromPrefs() {
+    /**
+     * Set up time preference according to the state of switch
+     * If switch is enabled set up the time picker true and vise versa
+     */
+    private void setTimepickerStateFromPrefs() {
         boolean isEnabled = getPreferenceScreen().getSharedPreferences().getBoolean(getString(R.string.pref_switch_key_reminder), false);
         if (isEnabled) {
             findPreference(getString(R.string.pref_time_key_set_reminder)).setEnabled(true);
@@ -82,13 +94,19 @@ public class AppSettingsFragment extends PreferenceFragmentCompat implements Sha
         }
     }
 
+    /**
+     * Unregister the Preference change listener
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
         getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    public void setUpDailyReminders(int time) {
+    /**
+     * @param time time got from parent method to set up reminder daily at the time
+     */
+    private void setUpDailyReminders(int time) {
         String timeStr = Converters.convertTimeIntInString(time);
         DailyReminderCreator.sheduleJob(timeStr);
     }

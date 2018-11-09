@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.SharedPrefsUtils;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceEntry;
@@ -51,7 +52,6 @@ public class SubjectOverallDetailActivity extends AppCompatActivity {
         }
         if (getIntent().hasExtra(Constances.KEY_SEND_DATA_TO_OVERALL_DETAIL)) {
             Gson gson = new Gson();
-
             OverallAttendanceEntry overallAttendanceEntry = gson.fromJson(getIntent().getStringExtra(Constances.KEY_SEND_DATA_TO_OVERALL_DETAIL), OverallAttendanceEntry.class);
             int daysTotal = overallAttendanceEntry.getTotalDays();
             float percentPresent = overallAttendanceEntry.getPercentPresent();
@@ -68,6 +68,8 @@ public class SubjectOverallDetailActivity extends AppCompatActivity {
             tvPresentDays.setText(String.format(Locale.US, "%d", daysPresent));
             tvDate.setText(Converters.convertDateToString(new Date()));
             tvElaspsedDays.setText(String.format(Locale.US, "%d", daysElapsed));
+        } else {
+            Logger.d("Error Occurred While setting overall attendance");
         }
     }
 }

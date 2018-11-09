@@ -10,11 +10,20 @@ import com.vyas.pranav.studentcompanion.R;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+/**
+ * The type Time preference dialog fragment compat.
+ */
 public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat {
 
     private TimePicker mTimePicker;
 
-    public static TimePreferenceDialogFragmentCompat getNewInstance(String key) {
+    /**
+     * Gets new instance.
+     *
+     * @param key the key
+     * @return the new instance
+     */
+    static TimePreferenceDialogFragmentCompat getNewInstance(String key) {
         TimePreferenceDialogFragmentCompat sInstance = new TimePreferenceDialogFragmentCompat();
         Bundle b = new Bundle();
         b.putString(ARG_KEY, key);
@@ -58,17 +67,17 @@ public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragment
         }
 
         // Get the time from the related Preference
-        Integer minutesAfterMidnight = null;
+        Integer timeInMinues = null;
         DialogPreference preference = getPreference();
         if (preference instanceof TimePreference) {
-            minutesAfterMidnight =
+            timeInMinues =
                     ((TimePreference) preference).getTime();
         }
 
         // Set the time to the TimePicker
-        if (minutesAfterMidnight != null) {
-            int hours = minutesAfterMidnight / 60;
-            int minutes = minutesAfterMidnight % 60;
+        if (timeInMinues != null) {
+            int hours = timeInMinues / 60;
+            int minutes = timeInMinues % 60;
             boolean is24hour = DateFormat.is24HourFormat(getContext());
 
             mTimePicker.setIs24HourView(is24hour);

@@ -12,8 +12,16 @@ import com.vyas.pranav.studentcompanion.login.LoginActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Splash activity.
+ */
 public class SplashActivity extends AppCompatActivity {
 
+    /**
+     * Redirect user to appropriate activity
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

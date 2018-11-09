@@ -13,6 +13,9 @@ import com.vyas.pranav.studentcompanion.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Adapter to set the data to tableView
+ */
 public class TimetableAdapter extends AbstractTableAdapter<String, String, String> {
 
     private Context mContext;
@@ -48,8 +51,6 @@ public class TimetableAdapter extends AbstractTableAdapter<String, String, Strin
         String cellDetail = (String) cellItemModel;
         MyCellViewHolder viewHolder = (MyCellViewHolder) holder;
         viewHolder.tvCell.setText(cellDetail);
-//        viewHolder.itemView.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
-//        viewHolder.tvCell.requestLayout();
     }
 
     @Override
@@ -63,8 +64,6 @@ public class TimetableAdapter extends AbstractTableAdapter<String, String, Strin
         String columnDetail = (String) columnHeaderItemModel;
         MyColumnViewHolder viewHolderColumn = (MyColumnViewHolder) holder;
         viewHolderColumn.tvColumn.setText(columnDetail);
-//        viewHolderColumn.itemView.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
-//        viewHolderColumn.tvColumn.requestLayout();
     }
 
     @Override
@@ -78,48 +77,39 @@ public class TimetableAdapter extends AbstractTableAdapter<String, String, Strin
         String rowDetail = (String) rowHeaderItemModel;
         MyRowViewHolder viewHolderRow = (MyRowViewHolder) holder;
         viewHolderRow.tvRow.setText(rowDetail);
-//        viewHolderRow.itemView.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
-//        viewHolderRow.tvRow.requestLayout();
     }
 
     @Override
     public View onCreateCornerView() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_holder_timetale_corner, null);
-        return view;
+        return LayoutInflater.from(mContext).inflate(R.layout.item_holder_timetale_corner, null);
     }
 
     class MyCellViewHolder extends AbstractViewHolder {
-        //TextView tvCell;
-
         @BindView(R.id.tv_timetable_cell)
         TextView tvCell;
-        public MyCellViewHolder(View itemView) {
+
+        MyCellViewHolder(View itemView) {
             super(itemView);
-            //tvCell = itemView.findViewById(R.id.tv_timetable_cell);
             ButterKnife.bind(this, itemView);
         }
     }
 
     class MyColumnViewHolder extends AbstractViewHolder {
-        //TextView tvColumn;
-
         @BindView(R.id.tv_timetable_column)
         TextView tvColumn;
-        public MyColumnViewHolder(View itemView) {
+
+        MyColumnViewHolder(View itemView) {
             super(itemView);
-            //tvColumn = itemView.findViewById(R.id.tv_timetable_column);
             ButterKnife.bind(this, itemView);
         }
     }
 
     class MyRowViewHolder extends AbstractViewHolder {
-        //TextView tvRow;
-
         @BindView(R.id.tv_timetable_row)
         TextView tvRow;
-        public MyRowViewHolder(View itemView) {
+
+        MyRowViewHolder(View itemView) {
             super(itemView);
-            //tvRow = itemView.findViewById(R.id.tv_timetable_row);
             ButterKnife.bind(this, itemView);
         }
     }

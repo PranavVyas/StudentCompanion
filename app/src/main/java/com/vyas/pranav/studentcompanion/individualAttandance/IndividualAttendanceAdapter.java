@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualEntry;
@@ -96,7 +97,7 @@ public class IndividualAttendanceAdapter extends RecyclerView.Adapter<Individual
 
     public void setAttendanceForDate(List<AttendanceIndividualEntry> attendances) {
         this.mAtttendances = attendances;
-        //TODO BUG Called Multiple times Logger.d(attendances);
+        Logger.d(attendances);
         notifyDataSetChanged();
     }
 

@@ -26,12 +26,21 @@ import butterknife.ButterKnife;
 
 import static com.vyas.pranav.studentcompanion.extraUtils.Constances.KEY_SMART_CARD_DETAILS;
 
+/**
+ * The type Dashboard fragment.
+ */
 public class DashboardFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    /**
+     * The Container smart card.
+     */
     @BindView(R.id.linear_dashboard_frag_smart_card_container)
     LinearLayout containerSmartCard;
     private SharedPreferences mPref;
 
+    /**
+     * Instantiates a new Dashboard fragment.
+     */
     public DashboardFragment() {
     }
 
@@ -51,6 +60,9 @@ public class DashboardFragment extends Fragment implements SharedPreferences.OnS
         showIndividualAttendance();
     }
 
+    /**
+     * Shows attendance fragment
+     */
     private void showIndividualAttendance() {
         IndividualAttendanceFragment todayAttendanceFrag = new IndividualAttendanceFragment();
         Bundle dataToSend = new Bundle();
@@ -62,8 +74,10 @@ public class DashboardFragment extends Fragment implements SharedPreferences.OnS
                 .commit();
     }
 
-    /*
-     * */
+    /**
+     * For showing smart card
+     * getting details from shred prefefrnces and showing to smart card
+     */
     private void showSmartCard() {
         Set<String> warnings = mPref.getStringSet(KEY_SMART_CARD_DETAILS, null);
         containerSmartCard.removeAllViews();
@@ -76,7 +90,12 @@ public class DashboardFragment extends Fragment implements SharedPreferences.OnS
         }
     }
 
-
+    /**
+     * For each change in shared preference check if the changed preference is the smart card changed
+     * If smart card is changed than refresh the showing smart card
+     * @param sharedPreferences shardPrefernce
+     * @param s changed prefernce key
+     */
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         if (s.equals(KEY_SMART_CARD_DETAILS)) {
@@ -84,12 +103,18 @@ public class DashboardFragment extends Fragment implements SharedPreferences.OnS
         }
     }
 
+    /**
+     * Register listener for listening to changes in shared prefences
+     */
     @Override
     public void onResume() {
         super.onResume();
         mPref.registerOnSharedPreferenceChangeListener(this);
     }
 
+    /**
+     * Unregister listener for listening to changes in shared prefences
+     */
     @Override
     public void onPause() {
         super.onPause();

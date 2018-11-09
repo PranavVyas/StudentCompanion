@@ -31,6 +31,9 @@ public class DailyReminderCreator extends DailyJob {
     public static final String TAG = "DailyReminderCreator";
     private static final int REQ_OPEN_APP = 100;
 
+    /**
+     * To cancel Reminder job when needed
+     */
     public static void cancelReminder() {
         if (!JobManager.instance().getAllJobRequestsForTag(TAG).isEmpty()) {
             JobManager.instance().cancelAllForTag(TAG);
@@ -38,11 +41,15 @@ public class DailyReminderCreator extends DailyJob {
         }
     }
 
+    /**
+     * @param timeStr time to shedule job
+     */
     public static void sheduleJob(String timeStr) {
         Converters.CustomTime mCustomTime = Converters.extractHourandMinFromTime(timeStr);
         int startHour = mCustomTime.getHour();
         int startMin = mCustomTime.getMin();
         Logger.addLogAdapter(new AndroidLogAdapter());
+        //If the job with same TAG is available than cancel it first and init it again with new time
         if (!JobManager.instance().getAllJobRequestsForTag(TAG).isEmpty()) {
             cancelReminder();
         }
@@ -53,6 +60,10 @@ public class DailyReminderCreator extends DailyJob {
         DailyJob.schedule(builder, startJob, endjob);
     }
 
+    /**
+     * Method that runs each time when job is started to execute
+     * @return Job is completed successfully,No need to try again
+     */
     @NonNull
     @Override
     protected DailyJobResult onRunDailyJob(@NonNull Params params) {
@@ -60,6 +71,9 @@ public class DailyReminderCreator extends DailyJob {
         return DailyJobResult.SUCCESS;
     }
 
+    /**
+     * Helper method to show notification as a reminder
+     */
     private void showNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "MainChannel";
@@ -84,12 +98,19 @@ public class DailyReminderCreator extends DailyJob {
         notificationManager.notify(263, mBuilder.build());
     }
 
+    /**
+     * Gets action for notification
+     * @return Notification Action to open app
+     */
     private NotificationCompat.Action getOpenAppAction() {
         Intent openAppIntent = new Intent(getContext(), DashboardActivity.class);
         PendingIntent openAppFromNotification = PendingIntent.getActivity(getContext(), REQ_OPEN_APP, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         return (new NotificationCompat.Action.Builder(R.drawable.ic_navigation_dashboard, "Open App", openAppFromNotification).build());
     }
 
+    /**
+     * Don't show Notification if it is holiday
+     */
     private void showNotificationIfNotHoliday() {
         List<Date> holidays = HolidayDatabase.getsInstance(getContext()).holidayDao().getAllDates();
         if (!holidays.contains(new Date())

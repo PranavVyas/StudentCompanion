@@ -13,7 +13,6 @@ public class Constances {
 
     public static final String KEY_SEND_DATE_TO_SERVICE = "Sending Data From Activity to Empty Attendance Services";
 
-    //TODO [Enhancement] Set this from Firebase DB Metadata and in Shareprefs and Retrive it from there
     public static final List<String> SUBJECTS = Arrays.asList(
             "CET 1",
             "MO",

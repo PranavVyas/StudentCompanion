@@ -96,5 +96,6 @@
     <!--Reminder Notification-->
     <string name="java_reminder_notification_msg">Hi There! If you have not yet completed the attendance yet ,Better do it now!</string>
     <string name="java_reminder_notification_title">Add Attendance Now</string>
+    <string name="java_add_overall_attendance_service_error_service">Error occurred updating overall database</string>
 
 </resources>

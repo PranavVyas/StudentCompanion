@@ -16,7 +16,13 @@ public class SubjectListAdapterWidget implements RemoteViewsService.RemoteViewsF
     private Context mContext;
     private TimetableEntry mTimeTableDay = null;
 
-    public SubjectListAdapterWidget(Context mContext) {
+    /**
+     * While creating the adapter also use the updated attendance data each time
+     * The widget will update itself after 1 day interval
+     *
+     * @param mContext
+     */
+    SubjectListAdapterWidget(Context mContext) {
         this.mContext = mContext;
         Gson gson = new Gson();
         SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);

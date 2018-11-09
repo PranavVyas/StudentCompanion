@@ -14,18 +14,18 @@ import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
 import com.vyas.pranav.studentcompanion.holidays.HolidayFragment;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class TimetableMainFragment extends Fragment {
-
-
-    @BindView(R.id.bottom_navigation_timetable)
-    BottomNavigationView bottomNav;
     public static final int FRAG_HOLIDAYS_FRAG = 0;
     public static final int FRAG_TIMETABLE_FRAG = 1;
+    @BindView(R.id.bottom_navigation_timetable)
+    BottomNavigationView bottomNav;
     private OnTimeTableMainFragmentChangeListener mCallback;
 
     public TimetableMainFragment() {
@@ -36,14 +36,10 @@ public class TimetableMainFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timetable_main, container, false);
         ButterKnife.bind(this, view);
-        timetableClicked();
+        return view;
+    }
 
-        if (getArguments().getInt(DashboardActivity.KEY_SAVED_STATE_TIME_TABLE_MAIN_FRAG) == FRAG_TIMETABLE_FRAG) {
-            timetableClicked();
-        } else {
-            holidayClicked();
-        }
-
+    private void setupBottomNavigation() {
         int[][] states = new int[][]{
                 new int[]{android.R.attr.state_checked}, // enabled
                 new int[]{-android.R.attr.state_checked}, // disabled
@@ -56,7 +52,20 @@ public class TimetableMainFragment extends Fragment {
         ColorStateList myList = new ColorStateList(states, colors);
         bottomNav.setItemIconTintList(myList);
         bottomNav.setItemTextColor(myList);
-        return view;
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        timetableClicked();
+        setupBottomNavigation();
+        //If the saved instance has returned the state of the selected state of the fragment set it thorugh this
+        if (getArguments().getInt(DashboardActivity.KEY_SAVED_STATE_TIME_TABLE_MAIN_FRAG) == FRAG_TIMETABLE_FRAG) {
+            timetableClicked();
+        } else {
+            holidayClicked();
+        }
     }
 
     @Override
@@ -85,6 +94,12 @@ public class TimetableMainFragment extends Fragment {
         mCallback.OnTimeTableMainFragmentChanged(FRAG_TIMETABLE_FRAG);
     }
 
+    /**
+     * Callback to the DashboardActivity giving the current selected
+     * fragment so that it can be saved inside a savedInstancesBundle and
+     * can be retrived through the getArguments() Method while using
+     * setArgument() to start fragment transition
+     */
     public interface OnTimeTableMainFragmentChangeListener {
         void OnTimeTableMainFragmentChanged(int currFrag);
     }

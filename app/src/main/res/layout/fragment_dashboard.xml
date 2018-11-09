@@ -36,6 +36,8 @@
             <LinearLayout
                 android:id="@+id/linear_dashboard_frag_smart_card_container"
                 android:layout_width="match_parent"
+                android:divider="@drawable/divider_linear_verticle"
+                android:showDividers="middle"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="2dp">
