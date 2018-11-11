@@ -1,6 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        def rootDir = "F:/Development/NanoDegree-Android_Developer/StudentCompanion"
+        config {
+            keyAlias 'PranavVyas'
+            keyPassword 'PranavVyas'
+            storeFile file("$rootDir/keys.jks")
+            storePassword 'PranavVyas'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.vyas.pranav.studentcompanion"
@@ -15,6 +24,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
         shrunk {
             minifyEnabled true
@@ -38,13 +48,11 @@ android {
 
 dependencies {
     def junitVersion = '4.12'
-
     def butterknifeVersion = '9.0.0-rc1'
     def lifecycle_version = '2.0.0'
     def fitChartVersion = '1.0'
     def loggerLibraryVersion = '2.2.0'
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
@@ -54,45 +62,62 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
     //Butterknife - Binding Android callbacks
     implementation "com.jakewharton:butterknife:$butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+
     //Room Library
     implementation 'androidx.room:room-runtime:2.1.0-alpha02'
     annotationProcessor 'androidx.room:room-compiler:2.1.0-alpha02'
+
     //ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
     //FitChart Library for Showing graphs
     implementation "com.txusballesteros:FitChart:$fitChartVersion"
+
     //NavigationDrawer Library
-    implementation "com.mikepenz:materialdrawer:6.1.1"
-    implementation "androidx.annotation:annotation:1.0.0"
+    implementation 'com.mikepenz:materialdrawer:6.1.1'
+    implementation 'androidx.annotation:annotation:1.0.0'
+
     //Library for Easy Logging
     implementation "com.orhanobut:logger:$loggerLibraryVersion"
+
     //Support Library for Preferences
     implementation 'androidx.preference:preference:1.0.0'
+
     //Gson For Serialization and Deserialization
     implementation 'com.google.code.gson:gson:2.8.5'
+
     //Library for CalenderView
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
+
     //Library for creating Daily Jobs
     implementation 'com.evernote:android-job:1.2.6'
+
     //Dependency for Firebase
     implementation 'com.google.firebase:firebase-core:16.0.1'
-    implementation "com.google.firebase:firebase-database:16.0.1"
+    implementation 'com.google.firebase:firebase-database:16.0.1'
+
     //Library for showing TableView
     implementation 'com.evrencoskun.library:tableview:0.8.8'
+
     //For Login flow
     implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
+
     //For debug bridge to debug database
     implementation 'com.amitshekhar.android:debug-db:1.0.4'
+
     //Showing images
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
     //To check and listen for active internet connection
     implementation 'com.treebo:internetavailabilitychecker:1.0.1'
     freeImplementation 'com.google.android.gms:play-services-ads:15.0.1'
+
     //implementation 'com.google.android.gms:play-services-basement:16.1.0'
 }
 
