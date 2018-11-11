@@ -107,5 +107,6 @@
     <string name="tv_dashboard_tut_info_2">* Here you can see useful information like how much days are left for you to bunk in that perticular subject and also how much days are left total in the current term</string>
     <string name="tv_dashboard_tut_info_1">* This is Smart card, the card will show warning only when the your attendance is dangerously close to threshold (For now the close is when you have 5 more days available to bunk in lectures!)</string>
     <string name="tv_dashboad_tut_title">Dashboard</string>
+    <string name="continue_btn">Continue</string>
 
 </resources>
