@@ -1,0 +1,117 @@
+{
+  "project_info": {
+    "project_number": "685873629178",
+    "firebase_url": "https://studentcompanion-6d859.firebaseio.com",
+    "project_id": "studentcompanion-6d859",
+    "storage_bucket": "studentcompanion-6d859.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685873629178:android:2944b3331e8401da",
+        "android_client_info": {
+          "package_name": "com.vyas.pranav.studentcompanion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685873629178-8rb9d9tq27uuja0u3ohr2e8ju3auem9r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vyas.pranav.studentcompanion",
+            "certificate_hash": "bf3b70b076ce5e38c22df99c56831a9dead0daed"
+          }
+        },
+        {
+          "client_id": "685873629178-2vqdh7ok7ntb7mu84qp5v9he7cdv0k3t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3Zi4zzZS7Hb9Z_B_vZB9tspaDnENSWVc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685873629178-2vqdh7ok7ntb7mu84qp5v9he7cdv0k3t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685873629178:android:f56ca58f449f2b4a",
+        "android_client_info": {
+          "package_name": "com.vyas.pranav.studentcompanion.free"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685873629178-2vqdh7ok7ntb7mu84qp5v9he7cdv0k3t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3Zi4zzZS7Hb9Z_B_vZB9tspaDnENSWVc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685873629178:android:06aaac80dc750131",
+        "android_client_info": {
+          "package_name": "com.vyas.pranav.studentcompanion.paid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685873629178-2vqdh7ok7ntb7mu84qp5v9he7cdv0k3t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3Zi4zzZS7Hb9Z_B_vZB9tspaDnENSWVc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
