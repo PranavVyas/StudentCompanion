@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".dashboard.DashboardActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".individualAttandance.IndividualAttendanceActivity"
             android:parentActivityName=".dashboard.DashboardActivity" />
@@ -41,7 +41,6 @@
         </receiver>
 
         <activity android:name=".login.LoginActivity" />
-
         <activity
             android:name=".splash.SplashActivity"
             android:screenOrientation="portrait"
@@ -56,6 +55,8 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".toturial.ToturialActivity"></activity>
     </application>
 
 </manifest>

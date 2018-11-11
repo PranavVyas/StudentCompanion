@@ -24,6 +24,7 @@ import com.vyas.pranav.studentcompanion.extraUtils.Constances;
 import com.vyas.pranav.studentcompanion.extraUtils.Converters;
 import com.vyas.pranav.studentcompanion.jobs.DailyExecutingJobs;
 import com.vyas.pranav.studentcompanion.login.LoginActivity;
+import com.vyas.pranav.studentcompanion.toturial.ToturialActivity;
 
 import java.util.Date;
 
@@ -253,8 +254,7 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
     @Override
     public void OnOverallAttendanceAdded() {
         DailyExecutingJobs.scheduleDailyJob();
-        Intent startDashboard = new Intent(this, DashboardActivity.class);
-        startActivity(startDashboard);
+        startActivity(new Intent(this, ToturialActivity.class));
         SharedPrefsUtils.setFirstTimeRunActivity(this, TAG, true);
         finish();
     }

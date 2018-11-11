@@ -34,4 +34,5 @@ public class Constances {
     public static final String KEY_TODAY_TIMETABLE_STRING = "TodaysTimeTable";
     public static final String START_DATE_SEM = "StartingOfTheSem";
     public static final String END_DATE_SEM = "EndingOfSem";
+    public static final String SEND_DATA_TO_TUTORIAL_FRAG_FROM_ACTIVITY = "Sending tutorial no to the fragment";
 }
