@@ -19,8 +19,8 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.aboutapp.AboutAppFragment;
 import com.vyas.pranav.studentcompanion.data.SharedPrefsUtils;
-import com.vyas.pranav.studentcompanion.extraUtils.Constances;
-import com.vyas.pranav.studentcompanion.extraUtils.ViewsUtils;
+import com.vyas.pranav.studentcompanion.extrautils.Constances;
+import com.vyas.pranav.studentcompanion.extrautils.ViewsUtils;
 import com.vyas.pranav.studentcompanion.login.LoginActivity;
 import com.vyas.pranav.studentcompanion.prefences.AppSettingsFragment;
 import com.vyas.pranav.studentcompanion.timetable.TimetableMainFragment;
@@ -139,7 +139,7 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         //User successfully signed out
-                        Toast.makeText(DashboardActivity.this, "Sucessfully Signed Out", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DashboardActivity.this, getString(com.vyas.pranav.studentcompanion.R.string.java_dashboard_sign_out_success), Toast.LENGTH_SHORT).show();
                         Intent startAppAgain = new Intent(DashboardActivity.this, LoginActivity.class);
                         startActivity(startAppAgain);
                         DashboardActivity.this.finish();
@@ -148,13 +148,12 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         //There was some error while signing out
-                        Toast.makeText(DashboardActivity.this, "Error Occured while Signing Out Try Again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DashboardActivity.this, getString(com.vyas.pranav.studentcompanion.R.string.java_dashboard_sign_out_failure), Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
         }
     }
-
     /**
      * Sharing App url
      */

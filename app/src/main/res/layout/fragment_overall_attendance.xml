@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/customBackground"
-    tools:context=".overallAttandance.OverallAttendanceFragment">
+    tools:context=".overallattendance.OverallAttendanceFragment">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="Overall Attendance Subject Wise\n(Touch on the card to view more detials)"
+                android:text="@string/tv_overall_frag_info_chart"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
-                android:text="Touch on the calender date to see attendace of that date"
+                android:text="@string/tv_overall_frag_info_calender"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toTopOf="@id/calernder_overall_attendance_frag"
                 app:layout_constraintEnd_toEndOf="parent"

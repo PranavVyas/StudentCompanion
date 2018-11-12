@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.individualAttandance;
+package com.vyas.pranav.studentcompanion.individualattendance;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,8 @@ import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualEntry;
-import com.vyas.pranav.studentcompanion.extraUtils.AppExecutors;
-import com.vyas.pranav.studentcompanion.extraUtils.Converters;
+import com.vyas.pranav.studentcompanion.extrautils.AppExecutors;
+import com.vyas.pranav.studentcompanion.extrautils.Converters;
 import com.vyas.pranav.studentcompanion.services.AddOverallAttendanceForDayIntentService;
 
 import java.util.Date;
@@ -25,9 +25,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.vyas.pranav.studentcompanion.extraUtils.Constances.KEY_SEND_END_DATE_TO_SERVICE_OVERALL;
-import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_ABSENT;
-import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_PRESENT;
+import static com.vyas.pranav.studentcompanion.extrautils.Constances.KEY_SEND_END_DATE_TO_SERVICE_OVERALL;
+import static com.vyas.pranav.studentcompanion.extrautils.Constances.VALUE_ABSENT;
+import static com.vyas.pranav.studentcompanion.extrautils.Constances.VALUE_PRESENT;
 
 public class IndividualAttendanceAdapter extends RecyclerView.Adapter<IndividualAttendanceAdapter.AttendanceHolder> {
 

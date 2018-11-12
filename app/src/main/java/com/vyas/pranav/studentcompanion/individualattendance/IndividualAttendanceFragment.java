@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.individualAttandance;
+package com.vyas.pranav.studentcompanion.individualattendance;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualEntry;
-import com.vyas.pranav.studentcompanion.extraUtils.AppExecutors;
-import com.vyas.pranav.studentcompanion.extraUtils.Constances;
+import com.vyas.pranav.studentcompanion.extrautils.AppExecutors;
+import com.vyas.pranav.studentcompanion.extrautils.Constances;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.vyas.pranav.studentcompanion.extraUtils.Converters.convertStringToDate;
+import static com.vyas.pranav.studentcompanion.extrautils.Converters.convertStringToDate;
 
 public class IndividualAttendanceFragment extends Fragment {
 

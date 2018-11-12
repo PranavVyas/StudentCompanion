@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".firstRun.FirstRunActivity">
+    tools:context=".firstrun.FirstRunActivity">
 
     <TextView
         android:id="@+id/tv_first_run_greeting"
@@ -127,6 +127,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/button_rounded"
         android:paddingStart="2dp"
+        android:paddingEnd="2dp"
         android:paddingBottom="2dp"
         android:text="@string/tv_first_run_select_ending_date"
         android:textAlignment="center"

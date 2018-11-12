@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.asynTasks;
+package com.vyas.pranav.studentcompanion.asyntasks;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,8 +8,8 @@ import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceDatabase;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceEntry;
-import com.vyas.pranav.studentcompanion.extraUtils.Constances;
-import com.vyas.pranav.studentcompanion.extraUtils.Converters;
+import com.vyas.pranav.studentcompanion.extrautils.Constances;
+import com.vyas.pranav.studentcompanion.extrautils.Converters;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +19,7 @@ import java.util.Set;
 
 import androidx.preference.PreferenceManager;
 
-import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_PRESENT;
+import static com.vyas.pranav.studentcompanion.extrautils.Constances.VALUE_PRESENT;
 
 /*
  * To add overall attendance to the database in background*/

@@ -3,7 +3,7 @@
     package="com.vyas.pranav.studentcompanion">
 
     <application
-        android:name=".extraUtils.MainApp"
+        android:name=".extrautils.MainApp"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,7 +15,7 @@
             android:name=".dashboard.DashboardActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".individualAttandance.IndividualAttendanceActivity"
+            android:name=".individualattendance.IndividualAttendanceActivity"
             android:parentActivityName=".dashboard.DashboardActivity" />
 
         <service android:name=".services.AddOverallAttendanceForDayIntentService" />
@@ -24,10 +24,10 @@
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <activity
-            android:name=".firstRun.FirstRunActivity"
+            android:name=".firstrun.FirstRunActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".subjectOverallDetail.SubjectOverallDetailActivity"
+            android:name=".subjectoveralldetail.SubjectOverallDetailActivity"
             android:parentActivityName=".dashboard.DashboardActivity" />
 
         <receiver android:name=".widget.ShowSubjectAppWidget">

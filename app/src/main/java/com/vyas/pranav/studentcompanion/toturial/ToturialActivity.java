@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
-import com.vyas.pranav.studentcompanion.extraUtils.Constances;
+import com.vyas.pranav.studentcompanion.extrautils.Constances;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;

@@ -12,7 +12,7 @@ import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
 import com.vyas.pranav.studentcompanion.data.SharedPrefsUtils;
-import com.vyas.pranav.studentcompanion.firstRun.FirstRunActivity;
+import com.vyas.pranav.studentcompanion.firstrun.FirstRunActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Sign in failed
                 if (response == null) {
                     // User pressed back button
-                    showSnackbar("Sign In Cancelled");
+                    showSnackbar(getString(R.string.java_login_sign_in_cancelled));
                     //Finish the Activity as user has declined to sign in
                     //this.finish();
                     return;
@@ -89,11 +89,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
                     //No Internet Connection
-                    showSnackbar("No Internet Connection");
+                    showSnackbar(getString(R.string.java_login_no_connection));
                     return;
                 }
 
-                showSnackbar("Unknown Error Occured");
+                showSnackbar(getString(R.string.java_login_default_error));
                 Logger.d("Sign-in error: " + response.getError());
             }
         }

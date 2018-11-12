@@ -50,7 +50,7 @@ public class ShowSubjectAppWidget extends AppWidgetProvider {
     //Widget created first time
     @Override
     public void onEnabled(Context context) {
-        Toast.makeText(context, "Widget Created Now", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getString(R.string.java_widget_create), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -65,7 +65,6 @@ public class ShowSubjectAppWidget extends AppWidgetProvider {
         if (action.equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
             // refresh all your widgets
             Logger.d("onReceive: Received Update Now");
-            Toast.makeText(context, "Update Received From Broadcast receiver", Toast.LENGTH_LONG).show();
             AppWidgetManager mgr = AppWidgetManager.getInstance(context);
             ComponentName cn = new ComponentName(context, ShowSubjectAppWidget.class);
             mgr.notifyAppWidgetViewDataChanged(mgr.getAppWidgetIds(cn), R.id.list_widget_main);

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.holidayDatabase.HolidayEntry;
-import com.vyas.pranav.studentcompanion.extraUtils.Converters;
+import com.vyas.pranav.studentcompanion.extrautils.Converters;
 
 import java.util.List;
 import java.util.Locale;

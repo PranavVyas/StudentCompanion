@@ -14,7 +14,7 @@ import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
 import com.vyas.pranav.studentcompanion.data.holidayDatabase.HolidayDatabase;
-import com.vyas.pranav.studentcompanion.extraUtils.Converters;
+import com.vyas.pranav.studentcompanion.extrautils.Converters;
 
 import java.util.Date;
 import java.util.List;

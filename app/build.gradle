@@ -5,14 +5,14 @@ android {
         config {
             keyAlias 'PranavVyas'
             keyPassword 'PranavVyas'
-            storeFile file("keysNew.jks")
+            storeFile file("$rootDir/keysNew.jks")
             storePassword 'PranavVyas'
         }
     }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.vyas.pranav.studentcompanion"
-        minSdkVersion 1913
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -24,10 +24,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
-        }
-        shrunk {
-            minifyEnabled true
-            shrinkResources true
         }
     }
     flavorDimensions "version"

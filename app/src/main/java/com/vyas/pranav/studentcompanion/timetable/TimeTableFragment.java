@@ -9,8 +9,8 @@ import com.evrencoskun.tableview.TableView;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableDatabase;
 import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableEntry;
-import com.vyas.pranav.studentcompanion.extraUtils.AppExecutors;
-import com.vyas.pranav.studentcompanion.extraUtils.Constances;
+import com.vyas.pranav.studentcompanion.extrautils.AppExecutors;
+import com.vyas.pranav.studentcompanion.extrautils.Constances;
 
 import java.util.ArrayList;
 import java.util.List;

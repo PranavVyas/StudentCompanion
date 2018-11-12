@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.firstRun;
+package com.vyas.pranav.studentcompanion.firstrun;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,14 +14,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.treebo.internetavailabilitychecker.InternetAvailabilityChecker;
 import com.treebo.internetavailabilitychecker.InternetConnectivityListener;
 import com.vyas.pranav.studentcompanion.R;
-import com.vyas.pranav.studentcompanion.asynTasks.AddAllAttendanceAsyncTask;
-import com.vyas.pranav.studentcompanion.asynTasks.OverallAttendanceAsyncTask;
+import com.vyas.pranav.studentcompanion.asyntasks.AddAllAttendanceAsyncTask;
+import com.vyas.pranav.studentcompanion.asyntasks.OverallAttendanceAsyncTask;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
 import com.vyas.pranav.studentcompanion.data.SharedPrefsUtils;
 import com.vyas.pranav.studentcompanion.data.firebase.HolidayFetcher;
 import com.vyas.pranav.studentcompanion.data.firebase.TimetableDataFetcher;
-import com.vyas.pranav.studentcompanion.extraUtils.Constances;
-import com.vyas.pranav.studentcompanion.extraUtils.Converters;
+import com.vyas.pranav.studentcompanion.extrautils.Constances;
+import com.vyas.pranav.studentcompanion.extrautils.Converters;
 import com.vyas.pranav.studentcompanion.jobs.DailyExecutingJobs;
 import com.vyas.pranav.studentcompanion.login.LoginActivity;
 import com.vyas.pranav.studentcompanion.toturial.ToturialActivity;
@@ -168,13 +168,13 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
     @OnClick(R.id.btn_first_run_continue)
     public void continueBtnClicked() {
         if (tvStartDate.getText().equals(getString(R.string.tv_first_run_please_select)) || tvEndDate.getText().equals(getString(R.string.tv_first_run_please_select))) {
-            Toast.makeText(this, "Please Select all two dates", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.java_error_date_not_selected_first_run), Toast.LENGTH_SHORT).show();
         } else if (tvEndDate.getText().equals(tvStartDate.getText())) {
-            Toast.makeText(this, "Both the dates can not be equal", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.java_error_dates_are_same_first_run), Toast.LENGTH_SHORT).show();
         } else if (getDissefenceBtwnDates(tvStartDate.getText().toString(), tvEndDate.getText().toString()) < 15 || getDissefenceBtwnDates(tvStartDate.getText().toString(), tvEndDate.getText().toString()) > 545) {
-            Toast.makeText(this, "Difference between dates can not be less than 15 days and more than 1.5 years", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.java_error_diffe_in_dates_first_run), Toast.LENGTH_SHORT).show();
         } else if (!isConnected) {
-            Toast.makeText(this, "Internet Connection is not available\nYou need Internet Connection for fetching data from servers!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.java_error_no_connection_first_run), Toast.LENGTH_SHORT).show();
         } else {
             startFetchingNecessaryData();
             mProgress.setVisibility(View.VISIBLE);
@@ -214,7 +214,7 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
     @Override
     public void OnTimetableReceived() {
         tvProgressTag.setText(getString(R.string.java_first_run_progress_holiday));
-        Toast.makeText(this, "Time Table Recieved", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.java_timetable_success_first_run), Toast.LENGTH_SHORT).show();
         holidayFetcher = new HolidayFetcher(this, this);
         holidayFetcher.startFetching();
     }
@@ -224,8 +224,8 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
      * Initialize Overall Attendance database after attendance Database is initialized*/
     @Override
     public void OnHolidayFeched() {
-        tvProgressTag.setText("Initilazing Attendance Database Now...\nThis might take a minute or less...");
-        Toast.makeText(this, "Holiday Received", Toast.LENGTH_SHORT).show();
+        tvProgressTag.setText(getString(R.string.java_progress_holiday_first_run));
+        Toast.makeText(this, getString(R.string.java_holiday_success_first_run), Toast.LENGTH_SHORT).show();
         String startDateStr = mPrefs.getString(Constances.START_DATE_SEM, "01/01/2019");
         String endDateStr = mPrefs.getString(Constances.END_DATE_SEM, "06/05/2019");
         Date startDate = Converters.convertStringToDate(startDateStr);
@@ -240,7 +240,7 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
      */
     @Override
     public void OnAllAttendanceInitialized() {
-        Toast.makeText(this, "Attendance Initialized", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.java_attendance_success_first_run), Toast.LENGTH_SHORT).show();
         //Date currDate = Converters.convertStringToDate("22/02/2019");
         Date currDate = new Date();
         OverallAttendanceAsyncTask overallAttendanceAsyncTask = new OverallAttendanceAsyncTask(this, this);
@@ -340,10 +340,10 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
     public void onInternetConnectivityChanged(boolean isConnected) {
         this.isConnected = isConnected;
         if (isConnected) {
-            Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.java_connection_success_first_run), Toast.LENGTH_SHORT).show();
         } else {
             cancelFetching();
-            Toast.makeText(this, "Not Connected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.java_conetion_failure_first_run), Toast.LENGTH_SHORT).show();
         }
     }
 }

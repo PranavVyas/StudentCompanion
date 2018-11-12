@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vyas.pranav.studentcompanion.R;
-import com.vyas.pranav.studentcompanion.overallAttandance.OverallAttendanceFragment;
+import com.vyas.pranav.studentcompanion.overallattendance.OverallAttendanceFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

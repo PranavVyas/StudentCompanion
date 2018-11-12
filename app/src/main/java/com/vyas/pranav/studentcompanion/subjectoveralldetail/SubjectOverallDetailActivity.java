@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.subjectOverallDetail;
+package com.vyas.pranav.studentcompanion.subjectoveralldetail;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -8,8 +8,8 @@ import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.SharedPrefsUtils;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceEntry;
-import com.vyas.pranav.studentcompanion.extraUtils.Constances;
-import com.vyas.pranav.studentcompanion.extraUtils.Converters;
+import com.vyas.pranav.studentcompanion.extrautils.Constances;
+import com.vyas.pranav.studentcompanion.extrautils.Converters;
 
 import java.util.Date;
 import java.util.Locale;

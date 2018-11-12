@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.asynTasks;
+package com.vyas.pranav.studentcompanion.asyntasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -14,7 +14,7 @@ import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableEntry;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.vyas.pranav.studentcompanion.extraUtils.ServiceUtils.setTodaysAttendanceInSharedPref;
+import static com.vyas.pranav.studentcompanion.extrautils.ServiceUtils.setTodaysAttendanceInSharedPref;
 
 /*
  * Adding timetable to database in background*/

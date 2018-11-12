@@ -1,11 +1,11 @@
-package com.vyas.pranav.studentcompanion.individualAttandance;
+package com.vyas.pranav.studentcompanion.individualattendance;
 
 import android.os.Bundle;
 import android.view.View;
 
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.SharedPrefsUtils;
-import com.vyas.pranav.studentcompanion.extraUtils.Constances;
+import com.vyas.pranav.studentcompanion.extrautils.Constances;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;

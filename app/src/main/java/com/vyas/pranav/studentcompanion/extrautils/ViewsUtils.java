@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.extraUtils;
+package com.vyas.pranav.studentcompanion.extrautils;
 
 import android.app.Activity;
 import android.content.Context;

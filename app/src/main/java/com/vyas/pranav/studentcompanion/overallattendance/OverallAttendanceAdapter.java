@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.overallAttandance;
+package com.vyas.pranav.studentcompanion.overallattendance;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,8 @@ import com.google.gson.Gson;
 import com.txusballesteros.widgets.FitChart;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceEntry;
-import com.vyas.pranav.studentcompanion.extraUtils.Constances;
-import com.vyas.pranav.studentcompanion.subjectOverallDetail.SubjectOverallDetailActivity;
+import com.vyas.pranav.studentcompanion.extrautils.Constances;
+import com.vyas.pranav.studentcompanion.subjectoveralldetail.SubjectOverallDetailActivity;
 
 import java.util.List;
 import java.util.Locale;

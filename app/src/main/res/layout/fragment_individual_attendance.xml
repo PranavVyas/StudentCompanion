@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/customBackground"
-    tools:context=".individualAttandance.IndividualAttendanceFragment">
+    tools:context=".individualattendance.IndividualAttendanceFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_individual_attendance_frag"

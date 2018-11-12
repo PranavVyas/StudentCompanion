@@ -9,7 +9,7 @@ import android.widget.RemoteViewsService;
 import com.google.gson.Gson;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableEntry;
-import com.vyas.pranav.studentcompanion.extraUtils.Constances;
+import com.vyas.pranav.studentcompanion.extrautils.Constances;
 
 public class SubjectListAdapterWidget implements RemoteViewsService.RemoteViewsFactory {
 
@@ -56,7 +56,7 @@ public class SubjectListAdapterWidget implements RemoteViewsService.RemoteViewsF
     public RemoteViews getViewAt(int i) {
         RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.item_holder_listitem_widget);
         if (mTimeTableDay == null) {
-            rv.setTextViewText(R.id.tv_list_widget_main, "Error Occured");
+            rv.setTextViewText(R.id.tv_list_widget_main, mContext.getString(R.string.java_widget_error_tv));
         } else {
             switch (i) {
                 case 0:
@@ -76,7 +76,7 @@ public class SubjectListAdapterWidget implements RemoteViewsService.RemoteViewsF
                     break;
 
                 default:
-                    rv.setTextViewText(R.id.tv_list_widget_main, "Error Occured");
+                    rv.setTextViewText(R.id.tv_list_widget_main, mContext.getString(R.string.java_widget_error));
                     break;
             }
         }

@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.dashboard.DashboardActivity;
 import com.vyas.pranav.studentcompanion.data.SharedPrefsUtils;
-import com.vyas.pranav.studentcompanion.firstRun.FirstRunActivity;
+import com.vyas.pranav.studentcompanion.firstrun.FirstRunActivity;
 import com.vyas.pranav.studentcompanion.login.LoginActivity;
 
 import androidx.appcompat.app.AppCompatActivity;

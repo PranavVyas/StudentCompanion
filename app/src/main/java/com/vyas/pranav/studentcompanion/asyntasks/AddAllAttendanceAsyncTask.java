@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.asynTasks;
+package com.vyas.pranav.studentcompanion.asyntasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,7 +9,7 @@ import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndivi
 import com.vyas.pranav.studentcompanion.data.holidayDatabase.HolidayDatabase;
 import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableDatabase;
 import com.vyas.pranav.studentcompanion.data.timetableDatabase.TimetableEntry;
-import com.vyas.pranav.studentcompanion.extraUtils.Converters;
+import com.vyas.pranav.studentcompanion.extrautils.Converters;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static com.vyas.pranav.studentcompanion.extraUtils.Constances.VALUE_ABSENT;
+import static com.vyas.pranav.studentcompanion.extrautils.Constances.VALUE_ABSENT;
 
 /*AsyncTask to perform all attendance init when app is run first time in background*/
 public class AddAllAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {

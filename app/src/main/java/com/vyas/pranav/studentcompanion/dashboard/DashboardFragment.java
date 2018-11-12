@@ -11,9 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.vyas.pranav.studentcompanion.R;
-import com.vyas.pranav.studentcompanion.extraUtils.Constances;
-import com.vyas.pranav.studentcompanion.extraUtils.Converters;
-import com.vyas.pranav.studentcompanion.individualAttandance.IndividualAttendanceFragment;
+import com.vyas.pranav.studentcompanion.extrautils.Constances;
+import com.vyas.pranav.studentcompanion.extrautils.Converters;
+import com.vyas.pranav.studentcompanion.individualattendance.IndividualAttendanceFragment;
 
 import java.util.Date;
 import java.util.Set;
@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.vyas.pranav.studentcompanion.extraUtils.Constances.KEY_SMART_CARD_DETAILS;
+import static com.vyas.pranav.studentcompanion.extrautils.Constances.KEY_SMART_CARD_DETAILS;
 
 /**
  * The type Dashboard fragment.

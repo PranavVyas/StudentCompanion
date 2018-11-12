@@ -9,7 +9,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.logger.Logger;
-import com.vyas.pranav.studentcompanion.asynTasks.AddTimetableAsyncTask;
+import com.vyas.pranav.studentcompanion.asyntasks.AddTimetableAsyncTask;
 
 import androidx.annotation.NonNull;
 
@@ -41,7 +41,7 @@ public class TimetableDataFetcher {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Logger.d("Error Occureed : " + databaseError.getMessage());
-                Toast.makeText(context, "Error : " + databaseError.getDetails(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "" + databaseError.getDetails(), Toast.LENGTH_SHORT).show();
             }
         };
         mRef.child("TimeTable").addListenerForSingleValueEvent(mListener);

@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.vyas.pranav.studentcompanion.R;
-import com.vyas.pranav.studentcompanion.asynTasks.OverallAttendanceAsyncTask;
-import com.vyas.pranav.studentcompanion.extraUtils.Constances;
+import com.vyas.pranav.studentcompanion.asyntasks.OverallAttendanceAsyncTask;
+import com.vyas.pranav.studentcompanion.extrautils.Constances;
 
 import java.util.Date;
 

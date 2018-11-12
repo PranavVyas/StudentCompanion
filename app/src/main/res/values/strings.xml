@@ -111,5 +111,27 @@
     <string name="tv_dashboard_frag_lecture_detail">Lecture Detail</string>
     <string name="tv_dashboard_frag_lecture_no">Lecture No</string>
     <string name="tv_dashboard_frag_today_attendance">Today\'s Attendance</string>
+    <string name="tv_overall_frag_info_chart">Overall Attendance Subject Wise (Touch on the card to view more detials)</string>
+    <string name="tv_overall_frag_info_calender">Touch on the calender date to see attendace of that date</string>
+    <string name="java_error_sign_out">Error Occured while Signing Out Try Again</string>
+    <string name="java_success_sign_out">Sucessfully Signed Out</string>
+    <string name="java_error_date_not_selected_first_run">Please Select all two dates</string>
+    <string name="java_error_dates_are_same_first_run">Both the dates can not be equal</string>
+    <string name="java_error_diffe_in_dates_first_run">Difference between dates can not be less than 15 days and more than 1.5 years</string>
+    <string name="java_error_no_connection_first_run">Internet Connection is not available You need Internet Connection for fetching data from servers!</string>
+    <string name="java_timetable_success_first_run">Time Table Recieved</string>
+    <string name="java_holiday_success_first_run">Holiday Received</string>
+    <string name="java_attendance_success_first_run">Attendance Initialized</string>
+    <string name="java_connection_success_first_run">Connected</string>
+    <string name="java_conetion_failure_first_run">Not Connected</string>
+    <string name="java_widget_create">Widget Created Now</string>
+    <string name="java_dashboard_sign_out_success">Sucessfully Signed Out</string>
+    <string name="java_dashboard_sign_out_failure">Error Occured while Signing Out Try Again</string>
+    <string name="java_progress_holiday_first_run">Initilazing Attendance Database Now... This might take a minute or less...</string>
+    <string name="java_widget_error_tv">Error Occured</string>
+    <string name="java_widget_error">Error Occured</string>
+    <string name="java_login_sign_in_cancelled">Sign In Cancelled</string>
+    <string name="java_login_no_connection">No Internet Connection</string>
+    <string name="java_login_default_error">Unknown Error Occured</string>
 
 </resources>

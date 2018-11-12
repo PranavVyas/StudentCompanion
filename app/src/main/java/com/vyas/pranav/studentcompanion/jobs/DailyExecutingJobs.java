@@ -9,8 +9,8 @@ import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.orhanobut.logger.Logger;
 import com.vyas.pranav.studentcompanion.R;
-import com.vyas.pranav.studentcompanion.asynTasks.OverallAttendanceAsyncTask;
-import com.vyas.pranav.studentcompanion.extraUtils.Converters;
+import com.vyas.pranav.studentcompanion.asyntasks.OverallAttendanceAsyncTask;
+import com.vyas.pranav.studentcompanion.extrautils.Converters;
 import com.vyas.pranav.studentcompanion.widget.ShowSubjectAppWidget;
 
 import java.util.Date;
@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import static com.vyas.pranav.studentcompanion.extraUtils.ServiceUtils.setTodaysAttendanceInSharedPref;
+import static com.vyas.pranav.studentcompanion.extrautils.ServiceUtils.setTodaysAttendanceInSharedPref;
 
 public class DailyExecutingJobs extends DailyJob implements OverallAttendanceAsyncTask.OnOverallAttendanceAddedListener {
     public static final String TAG = "DailyExecutingJobs";

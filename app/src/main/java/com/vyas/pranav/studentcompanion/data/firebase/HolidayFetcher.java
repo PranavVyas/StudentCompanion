@@ -8,7 +8,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.logger.Logger;
-import com.vyas.pranav.studentcompanion.asynTasks.AddHolidaysAsyncTask;
+import com.vyas.pranav.studentcompanion.asyntasks.AddHolidaysAsyncTask;
 import com.vyas.pranav.studentcompanion.data.holidayDatabase.HolidayDatabase;
 
 import androidx.annotation.NonNull;

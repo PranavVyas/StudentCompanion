@@ -3,7 +3,7 @@ package com.vyas.pranav.studentcompanion.data.attendenceDatabase;
 
 import android.content.Context;
 
-import com.vyas.pranav.studentcompanion.extraUtils.DateConverter;
+import com.vyas.pranav.studentcompanion.extrautils.DateConverter;
 
 import androidx.room.Database;
 import androidx.room.Room;

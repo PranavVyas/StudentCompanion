@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.asynTasks;
+package com.vyas.pranav.studentcompanion.asyntasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -8,7 +8,7 @@ import com.vyas.pranav.studentcompanion.data.firebase.HolidayFetcher;
 import com.vyas.pranav.studentcompanion.data.firebase.HolidayModel;
 import com.vyas.pranav.studentcompanion.data.holidayDatabase.HolidayDatabase;
 import com.vyas.pranav.studentcompanion.data.holidayDatabase.HolidayEntry;
-import com.vyas.pranav.studentcompanion.extraUtils.Converters;
+import com.vyas.pranav.studentcompanion.extrautils.Converters;
 
 import java.util.ArrayList;
 import java.util.List;

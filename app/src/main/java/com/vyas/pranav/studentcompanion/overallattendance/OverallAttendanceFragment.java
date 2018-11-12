@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.overallAttandance;
+package com.vyas.pranav.studentcompanion.overallattendance;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.widget.Toast;
 import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceDatabase;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceEntry;
-import com.vyas.pranav.studentcompanion.extraUtils.Constances;
-import com.vyas.pranav.studentcompanion.individualAttandance.IndividualAttendanceActivity;
+import com.vyas.pranav.studentcompanion.extrautils.Constances;
+import com.vyas.pranav.studentcompanion.individualattendance.IndividualAttendanceActivity;
 
 import java.util.List;
 
@@ -26,8 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.vyas.pranav.studentcompanion.extraUtils.Converters.formatDateStringfromCalender;
-import static com.vyas.pranav.studentcompanion.extraUtils.Converters.getDayOfWeek;
+import static com.vyas.pranav.studentcompanion.extrautils.Converters.formatDateStringfromCalender;
+import static com.vyas.pranav.studentcompanion.extrautils.Converters.getDayOfWeek;
 
 /**
  * The type Overall attendance fragment.

@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.vyas.pranav.studentcompanion.R;
-import com.vyas.pranav.studentcompanion.extraUtils.Converters;
+import com.vyas.pranav.studentcompanion.extrautils.Converters;
 import com.vyas.pranav.studentcompanion.jobs.DailyReminderCreator;
 
 import androidx.fragment.app.DialogFragment;

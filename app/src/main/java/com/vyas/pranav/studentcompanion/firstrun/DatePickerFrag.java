@@ -1,4 +1,4 @@
-package com.vyas.pranav.studentcompanion.firstRun;
+package com.vyas.pranav.studentcompanion.firstrun;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -6,7 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.DatePicker;
 
-import com.vyas.pranav.studentcompanion.extraUtils.Converters;
+import com.vyas.pranav.studentcompanion.extrautils.Converters;
 
 import java.util.Calendar;
 
