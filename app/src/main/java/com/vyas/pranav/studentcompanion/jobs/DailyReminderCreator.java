@@ -92,7 +92,6 @@ public class DailyReminderCreator extends DailyJob {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .addAction(getOpenAppAction())
                 .setAutoCancel(true);
-        //TODO BUG Set Notification to cancel when tapped on Open App
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext().getApplicationContext());
 
         notificationManager.notify(263, mBuilder.build());
