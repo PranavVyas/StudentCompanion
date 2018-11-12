@@ -108,5 +108,9 @@
     <string name="tv_dashboard_tut_info_1">* This is Smart card, the card will show warning only when the your attendance is dangerously close to threshold (For now the close is when you have 5 more days available to bunk in lectures!)</string>
     <string name="tv_dashboad_tut_title">Dashboard</string>
     <string name="continue_btn">Continue</string>
+    <string name="tv_dashboard_frag_present_or_not">Present or Not</string>
+    <string name="tv_dashboard_frag_lecture_detail">Lecture Detail</string>
+    <string name="tv_dashboard_frag_lecture_no">Lecture No</string>
+    <string name="tv_dashboard_frag_today_attendance">Today\'s Attendance</string>
 
 </resources>

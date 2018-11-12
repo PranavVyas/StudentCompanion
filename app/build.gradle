@@ -2,18 +2,17 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        def rootDir = "F:/Development/NanoDegree-Android_Developer/StudentCompanion"
         config {
             keyAlias 'PranavVyas'
             keyPassword 'PranavVyas'
-            storeFile file("$rootDir/keysNew.jks")
+            storeFile file("keysNew.jks")
             storePassword 'PranavVyas'
         }
     }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.vyas.pranav.studentcompanion"
-        minSdkVersion 19
+        minSdkVersion 1913
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
