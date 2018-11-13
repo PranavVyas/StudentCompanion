@@ -80,6 +80,6 @@ public class DailyExecutingJobs extends DailyJob implements OverallAttendanceAsy
 
     @Override
     public void OnOverallAttendanceAdded() {
-        showNotification("Overall Attendance Added for " + Converters.convertDateToString(new Date()));
+        showNotification(getContext().getString(R.string.java_overall_attendance_job_notification) + Converters.convertDateToString(new Date()));
     }
 }

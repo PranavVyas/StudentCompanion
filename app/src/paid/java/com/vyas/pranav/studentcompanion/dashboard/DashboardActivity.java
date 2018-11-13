@@ -147,13 +147,13 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
 
 
     private void shareApp() {
-        String url = "<url-will-come-here>";
-        String text = "Hey ! I am  using this app to track my attendance,\nYou can also get it for free from this link \n" + url;
+        String url = getString(R.string.java_navigation_share_app_url);
+        String text = getString(R.string.java_navigation_share_app) + url;
         Intent shareApp = new Intent(Intent.ACTION_SEND);
         shareApp.setType("text/plain");
-        shareApp.putExtra(Intent.EXTRA_SUBJECT, "Checkout this awesome attendance app");
+        shareApp.putExtra(Intent.EXTRA_SUBJECT, R.string.java_navigation_share_app_2);
         shareApp.putExtra(Intent.EXTRA_TEXT, text);
-        startActivity(Intent.createChooser(shareApp, "Share Using..."));
+        startActivity(Intent.createChooser(shareApp, getString(R.string.java_navigation_share_app_intent_chooser)));
     }
 
 
@@ -194,9 +194,9 @@ public class DashboardActivity extends AppCompatActivity implements ViewsUtils.O
     public void OnTimeTableMainFragmentChanged(int currFrag) {
         CURR_FRAG_TIMETABLE = currFrag;
         if (currFrag == TimetableMainFragment.FRAG_TIMETABLE_FRAG) {
-            mToolbar.setTitle("Time Table");
+            mToolbar.setTitle(R.string.action_time_table_navigation);
         } else {
-            mToolbar.setTitle("Holidays");
+            mToolbar.setTitle(R.string.menu_bottom_holidays);
         }
     }
 

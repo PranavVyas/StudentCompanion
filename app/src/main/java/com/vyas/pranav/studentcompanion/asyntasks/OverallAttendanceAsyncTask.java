@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import com.orhanobut.logger.Logger;
+import com.vyas.pranav.studentcompanion.R;
 import com.vyas.pranav.studentcompanion.data.attendenceDatabase.AttendanceIndividualDatabase;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceDatabase;
 import com.vyas.pranav.studentcompanion.data.overallDatabase.OverallAttendanceEntry;
@@ -103,13 +104,13 @@ public class OverallAttendanceAsyncTask extends AsyncTask<Void, Void, Void> {
             int daysTillThreshold = daysThreshold - daysPresent;
             int daysLeft = daysTotal - daysElapsed;
             if (daysAvailableToBunk > 5) {
-                warning = "* You are safe in Subject : <b>" + x.getSubjectName() + "</b>";
+                warning = mContext.getString(R.string.java_smart_card_safe) + " <b> " + x.getSubjectName() + " </b> ";
             } else if (daysAvailableToBunk > 0) {
-                warning = "* You Only have <b>" + daysAvailableToBunk + "</b> days to bunk in Subject : <b>" + x.getSubjectName() + "</b>, Attend at least <b>" + daysTillThreshold + "</b> days out of <b>" + daysLeft + "</b> days to get Attendance greater than 75 %";
+                warning = mContext.getString(R.string.java_smart_card_dangerous_1) + " <b> " + daysAvailableToBunk + " </b> " + mContext.getString(R.string.java_smart_card_dangerous_2) + " <b> " + x.getSubjectName() + " </b> " + mContext.getString(R.string.java_smart_card_dangerous_3) + " <b> " + daysTillThreshold + " </b> " + mContext.getString(R.string.java_smart_card_dangerous_4) + " <b> " + daysLeft + " </b> " + mContext.getString(R.string.java_smart_card_dangerous_5);
             } else if (daysAvailableToBunk == 0) {
-                warning = "* You Should attend All the coming lectures in Subject : <b>" + x.getSubjectName() + "</b>";
+                warning = mContext.getString(R.string.java_smart_card_critical) + " <b> " + x.getSubjectName() + " </b> ";
             } else {
-                warning = "* You have less than needed attendance in  Subject <b>" + x.getSubjectName() + "</b>";
+                warning = mContext.getString(R.string.java_smart_card_not_safe) + " <b> " + x.getSubjectName() + " </b> ";
             }
             warnings.add(warning);
         }

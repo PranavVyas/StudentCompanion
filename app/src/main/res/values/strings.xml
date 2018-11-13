@@ -34,7 +34,7 @@
     <string name="tv_first_run_please_select">Please Select\nFrom Above\nButton</string>
     <string name="java_first_run_progress_timetable">Fetching Timetable from Internet…</string>
     <string name="java_first_run_progress_holiday">Fetching Holidays from Internet…</string>
-    <string name="tv_first_run_info_extra">*Attendance will be initialized for dates between starting date and ending date\n*Attendance will not be initlized for holidays and saturday and sunday by @string/fui_next_default</string>
+    <string name="tv_first_run_info_extra">*Attendance will be initialized for dates between starting date and ending date\n*Attendance will not be initialized for holidays and saturday and sunday</string>
 
     <!--LoginActivity-->
     <string name="login_log_in">Log In</string>
@@ -113,25 +113,46 @@
     <string name="tv_dashboard_frag_today_attendance">Today\'s Attendance</string>
     <string name="tv_overall_frag_info_chart">Overall Attendance Subject Wise (Touch on the card to view more detials)</string>
     <string name="tv_overall_frag_info_calender">Touch on the calender date to see attendace of that date</string>
-    <string name="java_error_sign_out">Error Occured while Signing Out Try Again</string>
-    <string name="java_success_sign_out">Sucessfully Signed Out</string>
+    <string name="java_error_sign_out">Error Occurred while Signing Out Try Again</string>
+    <string name="java_success_sign_out">Successfully Signed Out</string>
     <string name="java_error_date_not_selected_first_run">Please Select all two dates</string>
     <string name="java_error_dates_are_same_first_run">Both the dates can not be equal</string>
     <string name="java_error_diffe_in_dates_first_run">Difference between dates can not be less than 15 days and more than 1.5 years</string>
     <string name="java_error_no_connection_first_run">Internet Connection is not available You need Internet Connection for fetching data from servers!</string>
-    <string name="java_timetable_success_first_run">Time Table Recieved</string>
+    <string name="java_timetable_success_first_run">Time Table Received</string>
     <string name="java_holiday_success_first_run">Holiday Received</string>
     <string name="java_attendance_success_first_run">Attendance Initialized</string>
     <string name="java_connection_success_first_run">Connected</string>
     <string name="java_conetion_failure_first_run">Not Connected</string>
     <string name="java_widget_create">Widget Created Now</string>
-    <string name="java_dashboard_sign_out_success">Sucessfully Signed Out</string>
-    <string name="java_dashboard_sign_out_failure">Error Occured while Signing Out Try Again</string>
-    <string name="java_progress_holiday_first_run">Initilazing Attendance Database Now... This might take a minute or less...</string>
-    <string name="java_widget_error_tv">Error Occured</string>
-    <string name="java_widget_error">Error Occured</string>
+    <string name="java_dashboard_sign_out_success">Successfully Signed Out</string>
+    <string name="java_dashboard_sign_out_failure">Error Occurred while Signing Out Try Again</string>
+    <string name="java_progress_holiday_first_run">Initilazing Attendance Database Now… This might take a minute or less…</string>
+    <string name="java_widget_error_tv">Error Occurred</string>
+    <string name="java_widget_error">Error Occurred</string>
     <string name="java_login_sign_in_cancelled">Sign In Cancelled</string>
     <string name="java_login_no_connection">No Internet Connection</string>
-    <string name="java_login_default_error">Unknown Error Occured</string>
+    <string name="java_login_default_error">Unknown Error Occurred</string>
+    <string name="java_overall_attendance_job_notification">Overall Attendance Added for</string>
+    <string name="java_daily_reminder_job_notification_open_app">Open App</string>
+    <string name="java_navigation_share_app">Hey ! I am  using this app to track my attendance, You can also get it for free from this link</string>
+    <string name="java_navigation_share_app_2">Checkout this awesome attendance app</string>
+    <string name="java_navigation_share_app_intent_chooser">Share Using…</string>
+    <string name="java_navigation_share_app_url"><![CDATA[<url-will-come-here>]]></string>
+    <string name="java_firstrun_title">Registration</string>
+    <string name="java_individual_title">Attendance for</string>
+    <string name="java_smart_card_safe">* You are safe in Subject :</string>
+    <string name="java_smart_card_dangerous_1">* You Only have</string>
+    <string name="java_smart_card_dangerous_2">days to bunk in Subject : </string>
+    <string name="java_smart_card_dangerous_3">, Attend at least </string>
+    <string name="java_smart_card_dangerous_5">days to get Attendance greater than 75 </string>
+    <string name="java_smart_card_dangerous_4">days out of </string>
+    <string name="java_smart_card_critical">* You Should attend All the coming lectures in Subject :</string>
+    <string name="java_smart_card_not_safe">* You have less than needed attendance in  Subject</string>
+    <string name="java_toturial_title">Tutorial</string>
+    <string name="drawer_default_uname">ANONYMOUS</string>
+    <string name="drawer_default_email">PLEASE REGISTER</string>
+    <string name="java_timetable_column_title_lecture">Lecture</string>
+    <string name="java_timetable_column_title_faculty">Faculty Name</string>
 
 </resources>

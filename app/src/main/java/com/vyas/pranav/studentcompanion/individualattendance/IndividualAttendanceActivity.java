@@ -30,7 +30,7 @@ public class IndividualAttendanceActivity extends AppCompatActivity {
         if(getIntent() != null){
             if(getIntent().getStringExtra(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_ACTIVITY) != null){
                 dateString = getIntent().getStringExtra(Constances.KEY_SEND_DATA_TO_INDIVIDUAL_ACTIVITY);
-                toolbar.setTitle("Attendance for " + dateString);
+                toolbar.setTitle(getString(R.string.java_individual_title) + dateString);
             }
         }
         setSupportActionBar(toolbar);

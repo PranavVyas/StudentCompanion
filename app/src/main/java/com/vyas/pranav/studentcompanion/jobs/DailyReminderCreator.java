@@ -104,7 +104,7 @@ public class DailyReminderCreator extends DailyJob {
     private NotificationCompat.Action getOpenAppAction() {
         Intent openAppIntent = new Intent(getContext(), DashboardActivity.class);
         PendingIntent openAppFromNotification = PendingIntent.getActivity(getContext(), REQ_OPEN_APP, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        return (new NotificationCompat.Action.Builder(R.drawable.ic_navigation_dashboard, "Open App", openAppFromNotification).build());
+        return (new NotificationCompat.Action.Builder(R.drawable.ic_navigation_dashboard, getContext().getString(R.string.java_daily_reminder_job_notification_open_app), openAppFromNotification).build());
     }
 
     /**

@@ -155,8 +155,8 @@ public class ViewsUtils {
                 });
 
         FirebaseUser currUser = mAuth.getCurrentUser();
-        String userName = currUser != null ? mAuth.getCurrentUser().getDisplayName() : "ANYNOMOUS";
-        String email = currUser != null ? mAuth.getCurrentUser().getEmail() : "PLEASE REGISTER";
+        String userName = currUser != null ? mAuth.getCurrentUser().getDisplayName() : context.getString(R.string.drawer_default_uname);
+        String email = currUser != null ? mAuth.getCurrentUser().getEmail() : context.getString(R.string.drawer_default_email);
         Uri photoUri = currUser != null ? mAuth.getCurrentUser().getPhotoUrl() : null;
         AccountHeader navigationHeader = new AccountHeaderBuilder()
                 .withActivity((Activity) context)

@@ -107,7 +107,7 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
         mProgress.setVisibility(View.GONE);
         tvProgressTag.setVisibility(View.GONE);
         setSupportActionBar(mToolbar);
-        mToolbar.setTitle("Registration");
+        mToolbar.setTitle(getString(R.string.java_firstrun_title));
         mAuth = FirebaseAuth.getInstance();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mInternetChecker = InternetAvailabilityChecker.getInstance();

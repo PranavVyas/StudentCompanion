@@ -103,8 +103,8 @@ public class TimeTableFragment extends Fragment {
                     dayOfWeek++;
                 }
                 for (int i = 1; i <= Constances.NO_OF_LECTURES_PER_DAY; i++) {
-                    String lectureTitle = "Lecture " + i;
-                    String facultyTitle = "Faculty Name";
+                    String lectureTitle = getString(R.string.java_timetable_column_title_lecture) + i;
+                    String facultyTitle = getString(R.string.java_timetable_column_title_faculty);
                     mCH.add(lectureTitle);
                     mCH.add(facultyTitle);
                 }

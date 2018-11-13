@@ -33,7 +33,7 @@ public class ToturialActivity extends AppCompatActivity {
         final ToturialPagerAdapter mAdapter = new ToturialPagerAdapter(getSupportFragmentManager());
         toturialPager.setAdapter(mAdapter);
         setSupportActionBar(mToolbar);
-        mToolbar.setTitle("Tutorial");
+        mToolbar.setTitle(getString(R.string.java_toturial_title));
     }
 
     @OnClick(R.id.button_tutorial_continue)
@@ -65,7 +65,7 @@ public class ToturialActivity extends AppCompatActivity {
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Tutorial";
+            return getString(R.string.java_toturial_title);
         }
     }
 
