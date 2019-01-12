@@ -38,7 +38,9 @@ import butterknife.OnClick;
 /**
  * The type First run activity.
  */
-public class FirstRunActivity extends AppCompatActivity implements InternetConnectivityListener, TimetableDataFetcher.OnTimeTableReceived, HolidayFetcher.OnHolidayFechedListener, OverallAttendanceAsyncTask.OnOverallAttendanceAddedListener, AddAllAttendanceAsyncTask.OnAllAttendanceInitializedListener, DatePickerFrag.OnSelectedStartDateListener {
+public class FirstRunActivity extends AppCompatActivity implements
+//        InternetConnectivityListener,
+        TimetableDataFetcher.OnTimeTableReceived, HolidayFetcher.OnHolidayFechedListener, OverallAttendanceAsyncTask.OnOverallAttendanceAddedListener, AddAllAttendanceAsyncTask.OnAllAttendanceInitializedListener, DatePickerFrag.OnSelectedStartDateListener {
     /**
      * The constant TAG.
      */
@@ -96,11 +98,10 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
     private HolidayFetcher holidayFetcher;
     private TimetableDataFetcher dataFetcher;
     private InternetAvailabilityChecker mInternetChecker;
-    private boolean isConnected;
+//    private boolean isConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPrefsUtils.setThemeOfUser(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_run);
         ButterKnife.bind(this);
@@ -132,7 +133,7 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
     @Override
     protected void onResume() {
         super.onResume();
-        mInternetChecker.addInternetConnectivityListener(this);
+//        mInternetChecker.addInternetConnectivityListener(this);
     }
 
     /**
@@ -141,7 +142,7 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
     @Override
     protected void onPause() {
         super.onPause();
-        mInternetChecker.removeInternetConnectivityChangeListener(this);
+//        mInternetChecker.removeInternetConnectivityChangeListener(this);
     }
 
     /**
@@ -173,8 +174,6 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
             Toast.makeText(this, getString(R.string.java_error_dates_are_same_first_run), Toast.LENGTH_SHORT).show();
         } else if (getDissefenceBtwnDates(tvStartDate.getText().toString(), tvEndDate.getText().toString()) < 15 || getDissefenceBtwnDates(tvStartDate.getText().toString(), tvEndDate.getText().toString()) > 545) {
             Toast.makeText(this, getString(R.string.java_error_diffe_in_dates_first_run), Toast.LENGTH_SHORT).show();
-        } else if (!isConnected) {
-            Toast.makeText(this, getString(R.string.java_error_no_connection_first_run), Toast.LENGTH_SHORT).show();
         } else {
             startFetchingNecessaryData();
             mProgress.setVisibility(View.VISIBLE);
@@ -331,19 +330,19 @@ public class FirstRunActivity extends AppCompatActivity implements InternetConne
         btnContinue.setEnabled(false);
     }
 
-    /**
-     *  Used to indicate if network is gone or available
-     *  if not connected stop fetching data now
-     * @param isConnected is connected to internet
-     */
-    @Override
-    public void onInternetConnectivityChanged(boolean isConnected) {
-        this.isConnected = isConnected;
-        if (isConnected) {
-            Toast.makeText(this, getString(R.string.java_connection_success_first_run), Toast.LENGTH_SHORT).show();
-        } else {
-            cancelFetching();
-            Toast.makeText(this, getString(R.string.java_conetion_failure_first_run), Toast.LENGTH_SHORT).show();
-        }
-    }
+//    /**
+//     *  Used to indicate if network is gone or available
+//     *  if not connected stop fetching data now
+//     * @param isConnected is connected to internet
+//     */
+//    @Override
+//    public void onInternetConnectivityChanged(boolean isConnected) {
+//        this.isConnected = isConnected;
+//        if (isConnected) {
+//            Toast.makeText(this, getString(R.string.java_connection_success_first_run), Toast.LENGTH_SHORT).show();
+//        } else {
+//            cancelFetching();
+//            Toast.makeText(this, getString(R.string.java_conetion_failure_first_run), Toast.LENGTH_SHORT).show();
+//        }
+//    }
 }
